@@ -1,0 +1,65 @@
+{% extends 'blogBase.html' %} {% load static %} {% load blog %}  {% block bloguserProfile %}
+<div>
+  <div class="userProfileSec">
+    <div class="user">
+      {% if bloger.pic %}
+      <div class="uimg"><img src="{{bloger.pic.url}}" alt="" /></div>
+      {%else%}
+      <div class="uimg"><img src="/static/images/No_image_available.png" alt="" /></div>
+      {%endif%}
+      <div>
+        <h1 style="text-align: center;">@{{bloger.username}}</h1>
+        <div class="ustatus">
+          <div class="ustatus-c">
+            <div class="unum">{{posts.count}}</div>
+            <div>Posts</div>
+          </div>
+          <div class="ustatus-c"><a href="{% url 'blogfollowers' bloger.username %}">
+            <div class="unum">{{follower.count}}</div>
+            <div>Followers</div></a>
+          </div>
+          <div class="ustatus-c"><a href="{% url 'blogfollowing' bloger.username %}">
+            <div class="unum">{{following.count}}</div>
+            <div>Following</div></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="uinfo">
+      <h2>{{bloger.name}}</h2>
+      {% if bloger.bio == "" %}
+      Tell others about yourself
+      {%else%}
+      <p>{{bloger.bio}}</p>
+      {%endif%}
+      <div>
+        {% if editProfile %}
+          <div><a class="btn" href="{% url 'bloguserProfileEdit' %}">Edit Profile</a></div>
+        {%else%}
+          <div>
+            {% if  request|follows:bloger.username %}
+              <a class="btn" href="{% url 'blogunfollow' bloger.username %}">UNFOLLOW</a>
+            {%else%}
+              <a class="btn" href="{% url 'blogfollow' bloger.username %}">FOLLOW</a>
+            {%endif%}
+          </div>
+        {%endif%}
+      </div>
+    </div>
+    {% if request.user.is_authenticated %}
+      <div class="ucreatePost">
+        <a class="btn" href="{% url 'blogpostCreate' %}">Create New Post</a>
+      </div>
+    {%endif%}
+  </div>
+  <div class="uposts">
+    {% for i in posts %}
+    <div class="div30">
+      <a href="{% url 'blogpost' i.id %}">
+        <div><img src="/media/{{i.pic1}}" alt="" /></div>
+      </a>
+    </div>
+    {%endfor%}
+  </div>
+</div>
+{% endblock %}

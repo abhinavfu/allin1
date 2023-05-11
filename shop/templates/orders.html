@@ -1,0 +1,71 @@
+{% extends 'base.html' %} {% load static %}{% load cart %} {% block orders %}
+<div class="orders" class="min-height" style="min-height: 500px">
+  {% if orders|length > 0%} {% for i in orders %}
+  <a href="{% url 'orderDetails' i.id %}">
+    <div class="orderitem">
+      <div>
+        <h2>Order id : {{i.id}}</h2>
+        <span style="color: gray">Order Date : {{i.date}}</span>
+        <h2>Order Status : {{i.orderstatus}}</h2>
+        {% if checkU == 'buyer' %}
+        <div style="padding: 15px 0px">
+          <a class="btn-cart" href="#">Track Order</a>
+          <br /><br />
+          <button class="btn-del dropdown-btn" onclick="toggle(1)">
+            Cancel Order
+          </button>
+          <div class="dropdown-container">
+            <h4>Do you want to Cancel this Order ?</h4>
+            <ul>
+              <li class="btn-del">
+                <a href="{% url 'orderCancel' i.id %}">Cancel Order</a>
+              </li>
+              <li class="btn-cart">
+                <a href="{% url 'orders' %}">Back</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        {%endif%}
+      </div>
+      <div>
+        <div class="cart-items">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 100px">Item</th>
+                <th class="cart-name">Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for j in request|checkoutProducts:i.id %}
+              <tr>
+                <td>
+                  <div class="cart-img">
+                    {% if j.product.pic1 %}
+                    <img src="{{j.product.pic1.url}}" alt="product item" />
+                    {% else %}
+                    <img src="/static/images/No_image.png" alt="" />
+                    {% endif %}
+                  </div>
+                </td>
+                <td>{{j.product}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </a>
+  {%endfor%} {% else %}
+  <div class="noitem">
+    <h3>
+      No orders to display. <br />
+      Order something.
+    </h3>
+  </div>
+  {% endif %}
+</div>
+
+{%endblock%}

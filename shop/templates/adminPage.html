@@ -1,0 +1,79 @@
+{% extends 'base.html' %} {% load static %} {% block adminPage %}
+<div id="admin">
+  <h3>welcome {{user}}</h3>
+  <button class="btn-cart">
+    <a href="/admin">Go to Dashboard</a>
+  </button>
+</div>
+<div class="sellers">
+  <div class="sellerac">
+    <h2>Seller Account Requests</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+        <th colspan="2">Update Status</th>
+        <th></th>
+      </tr>
+      {% for i in sareq %}
+      <tr>
+        <td>{{i.buyer.name}}</td>
+        <td>{{i.sellerstatus}}</td>
+        <td colspan="4">
+            <form action="" method="POST">
+              {% csrf_token %}
+              <div style="display: none;">
+                <input
+                  name="username"
+                  id="username"
+                  required
+                  value="{{i.buyer.username}}"
+                ></input>
+              </div>
+              <div class="input-field">
+                <select name="sellerstatus" id="sellerstatus">
+                  <option value="Approved">Approve</option>
+                  <option value="Rejected">Reject</option>
+                </select>
+              </div>
+              <div id="submit">
+                <button type="submit" class="btn-search">Update Status</button>
+              </div>
+            </form>
+        </td>
+      </tr>
+      {%endfor%}
+    </table>
+  </div>
+  <div class="sellerac">
+    <h2>Seller Account Approved</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+      </tr>
+      {% for i in saapp %}
+      <tr>
+        <td>{{i.buyer.name}}</td>
+        <td>{{i.sellerstatus}}</td>
+      </tr>
+      {%endfor%}
+    </table>
+  </div>
+  <div class="sellerac">
+    <h2>Seller Account Rejected</h2>
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+      </tr>
+      {% for i in sarej %}
+      <tr>
+        <td>{{i.buyer.name}}</td>
+        <td>{{i.sellerstatus}}</td>
+      </tr>
+      {%endfor%}
+    </table>
+  </div>
+</div>
+{%endblock%}

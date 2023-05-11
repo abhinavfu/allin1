@@ -1,0 +1,73 @@
+{% extends 'blogBase.html' %} {% load static %} {% block blogsignup %}
+<div>
+    {% for i in messages %}
+    <div class="msg-error">{{i}}</div>
+    {% endfor %}
+    <form action="" method="POST">
+      {% csrf_token %}
+      <div class="form">
+        <div>
+          <h1>Create your account</h1>
+        </div>
+        <div>To continue to Blog</div>
+        <div class="input-field">
+          <label htmlFor="fname">First name</label>
+          <input name="fname" type="text" required id="fname" />
+        </div>
+        <div class="input-field">
+          <label htmlFor="lname">Last name</label>
+          <input name="lname" type="text" required id="lname" />
+        </div>
+        <div class="input-field">
+          <label htmlFor="username">Username</label>
+          <input name="username" type="text" required id="username" />
+        </div>
+        <div class="input-field">
+          <label htmlFor="email">E-mail I'd</label>
+          <input name="email" type="email" required id="email" />
+        </div>
+        <div class="input-field">
+          <label htmlFor="password">New Password</label>
+          <input name="password" type="password" required id="password" />
+        </div>
+        <div class="input-field">
+          <label htmlFor="rpassword">Re-Password</label>
+          <input name="rpassword" type="password" required id="rpassword" />
+        </div>
+        <div>
+          <input type="checkbox" onClick="showPassword()" id="checkboxnew" />
+          <span onClick="showPassword()">Show password</span>
+        </div>
+        <div id="submit">
+          {% if checkU == 'buyer' %} {%else%}
+          <a class="btn" href="{% url 'blogsignin' %}">Sign In instead</a>
+          {%endif%}
+          <button type="submit" class="btn">Sign up</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  
+  <script>
+    // Show password
+    let password = document.getElementById("password");
+    let repassword = document.getElementById("rpassword");
+  
+    let checkbox = document.getElementById("checkboxnew");
+  
+    function showPassword() {
+      if (checkbox !== null) {
+        checkbox.checked = true;
+        if (password.type === "password" || repassword.type === "password") {
+          password.type = "text";
+          repassword.type = "text";
+          checkbox.checked = true;
+        } else {
+          password.type = "password";
+          repassword.type = "password";
+          checkbox.checked = false;
+        }
+      }
+    }
+  </script>
+{%endblock%}

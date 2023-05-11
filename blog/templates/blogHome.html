@@ -1,0 +1,121 @@
+{% extends 'blogBase.html' %} {% load static %} {% load blog %} {% block bloghome %}
+<div class="hero">
+  <div class="div50">
+    <h1>MOST POPULAR of Month</h1>
+    <p>
+      The most popular blog post liked by the users. The diversity of our
+      community become our greatest achievement. <br><br> Join us to create amazing post
+      and reviews.
+    </p>
+    {% if request.user.is_authenticated %} 
+    {%else%}
+    <div><br><a class="btn" href="{% url 'blogsignin' %}">Join Us</a></div>
+    {%endif%}
+  </div>
+  <div class="div50">
+    <div class="heroimg">
+      {% if posts.count == 0 %}
+        <div class="hero-img1 shadow">
+          <img src="../static/images/hero1.jpg" alt="" />
+        </div>
+        <div class="hero-img2 shadow">
+          <img src="../static/images/post2.jpg" alt="" />
+        </div>
+      {%else%}
+        <a href="{% url 'blogpost' hero1.id %}">
+          <div class="hero-img1 shadow">
+            <img src="{{hero1.pic1.url}}" alt="" />
+          </div>
+        </a>
+        <a href="{% url 'blogpost' hero2.id %}">
+          <div class="hero-img2 shadow">
+            <img src="{{hero2.pic1.url}}" alt="" />
+          </div>
+        </a>
+      {%endif%}
+    </div>
+      
+    <div class="pos"></div>
+  </div>
+</div>
+<div class="about">
+  <div class="div50"><img src="../static/images/about.png" alt="" /></div>
+  <div class="div50">
+    <h1>ABOUT US</h1>
+    <p>
+      N is nation based art and design blog company with a passion for quality
+      products. Our Goal is to provide special and high quality art and design
+      to our users. Check out our Popular artists and see their amazing work and contribution to our users.
+    </p>
+  </div>
+</div>
+<div class="homeBlog">
+  <h3>EXCLUSIVE PRODUCTS</h3>
+  <h1>ART AND DESIGNS</h1>
+  <div class="homecontent">
+    {% if posts.count == 0 %}
+      {% for i in '123' %}
+      <div class="homeposts">
+        <img src="../static/images/post{{i}}.jpg" alt="" />
+      </div>
+      {% endfor %}
+    {%else%} 
+      {% for i in posts %}
+      <div class="homeposts">
+        <h2>{{i.title}}</h2>
+        <div>
+          <a href="{% url 'blogpost' i.id %}">
+            <img src="media/{{i.pic1}}" alt="" />
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    {%endif%}
+  </div>
+  <div class="seemore"><a href="{% url 'blogpage' 1 %}">See More</a></div>
+</div>
+<div class="homeArtist">
+  <h3>POPULAR ARTISTS</h3>
+  <h1>TRUE MASTERS OF THEIR ART AND DESIGNS</h1>
+  <div class="homecontent">
+    {% if posts.count > 3 %}
+      {% for i in '123' %}
+      <div class="homeposts">
+        <img src="../static/images/user{{i}}.jpg" alt="" />
+      </div>
+      {% endfor %}
+    {%else%}
+      {% for i in bloger %}
+      <div class="homeposts">
+        <h2>{{i.name}}</h2>
+        <div>
+          <a href="{% url 'bloguserProfile' i.username %}">
+            <img style="min-width: 350px;" src="media/{{i.pic}}" alt="" />
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    {%endif%}
+  </div>
+  <div class="seemore"><a href="{% url 'blogpage' 1 %}">All Artists</a></div>
+</div>
+<div class="latest">
+  {% for i in latest %}
+  <div class="div50">
+    <a href="{% url 'blogpost' i.id %}">
+      <img src="media/{{i.pic1}}" alt="" />
+    </a>
+  </div>
+  <div class="div50">
+    <h1>LATEST</h1>
+    <p>
+      N is nation based art and design company with a passion for quality
+      products. Our Goal is to provide special and high quality art and design
+      to our users. <br><br> This is the latest post posted by our <a href="{% url 'bloguserProfile' i.bloger.username %}">{{i.bloger.name}}</a>. 
+      Explore the content and became a part of our journey.
+    </p>
+    <p class="seemore"><a href="{% url 'blogpost' i.id %}">See Post</a></p>
+  </div>
+  {% endfor %}
+</div>
+{%endblock%}

@@ -1,0 +1,23 @@
+{% extends 'blogBase.html' %} {% load static %} {% block bloguserFollowing %}
+<div class="userfollow">
+    <h2>Following</h2>
+    <ul>
+        {% if following.count == 0 %}
+        <li>You don't follow anyone. Follow Someone you like.</li>
+        {%else%}
+        {% for i in following %}
+        <li>
+            <a href="{% url 'bloguserProfile' i.follows.username %}">
+                {% if i.follows.pic %}
+                    <div class="fimg"><img src="{{i.follows.pic.url}}" alt="" /></div>
+                {%else%}
+                    <div class="fimg"><img src="/static/images/No_image_available.png" alt="" /></div>
+                {%endif%}
+                <h3>{{i.follows.username}}</h3>
+            </a>
+        </li>
+        {%endfor%}
+        {%endif%}
+    </ul>
+</div>
+{%endblock%}

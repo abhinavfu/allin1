@@ -1,0 +1,55 @@
+{% extends 'blogBase.html' %} {% load static %} {% block blogsignin %}
+<div>
+    {% for i in messages %}
+    <div class="msg-error">{{i}}</div>
+    {% endfor %}
+    <form action="" method="POST" class="min-height">
+      {% csrf_token %}
+      <div class="form">
+        <div>
+          <h1>Sign in</h1>
+        </div>
+        <div>To continue to Blog</div>
+        <div class="input-field">
+          <label htmlFor="username">E-mail I'd or Username</label>
+          <input name="username" type="text" id="username" required />
+        </div>
+        <div class="input-field">
+          <label htmlFor="password">Password</label>
+          <input name="password" type="password" required id="password" />
+        </div>
+        <div>
+          <input type="checkbox" onClick="showPassword()" id="checkbox" />
+          <span onClick="showPassword()">Show password</span>
+        </div>
+        <div id="next">
+          <button type="submit" class="btn">Log In</button>
+        </div>
+        <div style="padding: 10px 0px">
+          <a class="btn" href="{% url 'blogsignup' %}">Create account</a>
+          <a class="btn" href="{% url 'blogforgetPassword' %}"
+            >Forget Password</a
+          >
+        </div>
+      </div>
+    </form>
+  </div>
+  
+  <script>
+    // Show password
+    let password = document.getElementById("password");
+    let checkbox = document.getElementById("checkbox");
+    function showPassword() {
+      if (checkbox !== null) {
+        checkbox.checked = true;
+        if (password.type === "password") {
+          password.type = "text";
+          checkbox.checked = true;
+        } else {
+          password.type = "password";
+          checkbox.checked = false;
+        }
+      }
+    }
+  </script>
+{%endblock%}

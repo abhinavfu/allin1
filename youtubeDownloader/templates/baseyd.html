@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'home/style.css' %}"
+    />
+    <title>YouTube Downloader</title>
+  </head>
+  <body>
+    <div><nav>
+      <div class="container">
+        <div class="navlogo"><a href="{% url 'homeyd' %}">YouTube Downloader</a></div>
+        <div class="navlink">
+          <ul>
+            <li><a href="/">Projects</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    </div>
+    <div>{% block home %} {% endblock %}</div>
+    <div>{% block ydownload %} {% endblock %}</div>
+  </body>
+  <script>
+    // ======== Dropdown ============
+    //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+      dropdown[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        } else {
+          dropdownContent.style.display = "block";
+        }
+      });
+    }
+  </script>
+</html>

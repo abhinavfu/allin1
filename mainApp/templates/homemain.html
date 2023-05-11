@@ -1,0 +1,56 @@
+{% extends 'basemain.html' %} {% load static %} {% block homemain %}
+<title>Abhinav Anand | Home</title>
+<div class="hero-section">
+    <div id="my-info">
+      <div id="my-name">
+        Hello I'm <strong style="font-size: 50px;">ABHINAV ANAND</strong>
+      </div>
+      <div id="my-role">
+        I'm a <strong style="font-size: 80px;">Full Stack Developer</strong>
+      </div>
+      <div id="my-btn">
+        <a href="/#project">
+        <button class="layout">
+          <p>MY WORK</p>
+        </button></a>
+      </div>
+    </div>
+    <div id="my-img" class="outer">
+      <div class="inner">
+        <img src="/media/profile/abhi1.jpg" alt="profile image of Abhinav Anand" />
+      </div>
+    </div>
+</div>
+<div>
+  <div id="project">
+  <div class="laysec">
+    {% for i in project %}
+    <div class="layout btn-x">
+      <a href="/#{{i.name}}">
+        <p>{{i.name}}</p>
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% for i in project %}
+    <div id="{{i.name}}">
+      <h1 style="padding: 10px; background-color: #467f7e; color: white;">{{i.name}}</h1>
+      <div class="services-c">
+        {% for j in i.projects %}
+        <a href="{{j.link}}" target="_blank">
+          <div class="services-sec">
+            <h1>{{j.title}}</h1>
+            <ul>
+                {% for k in j.info %}
+                <li>{{k}}</li>
+                {% endfor %}
+            </ul>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+</div>
+{%endblock%}

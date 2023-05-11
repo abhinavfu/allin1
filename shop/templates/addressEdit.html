@@ -1,0 +1,89 @@
+{% extends 'base.html' %} {% load static %} {% block addressEdit %}
+
+<form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div id="edit-address">
+    <div>Edit your address</div>
+
+    <div class="input-field">
+      <input name="name" type="text" id="name" required value="{{d.name}}" />
+      <label htmlFor="name">Name</label>
+    </div>
+    <div class="input-field">
+      <input
+        name="phone"
+        type="number"
+        id="phone"
+        required
+        value="{{d.phone}}"
+      />
+      <label htmlFor="phone">Phone Number</label>
+    </div>
+    <div class="input-field">
+      <input
+        name="country"
+        type="text"
+        id="country"
+        required
+        value="{{d.country}}"
+      />
+      <label htmlFor="country">Country</label>
+    </div>
+    <div class="input-field">
+      <input
+        name="address1"
+        type="text"
+        id="address1"
+        required
+        value="{{d.address1}}"
+      />
+      <label htmlFor="address1"
+        >Flat, House, Building, Company, Apartment</label
+      >
+    </div>
+    <div class="input-field">
+      <input
+        name="address2"
+        type="text"
+        id="address2"
+        required
+        value="{{d.address2}}"
+      />
+      <label htmlFor="address2">Area/Street</label>
+    </div>
+    <div class="input-field">
+      <input name="landmark" type="text" id="landmark" value="{{d.landmark}}" />
+      <label htmlFor="landmark">Landmark</label>
+    </div>
+    <div class="input-field">
+      <input name="city" type="text" id="city" required value="{{d.city}}" />
+      <label htmlFor="city">Town/City</label>
+    </div>
+    <div class="input-field">
+      <input name="state" type="text" id="state" required value="{{d.state}}" />
+      <label htmlFor="state">State</label>
+    </div>
+    <div class="input-field">
+      <input
+        name="pincode"
+        type="number"
+        id="pincode"
+        required
+        value="{{d.pincode}}"
+      />
+      <label htmlFor="pincode">Pincode</label>
+    </div>
+    <div class="input-field">
+      <select name="addresstype" id="addresstype">
+        <option value="Home">Home</option>
+        <option value="Work">Work</option>
+      </select>
+      <label htmlFor="addresstype">Address Type</label>
+    </div>
+
+    <div id="next">
+      <button type="submit" class="btn-search">Edit Address</button>
+    </div>
+  </div>
+</form>
+{%endblock%}

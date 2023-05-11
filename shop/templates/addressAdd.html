@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% load static %} {% block addressAdd %}
+
+<form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div id="add-address">
+    <div>Add a new address</div>
+
+    <div class="input-field">
+      <input name="name" type="text" id="name" required />
+      <label htmlFor="name">Name</label>
+    </div>
+    <div class="input-field">
+      <input name="phone" type="number" id="phone" required />
+      <label htmlFor="phone">Phone Number</label>
+    </div>
+    <div class="input-field">
+      <input name="country" type="text" id="country" required />
+      <label htmlFor="country">Country</label>
+    </div>
+    <div class="input-field">
+      <input name="address1" type="text" id="address1" required />
+      <label htmlFor="address1"
+        >Flat, House, Building, Company, Apartment</label
+      >
+    </div>
+    <div class="input-field">
+      <input name="address2" type="text" id="address2" required />
+      <label htmlFor="address2">Area/Street</label>
+    </div>
+    <div class="input-field">
+      <input name="landmark" type="text" id="landmark" />
+      <label htmlFor="landmark">Landmark</label>
+    </div>
+    <div class="input-field">
+      <input name="city" type="text" id="city" required />
+      <label htmlFor="city">Town/City</label>
+    </div>
+    <div class="input-field">
+      <input name="state" type="text" id="state" required />
+      <label htmlFor="state">State</label>
+    </div>
+    <div class="input-field">
+      <input name="pincode" type="number" id="pincode" required />
+      <label htmlFor="pincode">Pincode</label>
+    </div>
+    <div class="input-field">
+      <select name="addresstype" id="addresstype">
+        <option value="Home">Home</option>
+        <option value="Work">Work</option>
+      </select>
+      <label htmlFor="addresstype">Address Type</label>
+    </div>
+
+    <div id="next">
+      <button type="submit" class="btn-search">Add Address</button>
+    </div>
+  </div>
+</form>
+{%endblock%}

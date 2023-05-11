@@ -1,0 +1,10 @@
+{% extends 'baseyd.html' %} {% load static %} {% block ydownload %}
+<div class="ycomplete"><h2>STATUS : {{status}}</h2>
+{% if status == "Downloading Finished" %}
+<div>
+    For PC/Desktop <hr>
+    Download Location : "C:\Users\username\Downloads\Video"
+</div>
+{%endif%}
+</div>
+{%endblock%}

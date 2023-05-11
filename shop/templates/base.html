@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'shop/style.css' %}" />
+    <link
+      rel="stylesheet"
+      media="screen and (max-width: 600px)"
+      href="{% static 'shop/styleMob.css' %}"
+    />
+    <title>E-Shop</title>
+  </head>
+  <body>
+    <div style="min-height: 100vh">
+      <div>{% include 'navbar.html' %}</div>
+      <div>{% block home %} {% endblock %}</div>
+      <div>{% block shop %} {% endblock %}</div>
+      <div>{% block blog %} {% endblock %}</div>
+      <div>{% block productInfo %}{% endblock %}</div>
+      <div>{% block wishlist %}{% endblock %}</div>
+      <div>{% block cart %}{% endblock %}</div>
+      <div>{% block userprofile %}{% endblock %}</div>
+      <div>{% block emailVerify %}{% endblock %}</div>
+      <div>{% block adminPage %}{% endblock %}</div>
+      <div>{% block activateSeller %}{% endblock %}</div>
+      <div>{% block userAddress %}{% endblock %}</div>
+      <div>{% block addressAdd %}{% endblock %}</div>
+      <div>{% block addressEdit %}{% endblock %}</div>
+      <div>{% block editproduct %}{% endblock %}</div>
+      <div>{% block confirmOrder %}{% endblock %}</div>
+      <div>{% block payment %}{% endblock %}</div>
+      <div>{% block orders %}{% endblock %}</div>
+      <div>{% block orderDetails %}{% endblock %}</div>
+      <div>{% block orderEdit %}{% endblock %}</div>
+      <div>{% block signin %}{% endblock %}</div>
+      <div>{% block signup %}{% endblock %}</div>
+      <div>{% block forgetPassword %}{% endblock %}</div>
+      <div>{% block forgetPasswordOTP %}{% endblock %}</div>
+      <div>{% block forgetPasswordReset %}{% endblock %}</div>
+    </div>
+    <footer>{% include 'footer.html' %}</footer>
+  </body>
+  <script>
+    // ======== Dropdown ============
+    //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var menu = document.getElementById("menu");
+    var menuitems = document.getElementById("menuitems");
+    var menuitem2 = document.getElementById("menuitem2");
+    var menucart = document.getElementById("menucart");
+
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+      dropdown[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        } else {
+          dropdownContent.style.display = "block";
+        }
+      });
+    }
+    // -------------- menu ---------------
+    var x = document.getElementById("x");
+    menu.onclick = function () {
+      if (menuitems.style.display == "block") {
+        menuitems.style.display = "none";
+        menuitem2.style.display = "none";
+        menucart.style.display = "none";
+      } else {
+        menuitems.style.display = "block";
+        menuitem2.style.display = "block";
+        menucart.style.display = "block";
+      }
+    };
+  </script>
+</html>

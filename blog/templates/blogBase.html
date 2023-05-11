@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'blog/style.css' %}" />
+    <title>Blog</title>
+  </head>
+  <body>
+    <div>{% include 'blogNavbar.html' %}</div>
+    <div>{% block bloghome %} {% endblock %}</div>
+    <div>{% block blogpage %} {% endblock %}</div>
+    <div>{% block blogpost %} {% endblock %}</div>
+    <div>{% block blogsignin %}{% endblock %}</div>
+    <div>{% block blogsignup %}{% endblock %}</div>
+    <div>{% block blogforgetPassword %}{% endblock %}</div>
+    <div>{% block blogforgetPasswordOTP %}{% endblock %}</div>
+    <div>{% block blogforgetPasswordReset %}{% endblock %}</div>
+    <div>{% block bloguserProfile %}{% endblock %}</div>
+    <div>{% block bloguserProfileEdit %}{% endblock %}</div>
+    <div>{% block bloguserFollowers %}{% endblock %}</div>
+    <div>{% block bloguserFollowing %}{% endblock %}</div>
+    <div>{% block blogpostCreate %}{% endblock %}</div>
+    <div>{% block blogpostEdit %}{% endblock %}</div>
+    <div>{% include 'blogFooter.html' %}</div>
+  </body>
+  <script>
+    // ======== Dropdown ============
+    //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var menu = document.getElementById("menu");
+    var menuitems = document.getElementById("menuitems");
+    var menuitem2 = document.getElementById("menuitem2");
+
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+      dropdown[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+          dropdownContent.style.display = "none";
+        } else {
+          dropdownContent.style.display = "block";
+        }
+      });
+    }
+  </script>
+</html>

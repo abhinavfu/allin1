@@ -1,0 +1,146 @@
+{% extends 'base.html' %} {% load static %} {% block cart %}
+<div>
+  {% if cart|length > 0 %}
+  <div class="cart">
+    <div class="cart-items">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 100px">Item</th>
+            <th class="cart-name">Name</th>
+            <th style="width: 100px">Price</th>
+            <th style="width: 150px">Quantity</th>
+            <th style="width: 100px">Subtotal</th>
+            <th style="width: 100px">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in cart %}
+          <tr>
+            <td>
+              <div class="cart-img">
+                {% if data.image %}
+                <img src="{{data.image}}" alt="product item" />
+                {% else %}
+                <img src="/static/images/No_image.png" alt="" />
+                {% endif %}
+              </div>
+            </td>
+            <td>{{data.name}}</td>
+            <td>{{currency}}{{data.promotion_price}}</td>
+            <td class="cart-btn">
+              {% if data.quantity > 1 %}
+              <a class="cart-remove" href="{% url 'cartUpdate' data.id -1 %}"
+                >-</a
+              >
+              {% else %}
+              <a class="cart-remove" href="#">-</a>
+              {%endif%}
+              <div class="cart-quantity">{{data.quantity}}</div>
+              <a class="cart-add" href="{% url 'cartUpdate' data.id 1 %}">+</a>
+            </td>
+            <td>{{currency}}{{data.subtotal}}</td>
+            <td><a href="{% url 'cartDelete' data.id %}">RE</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="cart-mob">
+      {% for data in cart %}
+      <div class="cart-c">
+        <div class="cart-img">
+          {% if data.image %}
+          <img src="{{data.image}}" alt="product item" />
+          {% else %}
+          <img src="/static/images/No_image.png" alt="" />
+          {% endif %}
+        </div>
+        <div>
+          <div style="color: #7c5b47">{{data.name}}</div>
+          <div>Price : {{currency}}{{data.promotion_price}}</div>
+          <div class="cart-btn">
+            {% if data.quantity > 1 %}
+            <a class="cart-remove" href="{% url 'cartUpdate' data.id -1 %}"
+              >-</a
+            >
+            {% else %}
+            <a class="cart-remove" href="#">-</a>
+            {%endif%}
+            <div class="cart-quantity">{{data.quantity}}</div>
+            <a class="cart-add" href="{% url 'cartUpdate' data.id 1 %}">+</a>
+          </div>
+          <div>Subtotal : {{currency}}{{data.subtotal}}</div>
+          <div class="cart-del">
+            <a href="{% url 'cartDelete' data.id %}">RE</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="cart-amount">
+      <h3>Summary</h3>
+      <hr />
+      <form class="cart-offer" action="" method="POST">
+        {% csrf_token %}
+        <div class="input-field">
+          <input type="text" id="c-offer" name="c-offer" required />
+          <label for="c-offer">Apply Offer Here</label>
+        </div>
+        <button class="c-offer-btn" type="submit">Apply</button>
+      </form>
+      <hr />
+      <h5>Estimate Shipping and Tax</h5>
+      <hr />
+      <div class="amount-total">
+        <p>Subtotal</p>
+        <p>{{currency}}{{payment.subtotal}}</p>
+      </div>
+      <div class="amount-total">
+        <p>Shipping</p>
+        <p>{{currency}}{{payment.shipping}}</p>
+      </div>
+      <div class="amount-total">
+        <p>Tax (8%)</p>
+        <p>{{currency}}{{payment.tax}}</p>
+      </div>
+      <div class="amount-total">
+        <p>Offer Applied (10%)</p>
+        <p>{{currency}}-offer</p>
+      </div>
+      <hr />
+      <div class="amount-total">
+        <h4>Order Total</h4>
+        <h4>{{currency}}{{payment.ordertotal}}</h4>
+      </div>
+      <hr />
+      <a href="{% url 'confirmOrder' %}">
+        <button class="btn-cart">Place Order</button>
+      </a>
+    </div>
+  </div>
+  {% else %}
+  <div class="noitem">
+    <h3>
+      No items to display. <br />
+      Add something.
+    </h3>
+  </div>
+  {% endif %}
+</div>
+<!-- Script for adjusting auto height -->
+{% if cart|length > 5 %}
+<script>
+  x = document.getElementsByClassName("cart-items");
+  for (let i = 0; i < x.length; i++) {
+    x[i].style.height = "auto";
+  }
+</script>
+{% else %}
+<script>
+  x = document.getElementsByClassName("cart-items");
+  for (let i = 0; i < x.length; i++) {
+    x[i].style.height = "700px";
+  }
+</script>
+{%endif%} {%endblock%}

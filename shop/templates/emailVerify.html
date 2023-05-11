@@ -1,0 +1,24 @@
+{% extends 'base.html' %} {% load static %} {% block emailVerify %}
+<div>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <div id="signin" class="min-height">
+      <div>
+        <h1>Verify OTP</h1>
+      </div>
+      <div>OTP has been sent to your email</div>
+      {% for i in messages %}
+      <div class="msg-error">{{i}}</div>
+      {% endfor %}
+      <div class="input-field">
+        <input name="otp" type="otp" required id="otp" />
+        <label htmlFor="otp">Enter OTP</label>
+      </div>
+      <div id="next">
+        <button type="submit" class="btn-search">Verify OTP</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

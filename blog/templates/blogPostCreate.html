@@ -1,0 +1,27 @@
+{% extends 'blogBase.html' %} {% load static %} {% block blogpostCreate %}
+<div class="createPost">
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form">
+      <h1>Create a new post</h1>
+      <div>
+        <div class="input-field">
+          <label htmlFor="title">Title</label>
+          <input name="title" type="text" id="title" required />
+        </div>
+      </div>
+      <div>
+        <div class="input-field">
+          <label htmlFor="ctext">Text</label>
+          <input name="ctext" type="text" id="ctext" />
+        </div>
+        <div class="input-field">
+          <label htmlFor="pic1">Upload Image</label>
+          <input name="pic1" type="file" id="pic1"/>
+        </div>
+      </div>
+      <div><button type="submit">Create Post</button></div>
+    </div>
+  </form>
+</div>
+{% endblock %}

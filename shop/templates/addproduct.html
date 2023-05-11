@@ -1,0 +1,93 @@
+{% extends 'userprofile.html' %} {% load static %} {% block addproduct %}
+
+<form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div id="add-product">
+    <div>Product Details</div>
+    <div class="input-field">
+      <select name="mainCat" id="mainCat">
+        {% for i in mainCat %}
+        <option value="{{i}}">{{i}}</option>
+        {% endfor %}
+      </select>
+      <label htmlFor="mainCat">Main Category</label>
+    </div>
+    <div class="input-field">
+      <select name="subCat" id="subCat">
+        {% for i in subCat %}
+        <option value="{{i}}">{{i}}</option>
+        {% endfor %}
+      </select>
+      <label htmlFor="subCat">Sub Category</label>
+    </div>
+    <div class="input-field">
+      <select name="brand" id="brand">
+        {% for i in brand %}
+        <option value="{{i}}">{{i}}</option>
+        {% endfor %}
+      </select>
+      <label htmlFor="brand">Brand</label>
+    </div>
+    <div class="input-field">
+      <select name="stock" id="stock">
+        <option value="In Stock">In Stock</option>
+        <option value="Out of Stock">Out of Stock</option>
+      </select>
+      <label htmlFor="stock">stock</label>
+    </div>
+    <div class="input-field">
+      <input name="name" type="text" id="name" required />
+      <label htmlFor="name">Name</label>
+    </div>
+    <div class="input-field">
+      <input name="price" type="number" id="price" required />
+      <label htmlFor="price">price</label>
+    </div>
+    <div class="input-field">
+      <input name="discount" type="number" id="discount" required />
+      <label htmlFor="discount">discount in %</label>
+    </div>
+    <div class="input-field">
+      <input name="color" type="text" id="color" required />
+      <label htmlFor="color">color</label>
+    </div>
+    <div class="input-field">
+      <input name="size" type="text" id="size" required />
+      <label htmlFor="size">size</label>
+    </div>
+
+    <div>
+      <div class="input-field">
+        <input name="pic1" type="file" id="pic1" required />
+        <label htmlFor="pic1">pic1</label>
+      </div>
+      <div class="input-field">
+        <input name="pic2" type="file" id="pic2" required />
+        <label htmlFor="pic2">pic2</label>
+      </div>
+      <div class="input-field">
+        <input name="pic3" type="file" id="pic3" required />
+        <label htmlFor="pic3">pic3</label>
+      </div>
+      <div class="input-field">
+        <input name="pic4" type="file" id="pic4" required />
+        <label htmlFor="pic4">pic4</label>
+      </div>
+    </div>
+    <div class="input-field">
+      <textarea
+        name="description"
+        id="description"
+        cols="30"
+        rows="10"
+        required
+      ></textarea>
+      <label htmlFor="description">description</label>
+    </div>
+    <div id="next">
+      <button type="submit" class="btn-search">Add Product</button>
+    </div>
+  </div>
+</form>
+
+{% endblock %}

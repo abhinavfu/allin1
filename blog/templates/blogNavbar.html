@@ -1,0 +1,34 @@
+<nav id="navbar">
+  <div class="logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26.16 18.95">
+      <g id="Layer_2" data-name="Layer 2">
+        <g id="Layer_1-2" data-name="Layer 1">
+          <path
+            d="M3.15.21,23.4,17.51V19H23L7.12,5.4v8.17a7.26,7.26,0,0,0,.68,3.71A3.29,3.29,0,0,0,10,18.63V19c-1.77-.14-3-.21-3.61-.21s-1.79.07-3.23.21v-.32a2.88,2.88,0,0,0,2.06-1.42,9.31,9.31,0,0,0,.54-3.8l0-9.17L4.45,3.16A14.31,14.31,0,0,0,0,.32V0ZM23.4,15.79,5.13.21H7.21L22,12.8V5.5a11.91,11.91,0,0,0-.25-2.81,2.92,2.92,0,0,0-1-1.56A4,4,0,0,0,18.81.32V0l.61.05C21,.16,22,.21,22.55.21S24.26.14,26.16,0V.32a2.84,2.84,0,0,0-1.6.75,3.06,3.06,0,0,0-.92,1.48,10.18,10.18,0,0,0-.24,2.51Z"
+          />
+        </g>
+      </g>
+    </svg>
+  </div>
+  <div class="navlink">
+    <ul>
+      <li><a href="{% url 'bloghome' %}">Home</a></li>
+      <li><a href="{% url 'blogpage' 1 %}">Blog</a></li>
+      <li>{% if request.user.is_authenticated %}
+        <a class="dropdown-btn" onclick="toggle(1)" href="#"
+          >{{ request.user }}</a
+        >
+        <div class="dropdown-container">
+          <ul>
+            <li>
+              <a href="{% url 'bloguserProfile' request.user %}">Profile</a>
+            </li>
+            <li><a href="{% url 'bloglogout' %}">Logout</a></li>
+          </ul>
+        </div>
+        {%else%}
+        <a href="{% url 'blogsignin' %}">SignIn</a>
+        {%endif%}</li>
+    </ul>
+  </div>
+</nav>

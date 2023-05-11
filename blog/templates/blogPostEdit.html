@@ -1,0 +1,27 @@
+{% extends 'blogBase.html' %} {% load static %} {% block blogpostEdit %}
+<div class="createPost">
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form">
+      <h1>Edit your post</h1>
+      <div>
+        <div class="input-field">
+          <label htmlFor="title">Title</label>
+          <input name="title" type="text" id="title" value="{{post.title}}"/>
+        </div>
+      </div>
+      <div>
+        <div class="input-field">
+          <label htmlFor="ctext">Text</label>
+          <input name="ctext" type="text" id="ctext" value="{{post.description}}"/>
+        </div>
+        <div class="input-field">
+          <label htmlFor="pic1">Upload Image</label>
+          <input name="pic1" type="file" id="pic1" value="{{post.pic1}}" style="width:200px"/>
+        </div>
+      </div>
+      <div><button type="submit">Edit Post</button></div>
+    </div>
+  </form>
+</div>
+{% endblock %}
