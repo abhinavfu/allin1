@@ -65,7 +65,7 @@
         <h2>{{i.title}}</h2>
         <div>
           <a href="{% url 'blogpost' i.id %}">
-            <img src="media/{{i.pic1}}" alt="" />
+            <img src="{{i.pic1.url}}" alt="" />
           </a>
         </div>
       </div>
@@ -90,7 +90,7 @@
         <h2>{{i.name}}</h2>
         <div>
           <a href="{% url 'bloguserProfile' i.username %}">
-            <img style="min-width: 350px;" src="media/{{i.pic}}" alt="" />
+            <img style="min-width: 350px;" src="{{i.pic.url}}" alt="" />
           </a>
         </div>
       </div>
@@ -103,7 +103,7 @@
   {% for i in latest %}
   <div class="div50">
     <a href="{% url 'blogpost' i.id %}">
-      <img src="media/{{i.pic1}}" alt="" />
+      <img src="{{i.pic1.url}}" alt="" />
     </a>
   </div>
   <div class="div50">
