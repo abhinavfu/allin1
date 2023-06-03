@@ -56,7 +56,11 @@
     {% for i in posts %}
     <div class="div30">
       <a href="{% url 'blogpost' i.id %}">
+        {% if request|videoTrue:i.id %}
+        <div><video src="{{i.pic1.url}}"></video></div>
+        {%else%}
         <div><img src="/media/{{i.pic1}}" alt="" /></div>
+        {%endif%}
       </a>
     </div>
     {%endfor%}

@@ -65,7 +65,11 @@
         <h2>{{i.title}}</h2>
         <div>
           <a href="{% url 'blogpost' i.id %}">
+            {% if request|videoTrue:i.id %}
+            <video src="{{i.pic1.url}}"></video>
+            {%else%}
             <img src="{{i.pic1.url}}" alt="" />
+            {%endif%}
           </a>
         </div>
       </div>
@@ -103,7 +107,11 @@
   {% for i in latest %}
   <div class="div50">
     <a href="{% url 'blogpost' i.id %}">
-      <img src="{{i.pic1.url}}" alt="" />
+      {% if request|videoTrue:i.id %}
+        <video src="{{i.pic1.url}}"></video>
+      {%else%}
+        <img src="{{i.pic1.url}}" alt="" />
+      {%endif%}
     </a>
   </div>
   <div class="div50">

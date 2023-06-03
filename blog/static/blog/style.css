@@ -24,6 +24,10 @@ img {
   object-fit: cover;
   border-radius: 5px;
 }
+video{
+  width: 100%;
+  height: auto;
+}
 ul {list-style: none;}
 input {
   width: 100%;

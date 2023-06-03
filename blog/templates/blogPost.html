@@ -20,14 +20,16 @@
           {%else%}
               <div class="pimg"><img src="/static/images/No_image_available.png" alt="" /></div>
           {%endif%} 
-          <h3>{{post.bloger.username}}</h3>
+          <h3>{{post.bloger.name}}</h3>
         </div>
       </a>
       <span>{{post.date}}</span>
     </div>
     <h2><span>Title : </span> {{post.title}}</h2>
     <div>
-      {% if post.pic1 %}
+      {% if request|videoTrue:post.id %}
+      <div><video src="{{post.pic1.url}}" controls></video></div>
+      {% elif post.pic1 %}
       <div><img src="{{post.pic1.url}}" alt="" /></div>
       {%else%}
       <div><img src="/static/images/No_image_available.png" alt="" /></div>

@@ -48,3 +48,17 @@ def commentCount(request, num):
     except:
         comment = 0
     return comment
+
+
+@register.filter(name="videoTrue")
+def videoTrue(request, num):
+    try:
+        post = CreatePost.objects.all().get(id=num)
+        a = str(post.pic1)
+        if a.endswith(".mp4"):
+            vid = True
+        else:
+            vid = False
+    except:
+        vid = False
+    return vid
