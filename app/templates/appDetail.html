@@ -1,0 +1,61 @@
+{% extends 'appIndex.html' %} {% block home %}
+{% if user.is_superuser %}
+  <div class="container">
+    <div>
+      <a class="btng" href="{% url 'editApp' app.id %}">Edit</a>
+      <span class="btnr dropdown-btn"  onclick="toggle(1)">Delete</span>
+      <div class="dropdown-container">
+        <br><p>Are you sure you want to delete this App ?</p>
+        <span style="display: flex; justify-content: space-around;">
+          <a class="btnr" href="{% url 'deleteApp' app.id %}">Confirm Delete</a>
+          <a class="btng" href="{% url 'appDetail' app.id%}">Cancel</a>
+        </span>
+      </div>
+    </div>
+  </div>
+{%endif%}
+<div class="appdetail">
+    <div class="container">
+        <div class="img-box">
+            {% if app.picapp %}
+            <img src="{{app.picapp.url}}" alt="image of {{app.name}}" />
+            {% else %}
+            <img src="/static/images/No_image.png" alt="" />
+            {% endif %}
+        </div>
+        <div>
+            <div class="name">{{app.name}}</div>
+            <div><a href="#">{{app.link}}</a></div>
+        </div>
+        <div class="points">{{app.points}} POINTS</div>
+    </div>
+    {% if not user.is_superuser %}
+    {% if claimed %}
+    <div class="container"><div class="points">TASK Completed</div></div>
+    {%else%}
+    <div class="screenshot">
+        <form action="" method="POST" enctype="multipart/form-data" class="center min-height">
+            {% csrf_token %}
+            <div class="form">
+              <div class="upload">
+                Upload Screenshot to complete the TASK
+              </div>
+              <div class="input-field">
+                <label for="picapp">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                    <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                    <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                  </svg>
+                </label>
+                <input name="picapp" type="file" id="picapp" placeholder="App Image" required />
+              </div>
+              <div>
+                <button type="submit" class="btn">Submit</button>
+              </div>
+            </div>
+          </form>
+    </div>
+    {%endif%}
+    {%endif%}
+</div>
+{%endblock%}

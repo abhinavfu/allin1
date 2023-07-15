@@ -28,3 +28,8 @@ class SellerAdmin(admin.ModelAdmin):
 @admin.register(SellerApproval)
 class SellerApprovalAdmin(admin.ModelAdmin):
     list_display = ['id', 'buyer', 'sellerstatus', 'aadharcard', 'pancard']
+
+
+@admin.register(Shop_page_view_count)
+class Shop_page_view_countAdmin(admin.ModelAdmin):
+    list_display = ['home_view_count', 'shop_view_count']

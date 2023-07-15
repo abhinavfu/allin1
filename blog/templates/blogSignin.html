@@ -1,4 +1,7 @@
-{% extends 'blogBase.html' %} {% load static %} {% block blogsignin %}
+{% extends 'blogBase.html' %} {% block blog %}
+{% block title %}
+    <title>Blog | Signin</title>
+{%endblock%}
 <div>
     {% for i in messages %}
     <div class="msg-error">{{i}}</div>

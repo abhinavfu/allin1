@@ -7,31 +7,16 @@
     <div class="me">
       <p>Hi there! I'm Abhinav Anand</p><br>
       <p>
-        I am a hard working, honest individual. I am a good timekeeper, always willing to learn new skills. I am friendly, helpful and polite, have a good sense of humour. I am able to work independently in busy environments and also within a team setting. I am outgoing and tactful, and able to listen effectively when solving problems.I am a punctual and motivated individual who is able to work in a busy environment and produce high standards of work. I am an excellent team worker and am able to take instructions from all levels and build up good working relationships with all colleagues. I am flexible, reliable and possess excellent time keeping skills.
+        I am a hard working, honest individual. I am a good timekeeper, always willing to learn new skills. I am friendly, helpful and polite, have a good sense of humour. I am able to work independently in busy environments and also within a team setting. I am outgoing and tactful, and able to listen effectively when solving problems. I am a punctual and motivated individual who is able to work in a busy environment and produce high standards of work. I am an excellent team worker and am able to take instructions from all levels and build up good working relationships with all colleagues. I am flexible, reliable and possess excellent time keeping skills.
       </p>
     </div>
     <div>
       <h1>Skills</h1>
       <div class="skills">{% for data in skills %}
           <div class="progressbar">
-            <svg
-              class="progress"
-              data-progress="{{data.progress}}"
-              
-              x="0px"
-              y="0px"
-              viewBox="0 0 80 80"
-            >
-              <path
-                class="track"
-                d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0"
-              />
-              <path
-                class="fill"
-                style=
-                  'stroke: red',
-                d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0"
-              />
+            <svg class="progress" data-progress="{{data.progress}}" x="0px" y="0px" viewBox="0 0 80 80" >
+              <path class="track" d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0" />
+              <path class="fill" d="M5,40a35,35 0 1,0 70,0a35,35 0 1,0 -70,0" />
               <text class="value" x="50%" y="55%">
                 {{data.progress}}%
               </text>

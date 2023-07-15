@@ -1,4 +1,7 @@
-{% extends 'blogBase.html' %} {% load static %} {% block bloguserProfileEdit %}
+{% extends 'blogBase.html' %} {% block blog %}
+{% block title %}
+    <title>Blog | Edit Profile</title>
+{%endblock%}
 <div class="profileEdit">
     <form action="" method="post" enctype="multipart/form-data">
       {% csrf_token %}

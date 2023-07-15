@@ -1,0 +1,29 @@
+{% extends 'appIndex.html' %} {% block home %}
+
+<h2>User Points</h2>
+<div class="container"><h3>Total Points Claimed</h3> <span class="points">{{total}} Points</span></div>
+<div class="container"><h3>Complete Task to earn more points.</h3></div>
+
+<div>
+    <h2>App Claimed</h2>
+    {% for i in points %}
+    <div class="container">
+        <div class="img-box">
+            {% if i.app.picapp %}
+            <img src="{{i.app.picapp.url}}" alt="image of {{i.app.name}}" />
+            {% else %}
+            <img src="/static/images/No_image.png" alt="" />
+            {% endif %}
+        </div>
+        <div>
+            <div class="name">{{i.app.name}}</div>
+            <a href="{% url 'appDetail' i.app.id %}">View in Details</a>
+        </div>
+        <div class="points">{{i.app.points}} POINTS</div>
+    </div>
+    {%empty%}
+    <div class="container">No apps claimed. Go claim some Apps.</div>
+    {%endfor%}
+</div>
+
+{%endblock%}

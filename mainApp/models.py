@@ -12,3 +12,12 @@ class Feedback(models.Model):
 
     def __str__(self):
         return self.name + ' ' + self.email
+
+
+class Portfolio_page_view_count(models.Model):
+    portfolio_view_count = models.IntegerField(default=0)
+    about_view_count = models.IntegerField(default=0)
+    contact_view_count = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.portfolio_view_count} views"

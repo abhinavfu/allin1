@@ -1,0 +1,20 @@
+{% extends 'appIndex.html' %} {% block home %}
+<div>
+    {% for i in app %}
+    <div class="container">
+        <div class="img-box">
+            {% if i.picapp %}
+            <img src="{{i.picapp.url}}" alt="image of {{i.name}}" />
+            {% else %}
+            <img src="/static/images/No_image.png" alt="" />
+            {% endif %}
+        </div>
+        <div>
+            <div class="name">{{i.name}}</div>
+            <a href="{% url 'appDetail' i.id %}">View in Details</a>
+        </div>
+        <div class="points">{{i.points}} POINTS</div>
+    </div>
+    {%endfor%}
+</div>
+{%endblock%}

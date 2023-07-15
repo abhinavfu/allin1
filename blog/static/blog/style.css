@@ -68,6 +68,11 @@ button:hover, .btn:hover {
   background-color: var(--lightred);
   color: white;
 }
+/* ---------- no content -------- */
+.nocontent{
+  color: var(--bg-lightgray);
+  font-size: 70px;
+}
 /* ---------- dropdown -------- */
 .dropdown-btn {position: relative;}
 .dropdown-container {
@@ -136,6 +141,7 @@ nav .navlink ul li {
 }
 :is(.hero-img1, .hero-img2) {
   border-radius: 5px;
+  border: 1px solid rgba(128, 128, 128, 0.25);
   overflow: hidden;
 }
 :is(.hero-img1, .hero-img2) img {
@@ -188,6 +194,13 @@ footer {
   margin: 5px;
 }
 .homeposts img {
+  background-color: var(--post-bg);
+  border-radius: 10px;  
+  min-height: 400px;
+  max-height: 400px;
+}
+.homeposts video {
+  background-color: var(--post-bg);
   border-radius: 10px;  
   min-height: 400px;
   max-height: 400px;
@@ -227,6 +240,7 @@ footer {
 /* ---------- post ---------- */
 .postSec {
   padding: 20px 25%;
+  margin-bottom: 70px;
 }
 .posts {
   margin: 10px;
@@ -255,7 +269,7 @@ footer {
   display: flex;
   justify-content:space-around;
 }
-.postsicon :is(.like, .comment){
+.postsicon :is(.like, .views, .comment){
   padding: 10px;
   min-width: 100px;
 }
@@ -263,6 +277,9 @@ footer {
   width: 28px;
   height: 28px;
   /* fill: red; */
+}
+.posts .views svg {
+  fill: #0066cc;
 }
 .comment{
   margin: 10px 0px;
@@ -280,7 +297,7 @@ footer {
   margin: 0px;
 }
 .comments li {
-  padding: 8px;
+  padding: 10px;
   margin: 6px 10px;
   border-radius: 10px;
   background-color: var(--post-bg);
@@ -343,7 +360,7 @@ footer {
   justify-content: space-evenly;
   align-content: space-between;
   grid-template-columns: 300px 300px 300px;
-  /* grid-template-rows:300px 300px 300px; */
+  margin-bottom: 70px;
 }
 .uposts .div30 {
   margin: 5px;
@@ -359,7 +376,7 @@ footer {
 .uposts .div30 a img{max-height: 290px;}
 /* ---------- Follow ---------- */
 .userfollow {
-  padding: 10%;
+  padding: 70px 10%;
 }
 .userfollow li{
   padding: 10px;

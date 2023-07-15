@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 import os
+from datetime import datetime
 import math
 from .models import *
 from django.core.mail import send_mail
@@ -22,26 +23,39 @@ def bloghome(request):
     posts = CreatePost.objects.all().order_by('-date')[:3]
     latest = CreatePost.objects.all().order_by('-date')[:1]
     # ---------------------------------------------------------
+    #  home views count
+    try:
+        home_count = Blog_page_view_count.objects.get(id=1)
+        home_count.home_view_count += 1
+        home_count.save()
+    except:
+        pass
+    # ---------------------------------------------------------
     # herosection most popular two items
     herosection = CreatePost.objects.all()
     xid = []
     xlike = []
-
-    for i in herosection:
-        like = Like.objects.filter(post=i.id, liked=True)
-        like = like.count()
-        xid.append(i.id)
-        xlike.append(like)
+    try:
+        for i in herosection:
+            like = Like.objects.filter(post=i.id, liked=True)
+            like = like.count()
+            xid.append(i.id)
+            xlike.append(like)
+    except:
+        pass
 
     z = []
 
-    def n_max(a, b, lists, n):
+    def n_max(a, b, lists, n=None):
         for _ in range(n):
-            vv = a.index(max(a))
-            vvv = b[vv]  # like count post id
-            lists.append(vvv)
-            a.pop(vv)
-            b.pop(vv)
+            try:
+                vv = a.index(max(a))
+                vvv = b[vv]  # like count post id
+                lists.append(vvv)
+                a.pop(vv)
+                b.pop(vv)
+            except:
+                vv = 0
         return lists
         # return [(a.pop(a.index(max(a))), a.index(max(a))) for _ in range(n)]
 
@@ -49,9 +63,11 @@ def bloghome(request):
     # test2 = [1, 2, 3, 4, 5, 6, 7, 9, 10, 11]
 
     n_max(xlike, xid, z, 2)
-
-    hero1 = CreatePost.objects.get(id=z[0])
-    hero2 = CreatePost.objects.get(id=z[1])
+    try:
+        hero1 = CreatePost.objects.get(id=z[0])
+        hero2 = CreatePost.objects.get(id=z[1])
+    except:
+        hero1, hero2 = '', ''
     # ---------------------------------------------------------
     # bloggers maxm follower
     bloger = Bloger.objects.all().order_by('-date')[:3]
@@ -66,16 +82,27 @@ def bloghome(request):
         bfollower.append(fl)
 
     n_max(bfollower, bid, maxfollower, 3)
-
-    bloger = [blogers.get(id=maxfollower[0]),
-              blogers.get(id=maxfollower[1]),
-              blogers.get(id=maxfollower[2])]
+    try:
+        bloger = [blogers.get(id=maxfollower[0]),
+                  blogers.get(id=maxfollower[1]),
+                  blogers.get(id=maxfollower[2])]
+    except:
+        bloger = blogers
     # ---------------------------------------------------------
 
     return render(request, 'blogHome.html', {'posts': posts, 'latest': latest, 'bloger': bloger, 'hero1': hero1, 'hero2': hero2})
 
 
 def blogpage(request, pk):
+    # ---------------------------------------------------------
+    #  blog views count
+    try:
+        blog_count = Blog_page_view_count.objects.get(id=1)
+        blog_count.blog_view_count += 1
+        blog_count.save()
+    except:
+        pass
+    # ---------------------------------------------------------
     n = int(pk)*10 - 10
     postcount = CreatePost.objects.all()
     page = [i+1 for i in range(math.floor(postcount.count()/10)+1)]
@@ -85,6 +112,12 @@ def blogpage(request, pk):
 
 def blogpost(request, pk):
     post = CreatePost.objects.all().get(id=pk)
+    # Post page view count
+    try:
+        post.post_view_count += 1
+        post.save()
+    except:
+        pass
     # like counts
     like = Like.objects.filter(post=CreatePost.objects.get(id=pk), liked=True)
     # comments
@@ -148,7 +181,8 @@ def blogsignup(request):
                 Bloger.objects.all()
                 b = Bloger(name=f"{fname} {lname}",
                            username=username,
-                           email=email)
+                           email=email,
+                           date=datetime.now())
                 b.save()
 
                 mainuser = User.objects.create_user(
@@ -303,7 +337,8 @@ def blogpostCreate(request):
         p = CreatePost(bloger=Bloger.objects.get(username=user),
                        title=request.POST['title'],
                        description=request.POST['ctext'],
-                       pic1=request.FILES['pic1'])
+                       pic1=request.FILES['pic1'],
+                       date=datetime.now())
         p.save()
         return redirect(f'{appUrl}/userProfile/{user}/')
 

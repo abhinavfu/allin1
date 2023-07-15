@@ -1,0 +1,17 @@
+{% extends 'appIndex.html' %} {% block home %}
+<div>
+    <form action="" method="POST" enctype="multipart/form-data" class="min-height">
+      {% csrf_token %}
+      <div class="form">
+        <div>
+          <h1>Add App Category</h1>
+        </div>
+        <div class="input-field">
+          <input name="name" type="text" id="name" placeholder="Name" required />
+        </div>
+          <button type="submit" class="btn">Submit</button>
+        </div>
+      </div>
+    </form>
+</div>
+{%endblock%}

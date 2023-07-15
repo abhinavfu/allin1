@@ -1,4 +1,7 @@
-{% extends 'blogBase.html' %} {% load static %} {% block blogpostCreate %}
+{% extends 'blogBase.html' %} {% block blog %}
+{% block title %}
+    <title>Blog | Create Post</title>
+{%endblock%}
 <div class="createPost">
   <form action="" method="post" enctype="multipart/form-data">
     {% csrf_token %}

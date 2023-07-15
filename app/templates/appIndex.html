@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'app/style.css' %}">
+    <title>Home</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <div style="text-align: center; padding: 15px;">
+        <h2>Hello {{user}}</h2>
+    </div>
+    {%endif%}
+    <div class="home-c">
+        <nav>{% include 'appNavbar.html' %}</nav>
+        <div class="home">
+            <div class="return"><a href="/app/">&lt; Back</a></div>
+            <div style="padding: 25px 15px;">{% block home %} {%endblock%}</div>
+        </div>
+    </div>
+    <script>
+        // ======== Dropdown ============
+        //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+    
+        var i;
+    
+        for (i = 0; i < dropdown.length; i++) {
+          dropdown[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+              dropdownContent.style.display = "none";
+            } else {
+              dropdownContent.style.display = "block";
+            }
+          });
+        }
+      </script>
+</body>
+</html>

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'mainApp.apps.MainappConfig',
     'shop.apps.ShopConfig',
     'blog.apps.BlogConfig',
+    'app',
     'youtubeDownloader.apps.YoutubedownloaderConfig',
 ]
 
@@ -53,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # manually added
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'allin1.urls'
@@ -111,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 

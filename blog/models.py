@@ -12,7 +12,7 @@ class Bloger(models.Model):
     pic = models.ImageField(upload_to="blogprofile/",
                             default=None, blank=True, null=True)
     bio = models.TextField(default="", blank=True, null=True)
-    date = models.DateTimeField(auto_now=True)
+    date = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return self.username
@@ -25,7 +25,8 @@ class CreatePost(models.Model):
 
     pic1 = models.ImageField(upload_to="blogimages/",
                              default=None, blank=True, null=True)
-    date = models.DateTimeField(auto_now=True)
+    date = models.DateTimeField(blank=True, null=True)
+    post_view_count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.bloger.username
@@ -70,3 +71,11 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.bloger.username
+
+
+class Blog_page_view_count(models.Model):
+    home_view_count = models.IntegerField(default=0)
+    blog_view_count = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.home_view_count} views"

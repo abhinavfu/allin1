@@ -199,6 +199,9 @@
   .contactpage {
     padding-top: 30px;
   }
+  :is(#about, .contactpage ,#newsletter, #footer){
+    font-family: sans-serif;
+  }
   .me {
     margin: 30px 0px;
     padding: 30px 10%;
@@ -251,7 +254,10 @@
     justify-content: space-around;
     padding: 50px;
   }
-  .div30{width: 350px;}
+  .div30{
+    width: 350px;
+    margin-bottom: 25px;
+  }
   .div30 ul li {
     padding: 15px;
     margin: 15px;
@@ -306,6 +312,7 @@
     transition: all 0.5s;
     /* color: rgba(51, 51, 51, 0.5); */
     color: rgba(0, 128, 128, 0.75);
+    font-family: sans-serif;
   }
   .layout:nth-child(n):hover p {
     transform: scale(0.9);
@@ -357,7 +364,7 @@
     background-color: white;
     padding: 1px 7px;
     font-size: 12px;
-    color: blue;
+    color: rgb(50, 50, 255);
   }
   #contact button {
     padding: 10px;
@@ -430,10 +437,43 @@
     color: var(--bg-color);
     padding: 50px 0px 10px 0px;
   }
+  :is(#newsletter, #footer) p{
+    font-size: 16px;
+  }
   #footer p{
     padding-top: 20px;
   }
-  
+  /* ================ Tablet and Mobiles ============== */
+  .pageviews {
+    padding: 10px;
+  }
+  .pageviews > div {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  .pageviews h3 {
+    text-align: center;
+  }
+  table {
+    background-color: rgba(128, 128, 128, 0.15);
+    margin: 10px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  table tr :is(th, td) {padding: 10px; width: 200px;}
+  th {
+    height: 50px;
+    background-color: #2687a57a;
+  }
+  tr:nth-child(even) {
+    background-color: #ececec;
+  }
+  tr:hover {
+    background-color: rgba(100, 100, 100, 0.1);
+  }
   /* ================ Tablet and Mobiles ============== */
   @media screen and (max-width: 900px) {
     #newsletter > div {

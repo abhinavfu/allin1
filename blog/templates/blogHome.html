@@ -1,4 +1,7 @@
-{% extends 'blogBase.html' %} {% load static %} {% load blog %} {% block bloghome %}
+{% extends 'blogBase.html' %} {% load blog %} {% block blog %}
+{% block title %}
+    <title>Blog | Home</title>
+{%endblock%}
 <div class="hero">
   <div class="div50">
     <h1>MOST POPULAR of Month</h1>
@@ -14,7 +17,7 @@
   </div>
   <div class="div50">
     <div class="heroimg">
-      {% if posts.count == 0 %}
+      {% if posts.count < 3 %}
         <div class="hero-img1 shadow">
           <img src="../static/images/hero1.jpg" alt="" />
         </div>
@@ -24,12 +27,20 @@
       {%else%}
         <a href="{% url 'blogpost' hero1.id %}">
           <div class="hero-img1 shadow">
+            {% if request|videoTrue:hero1.id %}
+            <video src="{{hero1.pic1.url}}"></video>
+            {%else%}
             <img src="{{hero1.pic1.url}}" alt="" />
+            {%endif%}
           </div>
         </a>
         <a href="{% url 'blogpost' hero2.id %}">
           <div class="hero-img2 shadow">
+            {% if request|videoTrue:hero2.id %}
+            <video src="{{hero2.pic1.url}}"></video>
+            {%else%}
             <img src="{{hero2.pic1.url}}" alt="" />
+            {%endif%}
           </div>
         </a>
       {%endif%}
@@ -53,7 +64,7 @@
   <h3>EXCLUSIVE PRODUCTS</h3>
   <h1>ART AND DESIGNS</h1>
   <div class="homecontent">
-    {% if posts.count == 0 %}
+    {% if posts.count < 3 %}
       {% for i in '123' %}
       <div class="homeposts">
         <img src="../static/images/post{{i}}.jpg" alt="" />
@@ -82,7 +93,7 @@
   <h3>POPULAR ARTISTS</h3>
   <h1>TRUE MASTERS OF THEIR ART AND DESIGNS</h1>
   <div class="homecontent">
-    {% if posts.count > 3 %}
+    {% if posts.count < 3 %}
       {% for i in '123' %}
       <div class="homeposts">
         <img src="../static/images/user{{i}}.jpg" alt="" />
@@ -94,7 +105,11 @@
         <h2>{{i.name}}</h2>
         <div>
           <a href="{% url 'bloguserProfile' i.username %}">
+            {% if i.pic %}
             <img style="min-width: 350px;" src="{{i.pic.url}}" alt="" />
+            {%else%}
+            <img src="/static/images/No_image_available.png" alt="" />
+            {%endif%}
           </a>
         </div>
       </div>
@@ -108,9 +123,9 @@
   <div class="div50">
     <a href="{% url 'blogpost' i.id %}">
       {% if request|videoTrue:i.id %}
-        <video src="{{i.pic1.url}}"></video>
+      <video src="{{i.pic1.url}}"></video>
       {%else%}
-        <img src="{{i.pic1.url}}" alt="" />
+      <img src="{{i.pic1.url}}" alt="" />
       {%endif%}
     </a>
   </div>
@@ -124,6 +139,8 @@
     </p>
     <p class="seemore"><a href="{% url 'blogpost' i.id %}">See Post</a></p>
   </div>
+  {%empty%}
+    <div class="nocontent">Currently no post available by users.</div>
   {% endfor %}
 </div>
 {%endblock%}

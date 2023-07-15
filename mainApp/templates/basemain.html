@@ -51,6 +51,18 @@
               <p>Contact</p>
             </a>
           </li>
+          {% if user.is_superuser %}
+          <li class="layout btn-nav">
+            <a href="/abhinavfuadmin/">
+              <p>Admin</p>
+            </a>
+          </li>
+          <li class="layout btn-nav" style="width: auto;">
+            <a href="{% url 'pageViews' %}">
+              <p>Pages Views</p>
+            </a>
+          </li>
+          {%endif%}
         </ul>
     </nav>
     
@@ -63,11 +75,12 @@
         <div>
             <h2>Feedback</h2>
             <p>
-            Please feel free to give <a href="{% url 'contact' %}">feedback</a>  about my projects. I'll looking forward to hear from you. <br><br> Thanks and regards. <br>Abhinav Anand</p>
+            Please feel free to give <a href="{% url 'contact' %}">feedback</a>  about my projects. I'll looking forward to hearing from you. <br><br> Thanks and regards. <br>Abhinav Anand</p>
         </div>
         <span class="curve2"></span>
     </div>
     <div id="footer">
+      <br>
         <p>Copyright &copy; 2023 All Rights Reserved</p>
     </div>
 </body>

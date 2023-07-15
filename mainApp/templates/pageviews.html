@@ -1,0 +1,51 @@
+{% extends 'basemain.html' %} {% block homemain %}
+{% block title %}
+    <title>Portfolio | Pages Views</title>
+{%endblock%}
+<div class="pageviews">
+    <h1>Pages Views Count</h1>
+    <div >
+        <span>
+            <h3>Portfolio</h3>
+            <table>
+                <tr><th>Home Page</th><td>{{Portfolio.portfolio_view_count}} views</td></tr>
+                <tr><th>About Page</th><td>{{Portfolio.about_view_count}} views</td></tr>
+                <tr><th>Contact Page</th><td>{{Portfolio.contact_view_count}} views</td></tr>
+            </table>
+        </span>
+        <span>
+            <h3>Feedback</h3>
+            <table>
+                <tr><th>User Feedback</th><td>{{Feedback}} feedbacks</td></tr>
+            </table>  
+        </span>
+        <span>
+            <h3>Blog</h3>
+            <table>
+                <tr><th>Home Page</th><td>{{Blog.home_view_count}} views</td></tr>
+                <tr><th>Blog Page</th><td>{{Blog.blog_view_count}} views</td></tr>
+            </table>  
+        </span>
+        <span>
+            <h3>E-Shop</h3>
+            <table>
+                <tr><th>Home Page</th><td>{{Shop.home_view_count}} views</td></tr>
+                <tr><th>Shop Page</th><td>{{Shop.shop_view_count}} views</td></tr>
+            </table>
+        </span>
+        <span>
+            <h3>Apps Pointer</h3>
+            <table>
+                <tr><th>Home Page</th><td>{{App.app_home_view_count}} views</td></tr>
+            </table>
+        </span>
+        <span>
+            <h3>YouTube Downloader</h3>
+            <table>
+                <tr><th>Home Page</th><td>{{Youtube.home_view_count}} views</td></tr>
+                <tr><th>Download Page</th><td>{{Youtube.yt_download_view_count}} views</td></tr>
+            </table>
+        </span>
+    </div>
+</div>
+{%endblock%}

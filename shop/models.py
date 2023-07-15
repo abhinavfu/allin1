@@ -178,3 +178,10 @@ class SellerApproval(models.Model):
 
 
 # pip install pillow ...... to upload images in database
+
+class Shop_page_view_count(models.Model):
+    home_view_count = models.IntegerField(default=0)
+    shop_view_count = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.home_view_count} views"

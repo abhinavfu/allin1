@@ -99,16 +99,30 @@ def home(request):
         c = Cart.objects.filter(buyer=buyer)
     except:
         c = Cart.objects.all()
-    # try:
-    # Search products
-    # products = searchbar(request)
-    # except:
+    # ---------------------------------------------------------
+    #  home views count
+    try:
+        shop_count = Shop_page_view_count.objects.get(id=1)
+        shop_count.home_view_count += 1
+        shop_count.save()
+    except:
+        pass
+    # ---------------------------------------------------------
     products = ShopProduct.objects.all()
     return render(request, 'home.html', {'product': products, 'cart': c, 'currency': currency, 'checkU': checkU})
 
 
 def shop(request, mc, sc, br):
     checkU = checkUser(request)
+    # ---------------------------------------------------------
+    #  shop views count
+    try:
+        shop_count = Shop_page_view_count.objects.get(id=1)
+        shop_count.shop_view_count += 1
+        shop_count.save()
+    except:
+        pass
+    # ---------------------------------------------------------
     products = ShopProduct.objects.all()
     try:
         buyer = Buyer.objects.get(username=auth.get_user(request))

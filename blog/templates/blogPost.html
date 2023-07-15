@@ -1,4 +1,7 @@
-{% extends 'blogBase.html' %} {% load static %} {% load blog %} {% block blogpost %}
+{% extends 'blogBase.html' %} {% load blog %} {% block blog %}
+{% block title %}
+    <title>Blog | Post</title>
+{%endblock%}
 <div class="postSec">
   <div class="posts">
     {% if userTrue %}
@@ -36,62 +39,75 @@
       {%endif%}
       <div><span>Paragraph : </span> {{post.description}}</div>
     </div>
-    <div class="like">
-      {% if request|likedPost:post.id %}
-      
-      {% for j in request|likedPost:post.id %}
-      {% if j.liked %}
-      <a href="{% url 'blogunlike' post.id %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-      </svg></a>
-      {%else%} 
-      <a href="{% url 'bloglike' post.id %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-</svg></a>
-      {%endif%}
-      {%endfor%}
+    <div style="display: flex;">
+      <div style="width: 85%;">
+        <div class="like">
+          {% if request|likedPost:post.id %}
+          
+          {% for j in request|likedPost:post.id %}
+          {% if j.liked %}
+          <a href="{% url 'blogunlike' post.id %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+          </svg></a>
+          {%else%} 
+          <a href="{% url 'bloglike' post.id %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+    </svg></a>
+          {%endif%}
+          {%endfor%}
 
-      {%else%} 
-      <a href="{% url 'bloglike' post.id %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-</svg></a>
-      {%endif%}
+          {%else%} 
+          <a href="{% url 'bloglike' post.id %}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+    </svg></a>
+          {%endif%}
+        </div>
+        <div>liked by {{like.count}} people.</div>
+      </div>
+    <div class="views">
+      <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-heart-eyes" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+            <path d="M11.315 10.014a.5.5 0 0 1 .548.736A4.498 4.498 0 0 1 7.965 13a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .548-.736h.005l.017.005.067.015.252.055c.215.046.515.108.857.169.693.124 1.522.242 2.152.242.63 0 1.46-.118 2.152-.242a26.58 26.58 0 0 0 1.109-.224l.067-.015.017-.004.005-.002zM4.756 4.566c.763-1.424 4.02-.12.952 3.434-4.496-1.596-2.35-4.298-.952-3.434zm6.488 0c1.398-.864 3.544 1.838-.952 3.434-3.067-3.554.19-4.858.952-3.434z"/>
+          </svg>
+      </div>
+      <div>
+          {{post.post_view_count}} views
+      </div>
     </div>
-    <div>liked by {{like.count}} people.</div>
   </div>
+  </div>
+  <div class="comment">
+    <form action="" method="post" enctype="multipart/form-data" style="width: 100%;">
+      {% csrf_token %}
+      <input name="comment" type="text" id="comment" placeholder="Comment" required/>
+        
+      <button type="submit">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+          </svg>
+        </button>
+    </form>
+  </div>
+  <ul class="comments">
+    {% for c in comment %}
+    {% if c.id == cedit %} 
     <div class="comment">
       <form action="" method="post" enctype="multipart/form-data" style="width: 100%;">
         {% csrf_token %}
-        <input name="comment" type="text" id="comment" placeholder="Comment" required/>
-         
+        <input name="commentedit" type="text" id="comment" value="{{c.Commented}}" required/>
+          
         <button type="submit">
-           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
-             <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
-           </svg>
-         </button>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+              <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+            </svg>
+          </button>
       </form>
     </div>
-    <ul class="comments">
-      {% for c in comment %}
-      {% if c.id == cedit %} 
-      <div class="comment">
-        <form action="" method="post" enctype="multipart/form-data" style="width: 100%;">
-          {% csrf_token %}
-          <input name="commentedit" type="text" id="comment" value="{{c.Commented}}" required/>
-           
-          <button type="submit">
-             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
-               <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
-             </svg>
-           </button>
-        </form>
-      </div>
-      {%else%}
-      <li><a href="{% url 'bloguserProfile' c.bloger.username %}">@{{c.bloger.username}}</a> {{c.Commented}} <span style="float: right;">{% if c.bloger.username == commentTrue %}<a href="{% url 'commentEdit' post.id c.id %}" >Edit</a>{%endif%} {% if userTrue %}<a href="{% url 'commentDelete' post.id c.id %}">Del</a>{%endif%}</span></li>
-      {%endif%}
-      {%endfor%}
-    </ul>
-    
-  </div>
+    {%else%}
+    <li><a href="{% url 'bloguserProfile' c.bloger.username %}">@{{c.bloger.username}}</a> {{c.Commented}} <span style="float: right;">{% if c.bloger.username == commentTrue %}<a href="{% url 'blogcommentEdit' post.id c.id %}" >Edit</a>{%endif%} {% if userTrue %}<a href="{% url 'blogcommentDelete' post.id c.id %}">Del</a>{%endif%}</span></li>
+    {%endif%}
+    {%endfor%}
+  </ul>
 </div>
 {% endblock %}

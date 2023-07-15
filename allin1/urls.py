@@ -21,5 +21,6 @@ urlpatterns = [
     path('', include('mainApp.urls')),
     path('shop/', include('shop.urls')),
     path('blog/', include('blog.urls')),
+    path('app/', include('app.urls')),
     path('youtubeDownloader/', include('youtubeDownloader.urls')),
 ]

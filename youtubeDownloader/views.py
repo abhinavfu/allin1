@@ -8,6 +8,15 @@ ylink = "youtube link"
 
 
 def homeyd(request):
+    # ---------------------------------------------------------
+    #  home views count
+    try:
+        yt_count = Youtube_page_view_count.objects.get(id=1)
+        yt_count.home_view_count += 1
+        yt_count.save()
+    except:
+        pass
+    # ---------------------------------------------------------
     yl = ""
     try:
         if request.method == "POST":
@@ -15,6 +24,15 @@ def homeyd(request):
             ylink = request.POST["ylink"]
             con = pytube.YouTube(ylink)
             if ylink:
+                # ---------------------------------------------------------
+                #  home views count
+                try:
+                    yt_count = Youtube_page_view_count.objects.get(id=1)
+                    yt_count.yt_download_view_count += 1
+                    yt_count.save()
+                except:
+                    pass
+                # ---------------------------------------------------------
                 yl = "Link Found"
                 title = con.title
                 thumbnail = con.thumbnail_url
