@@ -1,0 +1,463 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+  font-family: "Be Vietnam", "Arial", sans-serif;
+  /* border: 1px solid red; */
+}
+:root {
+  --bg-lightgray: #cbd1d2;
+  --blue: rgb(75, 150, 255);
+  --lightred: lightcoral;
+  --post-bg: rgba(190, 190, 190, 0.15);
+}
+h1 {
+  font-family: "ExodusDemo-Sharpen", serif;
+}
+a {
+  text-decoration: none;
+}
+img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 5px;
+}
+video{
+  width: 100%;
+  height: auto;
+}
+ul {list-style: none;}
+input {
+  width: 100%;
+  padding: 10px;
+}
+input::file-selector-button{
+  margin-right: 10px ;
+  padding: 5px;
+  width: 100px;
+  color: #5a5a5a;
+}
+form input[type="checkbox"] {
+  float: none;
+  width: auto;
+  margin: 0px 10px 0px 45%;
+}
+button, .btn {
+  margin: 10px 0px;
+  padding: 7px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  min-width: 125px;
+  background-color: white;
+  color: var(--blue);
+  border: 1px solid var(--blue);
+}
+button:hover, .btn:hover {
+  background-color: var(--blue);
+  color: white;
+}
+.del {
+  background-color: white;
+  color: var(--lightred);
+  border: 1px solid var(--lightred);
+}
+.del:hover {
+  background-color: var(--lightred);
+  color: white;
+}
+/* ---------- no content -------- */
+.nocontent{
+  color: var(--bg-lightgray);
+  font-size: 70px;
+}
+/* ---------- dropdown -------- */
+.dropdown-btn {position: relative;}
+.dropdown-container {
+  display: none;
+  position: absolute;
+  background-color: white;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+.posts .dropdown-container {
+  margin-top: 20px;
+  width: 180px;
+}
+/* ---------- Navbar -------- */
+nav {
+  display: flex;
+  padding: 0px 10%;
+}
+.logo {
+  padding: 10px;
+  width: 70px;
+  height: auto;
+}
+nav .navlink {
+  padding: 20px;
+}
+nav .navlink ul {
+  list-style: none;
+  display: flex;
+}
+nav .navlink ul li {
+  margin: 0px 10px;
+}
+/* ---------- Home ---------- */
+.hero {
+  display: flex;
+  min-height: 670px;
+}
+.div50 {
+  width: 50%;
+  padding: 25px;
+}
+.hero .div50:first-child {
+  padding: 70px;
+}
+.hero .div50:last-child {
+  padding: 7% 0px;
+  padding-right: 70px;
+}
+.heroimg {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.shadow {
+  box-shadow: 10px 10px 10px gray;
+}
+.hero-img1 {
+  width: 350px;
+  height: 350px;
+}
+.hero-img2 {
+  width: 270px;
+  height: 270px;
+}
+:is(.hero-img1, .hero-img2) {
+  border-radius: 5px;
+  border: 1px solid rgba(128, 128, 128, 0.25);
+  overflow: hidden;
+}
+:is(.hero-img1, .hero-img2) img {
+  min-height: 100%;
+}
+.pos {
+  position: absolute;
+  top: -70px;
+  right: 0px;
+  z-index: -3;
+  width: 570px;
+  height: 840px;
+  background-color: rgba(200, 200, 200, 0.8);
+}
+.about {
+  background-color: gray;
+  color: white;
+  display: flex;
+}
+.about .div50:first-child {
+  width: 75%;
+}
+.about .div50:last-child {
+  width: 25%;
+}
+:is(.div50, .homeBlog, .homeArtist, footer) h1 {
+  font-size: 70px;
+  padding: 20px 0px;
+}
+.about,
+.homeBlog,
+.homeArtist,
+.latest,
+footer {
+  padding: 10%;
+}
+.homecontent, .footercontainer {
+  display: flex;
+  justify-content: space-between;
+}
+.homeposts, .footeritem {
+  width: 30%;
+  position: relative;
+  overflow: hidden;
+}
+.homeposts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+.homeposts img {
+  background-color: var(--post-bg);
+  border-radius: 10px;  
+  min-height: 400px;
+  max-height: 400px;
+}
+.homeposts video {
+  background-color: var(--post-bg);
+  border-radius: 10px;  
+  min-height: 400px;
+  max-height: 400px;
+}
+.homeposts h2 {
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  bottom: 25px;
+  z-index: 5;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 10px;
+}
+.seemore {
+  padding: 20px 0px;
+  text-align: right;
+}
+.seemore a {
+  text-decoration: underline;
+  text-underline-offset: 10px;
+  text-decoration-thickness: 2px;
+}
+.homeArtist {
+  background-color: var(--bg-lightgray);
+}
+.latest {
+  display: flex;
+}
+/* ---------- Blog ---------- */
+.blogSec {
+  padding: 20px 25% 100px 25%;
+}
+.content {
+  width: 800px;
+  padding: 20px;
+}
+/* ---------- post ---------- */
+.postSec {
+  padding: 20px 25%;
+  margin-bottom: 70px;
+}
+.posts {
+  margin: 10px;
+  padding: 20px;
+  background-color: var(--post-bg);
+  border-radius: 10px;
+}
+.posts div {
+  margin: 5px 0px;
+}
+.post-profile {
+  display: flex;
+  align-items: center;
+}
+.posts .pimg img{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 15px;
+}
+.posts span {
+  color: gray;
+}
+.postsicon {
+  display: flex;
+  justify-content:space-around;
+}
+.postsicon :is(.like, .views, .comment){
+  padding: 10px;
+  min-width: 100px;
+}
+.posts svg {
+  width: 28px;
+  height: 28px;
+  /* fill: red; */
+}
+.posts .views svg {
+  fill: #0066cc;
+}
+.comment{
+  margin: 10px 0px;
+  width: 100%;
+}
+.comment form {
+  min-height: 20px;
+}
+.comment #comment {width: 90%;}
+.comment button {
+  width: 10%;
+  padding: 8px;
+  min-width: 40px;
+  max-width: 50px;
+  margin: 0px;
+}
+.comments li {
+  padding: 10px;
+  margin: 6px 10px;
+  border-radius: 10px;
+  background-color: var(--post-bg);
+  box-shadow: 0px 3px 0px 0.5px rgb(188, 188, 188);
+}
+.comments li:hover {
+  box-shadow: 0px 3px 0px 0.5px var(--blue);
+
+}
+/* ---------- Profile -------- */
+.userProfileSec {
+  padding: 25px 10%;
+  background-color: var(--post-bg);
+  display: grid;
+  justify-items: center;
+}
+.user {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 50px;
+}
+.uimg img {
+  width: 200px;
+  height: 200px;
+  padding: 2px;
+  border: 1px solid rgb(180, 180, 180);
+  border-radius: 50%;
+}
+.ustatus {
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+  padding: 20px;
+}
+.ustatus .ustatus-c {padding: 20px;}
+.ustatus .unum {font-size: 35px;}
+.uinfo {
+  padding: 20px;
+}
+.uinfo :is(h2, p, div) {
+  padding: 10px;
+}
+.ucreatePost {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+}
+.createPost {
+  padding: 10px;
+}
+.createPost button[type="submit"] {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  /* background-color: lightcoral; */
+}
+.uposts {
+  padding: 20px;
+  display: grid;
+  justify-content: space-evenly;
+  align-content: space-between;
+  grid-template-columns: 300px 300px 300px;
+  margin-bottom: 70px;
+}
+.uposts .div30 {
+  margin: 5px;
+  padding: 5px;
+  width: 300px;
+  height: 300px;
+  background-color: var(--post-bg);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.uposts .div30 a img{max-height: 290px;}
+/* ---------- Follow ---------- */
+.userfollow {
+  padding: 70px 10%;
+}
+.userfollow li{
+  padding: 10px;
+  margin: 10px 0px;
+  background-color: var(--post-bg);
+  
+}
+.userfollow a{
+  display: flex;
+  align-items: center;
+}
+.userfollow .fimg img{
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  margin-right: 20px;
+  border: 1px solid gray;
+  overflow: hidden;
+}
+/* ---------- Form class ---------- */
+form {
+  display: flex;
+  justify-content: center;
+  min-height: 550px;
+}
+.form {
+  width: 400px;
+  padding: 50px;
+}
+.input-field{
+  padding: 10px 0px;
+}
+/* ---------- Footer ---------- */
+footer {
+  background-color: var(--bg-lightgray);
+}
+footer ul li {
+  padding: 10px 0px;
+}
+.footeritem .social svg{width: 25px;height: 25px;margin: 10px;cursor: pointer;}
+@media only screen and (max-width: 500px) {
+  .hero, .about, .homecontent, .latest, .footercontainer {
+    display: block;
+  }
+  .div50, .homeposts, .footeritem {
+    width: 100%;
+    padding: 10px 0px;
+  }
+  .hero .div50:first-child {
+  padding: 40px;
+  }
+  .hero .div50:last-child {
+    padding-right: 0px;
+  }
+  .heroimg {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  }
+  .hero-img1, .hero-img2 {
+    margin-bottom: 25px;
+  }
+  .about :is(.div50:first-child, .div50:last-child) {
+    width: 100%;
+  }
+  /* -------- Blog / post ------------ */
+  .blogSec,.postSec {
+    padding: 10% 10px;
+  }
+  .content {
+    width: 100%;
+    padding: 0px;
+  }
+  /* ---------- Profile -------- */
+  .userProfileSec {
+    padding: 10%;
+  }
+  .user, .uposts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+  }
+}
