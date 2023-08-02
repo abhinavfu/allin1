@@ -28,18 +28,10 @@
         </div>
         <div class="addinfo">
           <div class="input-field">
-              <select name="appcat" id="appcat">
-                  {% for i in appCat %}
-                  <option value="{{i}}">{{i}}</option>
-                  {% endfor %}
-                </select>
+            <input name="appcat" type="text" id="appcat" value="{{app.appCat}}" />
           </div>
           <div class="input-field">
-              <select name="subcat" id="subcat">
-                  {% for i in subCat %}
-                  <option value="{{i}}">{{i}}</option>
-                  {% endfor %}
-                </select>
+            <input name="subcat" type="text" id="subcat" value="{{app.subCat}}" />
           </div>
         </div>
         <div class="addp">

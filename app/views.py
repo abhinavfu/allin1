@@ -5,6 +5,10 @@ from django.contrib.auth.decorators import login_required
 import os
 import datetime
 from .models import *
+from .serializers import *
+from rest_framework.response import Response
+from rest_framework import status, viewsets
+from rest_framework.parsers import MultiPartParser, FormParser
 
 appUrl = '/app'
 # Prevent unknown USERS from redirecting unknown URLs using decorator.
@@ -28,6 +32,50 @@ def appHome(request):
         pass
     # ---------------------------------------------------------
     return render(request, 'appHome.html', {'app': app})
+
+# -------------------------- API ---------------------------------------------
+
+
+def api(request):
+    return redirect(f'{appUrl}/appApi/')
+
+
+class AppViewSets(viewsets.ModelViewSet):
+    queryset = App.objects.all()
+    serializer_class = AppSerializer
+    parser_classes = (MultiPartParser, FormParser)
+
+    def create(self, request, *args, **kwargs):
+        App.objects.create(name=request.POST["appname"],
+                           link=request.POST["applink"],
+                           appCat=request.POST['appcat'],
+                           subCat=request.POST['subcat'],
+                           points=request.POST["points"],
+                           picapp=request.FILES['picapp'],
+                           date=datetime.datetime.now())
+        return Response({
+            'status': status.HTTP_200_OK,
+            "message": "App Created successfully",
+        })
+
+    def update(self, request, app, *args, **kwargs):
+        app = app
+        app.name = request.POST["appname"]
+        app.link = request.POST["applink"]
+        app.appCat = request.POST['appcat']
+        app.subCat = request.POST['subcat']
+        app.points = request.POST["points"]
+        try:
+            if (request.FILES.get('picapp')):
+                os.remove('media/'+str(app.picapp))
+                app.picapp = request.FILES['picapp']
+        except:
+            app.picapp = request.FILES['picapp']
+        app.save()
+        return Response({
+            'status': status.HTTP_200_OK,
+            "message": "App Updated successfully",
+        })
 
 # -------------------------- Signin | Signup | Logout -------------------------
 
@@ -108,43 +156,6 @@ def appLogout(request):
     auth.logout(request)
     return redirect(loginUrl)
 
-# -------------------------- App Category | Sub Category ---------------------------
-
-
-@login_required(login_url=loginUrl)
-def addAppCat(request, pk):
-    """
-    Adds a new App Category by the admin.
-    """
-    user = auth.get_user(request)
-    if user.is_superuser:
-        if request.method == "POST":
-
-            appCat = AppCategory(name=request.POST["name"])
-            appCat.save()
-            return redirect(appUrl)
-    else:
-        return redirect(appUrl)
-
-    return render(request, 'addAppCat.html')
-
-
-@login_required(login_url=loginUrl)
-def addSubCat(request, pk):
-    """
-    Adds a new Sub Category by the admin.
-    """
-    user = auth.get_user(request)
-    if user.is_superuser:
-        if request.method == "POST":
-
-            subCat = SubCategory(name=request.POST["name"])
-            subCat.save()
-            return redirect(appUrl)
-    else:
-        return redirect(appUrl)
-    return render(request, 'addSubCat.html')
-
 # -------------------------- App Add | Edit | Delete --------------------------------------
 
 
@@ -153,25 +164,14 @@ def addApp(request, pk):
     """
     Adds a new App by the admin, where admin can add more informations about App.
     """
-    appCat = AppCategory.objects.all()
-    subCat = SubCategory.objects.all()
     user = auth.get_user(request)
     if user.is_superuser:
         if request.method == "POST":
-
-            app = App(name=request.POST["appname"],
-                      link=request.POST["applink"],
-                      appCat=appCat.get(name=request.POST['appcat']),
-                      subCat=subCat.get(name=request.POST['subcat']),
-                      points=request.POST["points"],
-                      picapp=request.FILES['picapp'],
-                      date=datetime.datetime.now(),
-                      )
-            app.save()
+            AppViewSets.create(self=AppViewSets, request=request)
             return redirect(appUrl)
     else:
         return redirect(appUrl)
-    return render(request, 'addApp.html', {'appCat': appCat, 'subCat': subCat})
+    return render(request, 'addApp.html')
 
 
 @login_required(login_url=loginUrl)
@@ -180,28 +180,14 @@ def editApp(request, pk):
     Edits a selected App by the admin, where admin can edit more informations about App.
     """
     app = App.objects.all().get(id=pk)
-    appCat = AppCategory.objects.all()
-    subCat = SubCategory.objects.all()
     user = auth.get_user(request)
     if user.is_superuser:
         if request.method == "POST":
-
-            app.name = request.POST["appname"]
-            app.link = request.POST["applink"]
-            app.appCat = appCat.get(name=request.POST['appcat'])
-            app.subCat = subCat.get(name=request.POST['subcat'])
-            app.points = request.POST["points"]
-            try:
-                if (request.FILES.get('picapp')):
-                    os.remove('media/'+str(app.picapp))
-                    app.picapp = request.FILES['picapp']
-            except:
-                app.picapp = request.FILES['picapp']
-            app.save()
+            AppViewSets.update(self=AppViewSets, request=request, app=app)
             return redirect(appUrl)
     else:
         return redirect(appUrl)
-    return render(request, 'editApp.html', {'app': app, 'appCat': appCat, 'subCat': subCat})
+    return render(request, 'editApp.html', {'app': app})
 
 
 @login_required(login_url=loginUrl)

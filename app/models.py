@@ -3,20 +3,6 @@ from django.db import models
 # Create your models here.
 
 
-class AppCategory(models.Model):
-    name = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-
-
-class SubCategory(models.Model):
-    name = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.name
-
-
 class UserProfile(models.Model):
     username = models.CharField(
         max_length=50, default=None, blank=True, null=True)
@@ -31,8 +17,10 @@ class UserProfile(models.Model):
 class App(models.Model):
     name = models.CharField(max_length=50, default=None, blank=True, null=True)
     link = models.URLField(default=None, blank=True, null=True)
-    appCat = models.ForeignKey(AppCategory, on_delete=models.CASCADE)
-    subCat = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
+    appCat = models.CharField(
+        max_length=50, default=None, blank=True, null=True)
+    subCat = models.CharField(
+        max_length=50, default=None, blank=True, null=True)
     points = models.IntegerField()
     picapp = models.ImageField(upload_to="app/images/admin/",
                                default=None, blank=True, null=True)

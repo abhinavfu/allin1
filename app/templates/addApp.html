@@ -22,18 +22,10 @@
         </div>
         <div class="addinfo">
           <div class="input-field">
-              <select name="appcat" id="appcat" aria-placeholder="App Cat">
-                  {% for i in appCat %}
-                  <option value="{{i}}">{{i}}</option>
-                  {% endfor %}
-                </select>
+            <input name="appcat" type="text" id="appcat" placeholder="App Category" required />
           </div>
           <div class="input-field">
-              <select name="subcat" id="subcat">
-                  {% for i in subCat %}
-                  <option value="{{i}}">{{i}}</option>
-                  {% endfor %}
-                </select>
+            <input name="subcat" type="text" id="subcat" placeholder="Sub Category" required />
           </div>
         </div>
         <div class="addp">

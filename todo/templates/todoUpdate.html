@@ -1,0 +1,48 @@
+{% extends 'todobase.html' %}{% block page %}
+{% block title %}<title>Todo | Update</title>{%endblock%}
+<div class="todo-form">
+    <h2>Edit Todo</h2>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>
+                    <label htmlFor="title">Title</label>
+                </th>
+                <td>
+                    <input name="title" type="text" id="title" required value="{{todo.todo_title}}"/>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label htmlFor="description">Description</label>
+                </th>
+                <td>
+                    <input name="description" type="text" id="description" value="{{todo.todo_description}}"/>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    Done
+                </th>
+                <td>
+                    <div>
+                        {% if todo.is_done %}
+                        <input type="checkbox" id="done" name="done" checked/>
+                        {%else%} 
+                        <input type="checkbox" id="done" name="done"/>
+                        {%endif%}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button class="btn" type="submit">Save</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div class="del-abs"><a href="{% url 'todoDelete' todo.uid %}">Delete</a></div>
+</div>
+{%endblock%}

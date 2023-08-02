@@ -4,6 +4,7 @@ from .models import *
 from blog.models import Blog_page_view_count
 from shop.models import Shop_page_view_count
 from app.models import App_page_view_count
+from todo.models import Todo_page_view_count
 from youtubeDownloader.models import Youtube_page_view_count
 # Create your views here.
 
@@ -30,9 +31,14 @@ def homemainApp(request):
                                                           'Buyer – Add to cart, Add to whishlist, COD Payment, Track order',
                                                           ]},
             {'title': 'Apps Pointer', 'link': 'app/', 'info': ['App project',
+                                                               'Django Rest Framework',
                                                                'Security, Scalability',
                                                                'Tasks and Collect Points',
-                                                               'User Interactions', 'Responsive webpage']},
+                                                               'Responsive webpage']},
+            {'title': 'Todo', 'link': 'todo/', 'info': ['Todo project',
+                                                        'Django Rest Framework',
+                                                        'Scalability',
+                                                        'Add and Complete Todo', 'Responsive webpage']},
             {'title': 'Youtube Downloader', 'link': 'youtubeDownloader/', 'info': ['Easy to use',
                                                                                    'Multiple Downloads',
                                                                                    'Video and audio', 'Responsive webpage']},
@@ -108,5 +114,6 @@ def PageView(request):
                "Blog": Blog_page_view_count.objects.get(id=1),
                "Shop": Shop_page_view_count.objects.get(id=1),
                "App": App_page_view_count.objects.get(id=1),
+               "Todo": Todo_page_view_count.objects.get(id=1),
                "Youtube": Youtube_page_view_count.objects.get(id=1), }
     return render(request, 'pageviews.html', context)

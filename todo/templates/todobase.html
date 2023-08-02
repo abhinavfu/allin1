@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'todo/style.css' %}">
+    {% block title %}<title>Home</title>{%endblock%}
+    <style>
+        .dropdown-container{display: none;}
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="{% url 'todoCreate' %}">Create Todo</a></li>
+            <li><span class="dropdown-btn" onclick="toggle(1)"><a href="#">API</a></span>
+                <ul class="dropdown-container abs">
+                  <li><a href="todo-view-set/">API View Sets</a></li>
+                  <li><a href="{% url 'todo' %}">API Class based</a></li>
+                    <li><a href="{% url 'get-todo' %}">API GET</a></li>
+                    <li><a href="{% url 'post-todo' %}">API POST</a></li>
+                    <li><a href="{% url 'patch-todo' %}">API PATCH</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    {% block page %}{%endblock%}
+    <script>
+        // ======== Dropdown ============
+        //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+    
+        var i;
+        for (i = 0; i < dropdown.length; i++) {
+          dropdown[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+              dropdownContent.style.display = "none";
+            } else {
+              dropdownContent.style.display = "block";
+            }
+          });
+        }
+      </script>
+</body>
+</html>

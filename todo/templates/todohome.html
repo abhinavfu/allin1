@@ -1,0 +1,55 @@
+{% extends 'todobase.html' %}{% block page %}
+{% block title %}<title>Todo | Home</title>{%endblock%}
+
+<div>
+    <div class="fixed"><a href="{% url 'todoCreate' %}">+</a></div>
+    <div class="todo-container">
+        <h1>Todo list</h1>
+        {% for i in todo %}
+        <div class="todos">
+            <span class="todo-done">
+                {% if i.is_done %}
+                <a href="{% url 'todoDone' i.uid True %}"><input type="checkbox" id="done" name="done" checked/></a>
+                {%else%} 
+                <a href="{% url 'todoDone' i.uid True %}"><input type="checkbox" id="done" name="done"/></a>
+                {%endif%}
+            </span>
+            <div class="todo-info">
+                <div class="dropdown-btn" onclick="toggle(1)">
+                    <h2><a href="{% url 'todoUpdate' i.uid %}">{{i.todo_title}}</a></h2>
+                </div>
+                <div class="dropdown-container"><p  class="todo-desc"><a href="{% url 'todoUpdate' i.uid %}">{{i.todo_description}}</a></p></div>
+            </div>
+            <span class="todo-del"><a href="{% url 'todoDelete' i.uid %}">Del</a></span>
+        </div>
+        {%empty%}
+        <p class="todos">There is no Todo</p>
+        {%endfor%}
+    </div>
+</div>
+<div>
+    <div class="todo-container">
+        <h1>Completed</h1>
+        {% for i in todoCompleted %}
+        <div class="todos fade">
+            <span class="todo-done">
+                {% if i.is_done %}
+                <a href="{% url 'todoDone' i.uid False %}"><input type="checkbox" id="done" name="done" checked/></a>
+                {%else%} 
+                <a href="{% url 'todoDone' i.uid False %}"><input type="checkbox" id="done" name="done"/></a>
+                {%endif%}
+            </span>
+            <div class="todo-info">
+                <div class="dropdown-btn" onclick="toggle(1)">
+                    <h2><a href="{% url 'todoUpdate' i.uid %}"><del>{{i.todo_title}}</del></a></h2>
+                </div>
+                <div class="dropdown-container"><p  class="todo-desc"><a href="{% url 'todoUpdate' i.uid %}"><del>{{i.todo_description}}</del></a></p></div>
+            </div>
+            <span class="todo-del"><a href="{% url 'todoDelete' i.uid %}">Del</a></span>
+        </div>
+        {%empty%}
+        <p class="todos">There is no completed Todo's</p>
+        {%endfor%}
+    </div>
+</div>
+{%endblock%}

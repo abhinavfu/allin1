@@ -1,0 +1,33 @@
+{% extends 'todobase.html' %}{% block page %}
+{% block title %}<title>Todo | Create</title>{%endblock%}
+<div class="todo-form">
+    <h2>Create Todo</h2>
+    <form action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>
+                    <label htmlFor="title">Title</label>
+                </th>
+                <td>
+                    <input name="title" type="text" id="title" required />
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label htmlFor="description">Description</label>
+                </th>
+                <td>
+                    <input name="description" type="text" id="description" />
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <button class="btn" type="submit">Save</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+{%endblock%}

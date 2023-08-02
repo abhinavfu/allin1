@@ -1,6 +1,9 @@
 <div>
   <ul>
     <li>
+      <a href="{% url 'api' %}"><div>Api</div></a>
+    </li>
+    <li>
       <a href="{% url 'appHome' %}">
         <div>
           <svg
@@ -20,44 +23,6 @@
       </a>
     </li>
     {% if user.is_superuser %}
-    <li>
-      <a href="{% url 'addAppCat' user.username %}">
-        <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-plus"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
-            />
-          </svg>
-          App Category
-        </div>
-      </a>
-    </li>
-    <li>
-      <a href="{% url 'addSubCat' user.username %}">
-        <div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-plus"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
-            />
-          </svg>
-          Sub Category
-        </div>
-      </a>
-    </li>
     <li>
       <a href="{% url 'addApp' user.username %}">
         <div>

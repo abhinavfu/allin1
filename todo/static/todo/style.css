@@ -1,0 +1,156 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    scroll-behavior: smooth;
+    list-style: none;
+    font-family: sans-serif;
+}
+li {
+    margin: 10px;
+    background-color: rgba(128, 128, 128, 0.2);
+    border-radius: 10px;
+}
+a{
+    text-decoration: none;
+}
+a:active,
+a:visited{
+    color: #0066cc;
+}
+button{
+    padding: 5px 10px;
+    margin: 10px;
+    cursor: pointer;
+}
+/* ----------------- Navbar ------------- */
+nav ul {
+    display: flex;
+    padding: 5px 20px;
+    background-color: blanchedalmond;
+}
+nav ul li a {
+    padding: 10px;
+    display: block;
+}
+nav ul li:hover{
+    background-color: rgba(128, 128, 128, 0.4);
+}
+.abs {
+    position: absolute;
+    top: 65px;
+    border-radius: 5px;
+}
+/* ----------------- Home --------------- */
+.fixed {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    font-size: 35px;
+    font-weight: bolder;
+    border-radius: 10px;
+    background-color: rgba(128, 128, 128, 0.2);
+    backdrop-filter: blur(5px);
+    z-index: 5;
+}
+.fixed a{
+    display: block;
+    padding: 7px 12px;
+}
+.fixed:hover{
+    background-color: rgba(128, 128, 128, 0.4);
+}
+h1{
+    margin: 10px;
+}
+.todo-container{
+    background-color: aliceblue;
+    padding: 20px;
+    margin: 20px 20px 30px 20px;
+    border-radius: 10px;
+}
+.todos{
+    padding: 10px;
+    margin: 10px 0px;
+    background: rgba(128, 128, 128, 0.2);
+    border-radius: 10px;
+    display: flex;
+}
+.todos:hover{
+    background: rgba(128, 128, 128, 0.4);
+}
+.todo-done {
+    margin-top: 15px;
+}
+.todo-info{
+    width: 100%;
+}
+.todo-title{
+color: aqua;
+}
+.todo-del{
+    padding: 10px;
+}
+.todo-desc{
+ margin-left: 15px;
+}
+.todos h2{
+    cursor: pointer;
+}
+.todos :is(h2,p){
+    padding: 10px;
+}
+.fade{
+    opacity: 0.6;
+}
+/* ------------ Create | Update ------------------- */
+.todo-form{
+    background-color: aliceblue;
+    margin: 20px 20px 30px 20px;
+    border-radius: 10px;
+    padding-bottom: 30px;
+    position: relative;
+}
+.todo-form :is(h2, label, input){
+    padding: 10px;
+    margin: 10px 10px;
+}
+.todo-form table td{
+    width: 80%;
+}
+.todo-form table td input{
+    width: 400px;
+}
+.todo-form table td input[type="checkbox"]{
+    width: auto;
+}
+.btn{
+    border-radius: 5px;
+    border: 1px solid #0066cc;
+    padding: 7px 12px;
+    background-color: #0066ccb0;
+    color: white;
+}
+.btn:hover{
+    color: white;
+    background-color: #0066cc;
+}
+.del-abs{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    border-radius: 5px;
+    background-color: rgb(255, 161, 161);
+}
+.del-abs a{
+    display: block;
+    padding: 5px 10px;
+}
+/* ------------ Mobile devices ------------ */
+@media only screen and (max-width: 600px) {
+    .todo-form table td{
+        width: 100%;
+    }
+    .todo-form table td input{
+        width: 230px;
+    }
+}
