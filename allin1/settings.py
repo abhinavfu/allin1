@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'app',
     'todo',
-    'youtubeDownloader.apps.YoutubedownloaderConfig',
 ]
 
 MIDDLEWARE = [

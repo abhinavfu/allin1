@@ -5,7 +5,6 @@ from blog.models import Blog_page_view_count
 from shop.models import Shop_page_view_count
 from app.models import App_page_view_count
 from todo.models import Todo_page_view_count
-from youtubeDownloader.models import Youtube_page_view_count
 # Create your views here.
 
 
@@ -39,9 +38,6 @@ def homemainApp(request):
                                                         'Django Rest Framework',
                                                         'Scalability',
                                                         'Add and Complete Todo', 'Responsive webpage']},
-            {'title': 'Youtube Downloader', 'link': 'youtubeDownloader/', 'info': ['Easy to use',
-                                                                                   'Multiple Downloads',
-                                                                                   'Video and audio', 'Responsive webpage']},
         ]},
         {'name': 'React Project', 'projects': [
             {'title': 'Music.com', 'link': 'https://abhinavfu.github.io/react-music.com/', 'info': ['3rd Party API',
@@ -115,5 +111,5 @@ def PageView(request):
                "Shop": Shop_page_view_count.objects.get(id=1),
                "App": App_page_view_count.objects.get(id=1),
                "Todo": Todo_page_view_count.objects.get(id=1),
-               "Youtube": Youtube_page_view_count.objects.get(id=1), }
+               }
     return render(request, 'pageviews.html', context)
