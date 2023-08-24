@@ -37,7 +37,7 @@
             </a>
           </li>
           <li class="layout btn-nav">
-            <a href="/#project">
+            <a href="/#project" id="menuproject">
               <p>Project</p>
             </a>
           </li>
@@ -86,15 +86,20 @@
 </body>
 <script>
   // -------------- menu ---------------
-  var menu = document.getElementById("mainmenu");
+  var menubtn = document.getElementById("mainmenu");
+  var menuproject = document.getElementById("menuproject");
   var menuitems = document.getElementById("mainmenuitems");
   
-  menu.onclick = function () {
+  function menu() {
     if (menuitems.style.display == "block") {
       menuitems.style.display = "none";
     } else {
       menuitems.style.display = "block";
     }
   };
+  menubtn.onclick = ()=> menu()
+  if (window.innerWidth < 600){
+    menuproject.onclick = ()=> menu()
+  }
 </script>
 </html>

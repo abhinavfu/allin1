@@ -1,0 +1,13 @@
+include LICENSE
+include README.rst
+recursive-include mainApp/static *
+recursive-include blog/static *
+recursive-include shop/static *
+recursive-include app/static *
+recursive-include todo/static *
+recursive-include mainApp/templates *
+recursive-include blog/templates *
+recursive-include shop/templates *
+recursive-include app/templates *
+recursive-include todo/templates *
+recursive-include docs *

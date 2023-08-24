@@ -20,31 +20,31 @@ def homemainApp(request):
     # ---------------------------------------------------------
     content = {"project": [
         {'name': 'Django Project', 'projects': [
-            {'title': 'Blog', 'link': 'blog/', 'info': ['Blog project',
-                                                        'Security, Scalability',
-                                                        'Posts, Likes,', 'Comments, Follows',
-                                                        'Multiple Contents', 'Responsive webpage']},
-            {'title': 'E-Shop', 'link': 'shop/', 'info': ['Ecommerce project',
-                                                          'Security, Scalability',
-                                                          'Seller – Add products, Confirm orders',
-                                                          'Buyer – Add to cart, Add to whishlist, COD Payment, Track order',
-                                                          ]},
-            {'title': 'Apps Pointer', 'link': 'app/', 'info': ['App project',
-                                                               'Django Rest Framework',
-                                                               'Security, Scalability',
-                                                               'Tasks and Collect Points',
-                                                               'Responsive webpage']},
-            {'title': 'Todo', 'link': 'todo/', 'info': ['Todo project',
-                                                        'Django Rest Framework',
-                                                        'Scalability',
-                                                        'Add and Complete Todo', 'Responsive webpage']},
+            {'title': 'Blog', 'image': 'blog.png', 'link': 'blog/', 'info': ['Blog project',
+                                                                             'Security, Scalability',
+                                                                             'Posts, Likes,', 'Comments, Follows',
+                                                                             'Multiple Contents', 'Responsive webpage']},
+            {'title': 'E-Shop', 'image': 'shop.png', 'link': 'shop/', 'info': ['Ecommerce project',
+                                                                               'Security, Scalability',
+                                                                               'Seller – Add products, Confirm orders',
+                                                                               'Buyer – Add to cart, Add to whishlist, COD Payment, Track order',
+                                                                               ]},
+            {'title': 'Apps Pointer', 'image': 'app.png', 'link': 'app/', 'info': ['App project',
+                                                                                   'Django Rest Framework',
+                                                                                   'Security, Scalability',
+                                                                                   'Tasks and Collect Points',
+                                                                                   'Responsive webpage']},
+            {'title': 'Todo', 'image': 'todo.png', 'link': 'todo/', 'info': ['Todo project',
+                                                                             'Django Rest Framework',
+                                                                             'Scalability',
+                                                                             'Add and Complete Todo', 'Responsive webpage']},
         ]},
         {'name': 'React Project', 'projects': [
-            {'title': 'Music.com', 'link': 'https://abhinavfu.github.io/react-music.com/', 'info': ['3rd Party API',
-                                                                                                    'User Interactions']},
-            {'title': 'Ritual.com', 'link': 'https://abhinavfu.github.io/react-ritual/',
+            {'title': 'Music.com', 'image': 'music.png', 'link': 'https://abhinavfu.github.io/react-music.com/', 'info': ['3rd Party API',
+                                                                                                                          'User Interactions']},
+            {'title': 'Ritual.com', 'image': 'ritual.png', 'link': 'https://abhinavfu.github.io/react-ritual/',
                 'info': ['Landing Homepage', 'Page Cloning']},
-            {'title': 'Firstock.com', 'link': 'https://abhinavfu.github.io/react-stock/',
+            {'title': 'Firstock.com', 'image': 'stock.png', 'link': 'https://abhinavfu.github.io/react-stock/',
                 'info': ['Landing Homepage', 'Page Cloning']},
         ]},
     ]}
@@ -61,15 +61,7 @@ def about(request):
     except:
         pass
     # ---------------------------------------------------------
-    skillList = [
-        {"skill": "Python", "progress": "80", "color": "blue"},
-        {"skill": "Django", "progress": "80", "color": "blue"},
-        {"skill": "SQL", "progress": "75", "color": "lightcoral"},
-        {"skill": "React", "progress": "70", "color": "yellowgreen"},
-        {"skill": "JavaSript", "progress": "75", "color": "green"},
-        {"skill": "HTML & CSS", "progress": "80", "color": "red"},
-    ]
-    return render(request, 'about.html', {"skills": skillList})
+    return render(request, 'about.html')
 
 
 def contact(request):

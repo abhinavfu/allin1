@@ -149,49 +149,57 @@
     box-shadow: 0px 3px 10px 0px var(--shadow-color);
   }
     
-  /* ====== Services ======= */
-  .services-c {
+  /* ====== Projects ======= */
+  .project-c {
     display: flex;
     justify-content: space-evenly;
     align-content: space-evenly;
     flex-wrap: wrap;
-    margin: 50px;
-  }
-  .services-c a{
-    
-    padding: 20px;
-  }
-  .services-sec {
-    text-align: center;
-    width: 300px;
-    min-height: 300px;
+    margin: 50px 10%;
     box-shadow: 3px 3px 10px 2px var(--shadow-color);
-    border-radius: 10px;
     padding: 20px;
+    border-radius: 10px;
     transition: all 0.5s;
   }
-  .services-sec h1{
+  .project-c .center{
+    display: flex;
+    justify-content:center ;
+  }
+  .project-c .layout{ 
+    width: 150px;
+    box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.2);
+    color: teal;
+  }
+  .project-img{
+    width: 600px;
+  }
+  .project-info {
+    text-align: center;
+    width: 500px;
+    min-height: 300px;
+  }
+  .project-info h1{
     /* background-color: #f3f4f6; */
     padding: 25px;
     color: var(--footer-color);
 }
-  .services-sec ul{
+  .project-info ul{
     padding: 25px;
     font-weight: 500 ;
     font-size: 18px;
     font-family: sans-serif;
 }
-  .services-sec ul li{
+  .project-info ul li{
     padding: 5px 0px;
     color: #2f5f53;
 }
-  .services-sec:hover {
+  .project-c:hover {
     transform: translateY(2px);
     background-color: #467f7e;
     box-shadow: 0.5px 0.5px 2px 1px var(--shadow-color);
   }
   
-  .services-sec:hover :is(h1,li) {
+  .project-c:hover :is(h1,li) {
     color: white;}
    /*===== about =====*/
   #about,
@@ -211,41 +219,28 @@
     flex-wrap: wrap;
     justify-content: center;
     align-content: space-between;
+    min-height: 200px;
   }
-  
-  /*===== Progress bar =====*/
-  .progressbar{
-    padding: 20px;
+  .skills > span {
+    width: 110px;
+    height: 100px;
+    margin: 10px;
+    padding: 10px;
+    overflow: hidden;
   }
-  .progress {
-    width: 100px;
-    height: 140px;
-    z-index: 1;
+  .skills > span:hover {
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+    border-radius: 20px;
+    background-color: rgba(0, 128, 128, 0.1);
   }
-  .progress .track,
-  .progress .fill {
-    fill: rgba(0, 0, 0, 0);
-    stroke-width: 3;
-    transform: rotate(90deg) translate(0px, -80px);
-  }
-  .progress .track {
-    stroke: #20313e;
-  }
-  .progress .fill {
-    stroke: teal;
-    stroke-dasharray: 219.99078369140625;
-    stroke-dashoffset: -219.99078369140625;
-    transition: stroke-dashoffset 1s;
-  }
-  .progress .value {
-    fill:teal;
-    text-anchor: middle;
-  }
-  .progress .text {
-    font-size: 12px;
-    fill: #000000;
-    /* fill: #fff; */
-    text-anchor: middle;
+  .skills > span > span {
+    padding: 10px;
+    margin: 10px;
+    color: teal;
   }
   /* =========== info ============ */
   .info{
@@ -516,6 +511,15 @@
       position: fixed;
       bottom: 30px;
       right: 30px;
+    }
+    .skills{
+      min-height: 420px;
+      text-align: center;
+    }
+    .skills > span:hover{
+      display: block;
+      width: 120px;
+      height: 150px;
     }
     #contact,
     #social {
