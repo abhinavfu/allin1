@@ -8,8 +8,9 @@
 }
 :root {
   --bg-lightgray: #cbd1d2;
-  --blue: rgb(75, 150, 255);
+  --blue: rgb(35, 115, 220);
   --lightred: lightcoral;
+  --green: #26a541;
   --post-bg: rgba(190, 190, 190, 0.15);
 }
 h1 {
@@ -17,6 +18,10 @@ h1 {
 }
 a {
   text-decoration: none;
+  color: var(--blue);
+}
+a:active,a:visited {
+  color: var(--blue);
 }
 img {
   width: 100%;
@@ -44,7 +49,7 @@ form input[type="checkbox"] {
   width: auto;
   margin: 0px 10px 0px 45%;
 }
-button, .btn {
+button, .btn, .guest {
   margin: 10px 0px;
   padding: 7px 20px;
   border-radius: 5px;
@@ -57,6 +62,17 @@ button, .btn {
 }
 button:hover, .btn:hover {
   background-color: var(--blue);
+  color: white;
+}
+.guest{
+  color: var(--green);
+  border: 1px solid var(--green);
+}
+.guest a{
+  color: var(--green);
+}
+.guest:hover {
+  background-color: var(--green);
   color: white;
 }
 .del {
@@ -218,10 +234,18 @@ footer {
   padding: 20px 0px;
   text-align: right;
 }
-.seemore a {
+.seemore :is(a,button) {
   text-decoration: underline;
   text-underline-offset: 10px;
   text-decoration-thickness: 2px;
+}
+.seemore button{
+  border:none;
+  background-color: var(--bg-lightgray);
+}
+.seemore button:hover{
+  color: var(--blue);
+  background-color: var(--bg-lightgray);
 }
 .homeArtist {
   background-color: var(--bg-lightgray);
@@ -333,6 +357,7 @@ footer {
   padding: 20px;
 }
 .ustatus .ustatus-c {padding: 20px;}
+.ustatus .ustatus-c a{color: black;}
 .ustatus .unum {font-size: 35px;}
 .uinfo {
   padding: 20px;
@@ -396,7 +421,17 @@ footer {
   border: 1px solid gray;
   overflow: hidden;
 }
+.bg{
+  background-image: linear-gradient(var(--blue),var(--bg-lightgray));
+}
 /* ---------- Form class ---------- */
+.bg .form{
+  margin: 30px 10px 10px 10px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
 form {
   display: flex;
   justify-content: center;
@@ -409,6 +444,11 @@ form {
 .input-field{
   padding: 10px 0px;
 }
+#next{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 /* ---------- Footer ---------- */
 footer {
   background-color: var(--bg-lightgray);
@@ -417,6 +457,20 @@ footer ul li {
   padding: 10px 0px;
 }
 .footeritem .social svg{width: 25px;height: 25px;margin: 10px;cursor: pointer;}
+.footeritem form{
+  padding: 0px;
+  margin: 0px;
+  min-height: 150px;
+}
+.footeritem .msg-error{
+  padding: 10px;
+  border-radius: 10px;
+  background-color: lightblue;
+}
+.footeritem form ul{
+  min-width: 350px;
+}
+
 @media only screen and (max-width: 500px) {
   .hero, .about, .homecontent, .latest, .footercontainer {
     display: block;

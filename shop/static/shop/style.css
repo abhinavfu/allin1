@@ -32,9 +32,10 @@ button,
 a {
   border-radius: 5px;
   cursor: pointer;
-}
-a {
   text-decoration: none;
+}
+a:active,a:visited {
+  color: var(--blue);
 }
 .min-height {
   min-height: 500px;
@@ -526,6 +527,17 @@ table tr :is(th, td) {padding: 10px;}
   border-radius: 5px;
 }
 /* ============= Sign in/up & Payment ============ */
+.bg{
+  min-height: 700px;
+  background-image: linear-gradient(rgb(116, 181, 221),rgb(251, 206, 206),rgb(116, 181, 221));
+}
+.bg :is(#signin,#signup){
+  margin: 30px 10px 10px 10px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
 form {
   display: flex;
   align-items: center;
@@ -545,19 +557,6 @@ form {
 #signup span {
   cursor: pointer;
 }
-/* #signin input,
-#signup input,
-#signup select,
-#add-product input,
-#add-product select,
-#edit-product input,
-#edit-product select,
-#add-address input,
-#add-address select,
-#edit-address input,
-#edit-address select,
-.confirmOrder select,
-.pay-method input, */
 input,
 select {
   width: 100%;

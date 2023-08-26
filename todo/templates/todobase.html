@@ -13,7 +13,7 @@
 <body>
     <nav>
         <ul>
-            <li><a href="/">Home</a></li>
+            <li><a href="{% url 'todoHome' %}">Home</a></li>
             <li><a href="{% url 'todoCreate' %}">Create Todo</a></li>
             <li><span class="dropdown-btn" onclick="toggle(1)"><a href="#">API</a></span>
                 <ul class="dropdown-container abs">

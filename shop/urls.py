@@ -33,6 +33,7 @@ urlpatterns = [
     path('editAddress/<str:pk>', views.editAddress, name='editAddress'),
     path('delAddress/<str:pk>', views.delAddress, name='delAddress'),
     path('signin/', views.signin, name='signin'),
+    path('guest/<str:pk>/', views.guest, name='guest'),
     path('signup/', views.signup, name='signup'),
     path('forgetPassword/', views.forgetPassword, name='forgetPassword'),
     path('forgetPassword/verify-OTP/',

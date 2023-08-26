@@ -80,12 +80,18 @@
       </ul>
     </div>
     <div class="footeritem">
-      <ul>
-        <li>Stay in touch</li>
-        <li><input type="text" placeholder="Fullname" /></li>
-        <li><input type="text" placeholder="Email" /></li>
-        <li class="seemore"><a href="#">Subscribe</a></li>
-      </ul>
+      {% for i in messages %}
+      <div class="msg-error">{{i}}</div>
+      {% endfor %}
+      <form action="{% url 'blogSubscribe' %}" method="POST">
+        {% csrf_token %}
+        <ul>
+          <li>Stay in touch</li>
+          <li><input type="text" name="fullname" placeholder="Full name" required /></li>
+          <li><input type="text" name="email" placeholder="Email" required /></li>
+          <li class="seemore"><button type="submit">Subscribe</button></li>
+        </ul>
+      </form>
     </div>
   </div>
   <p>copyright @N</p>

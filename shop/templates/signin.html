@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% load static %} {% block signin %}
-<div>
+<div class="bg">
   {% for i in messages %}
   <div class="msg-error">{{i}}</div>
   {% endfor %}
@@ -33,6 +33,7 @@
           >Forget Password</a
         >
       </div>
+      <a class="btn-search" href="{% url 'guest' 1 %}">Sign-in as Guest</a>
     </div>
   </form>
 </div>

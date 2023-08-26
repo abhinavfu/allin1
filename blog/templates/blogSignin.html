@@ -2,7 +2,7 @@
 {% block title %}
     <title>Blog | Signin</title>
 {%endblock%}
-<div>
+<div class="bg">
     {% for i in messages %}
     <div class="msg-error">{{i}}</div>
     {% endfor %}
@@ -27,12 +27,13 @@
         </div>
         <div id="next">
           <button type="submit" class="btn">Log In</button>
+          <a href="{% url 'blogforgetPassword' %}">Forget Password ?</a>
         </div>
+        <br>
+        <a class="btn guest" href="{% url 'blogGuest' 1 %}">Sign-in as Guest</a>
+        <br> <br>
         <div style="padding: 10px 0px">
-          <a class="btn" href="{% url 'blogsignup' %}">Create account</a>
-          <a class="btn" href="{% url 'blogforgetPassword' %}"
-            >Forget Password</a
-          >
+          Don't have an account? <a href="{% url 'blogsignup' %}">Create account</a>
         </div>
       </div>
     </form>

@@ -389,7 +389,7 @@ def cartDelete(request, pk):
 
 
 # ------------------------------------------------------------------------------------
-# Signin / Signup / Forget_Password / Logout
+# Signin / Guest / Signup / Forget_Password / Logout
 
 
 def signin(request):
@@ -403,6 +403,34 @@ def signin(request):
             return redirect('/shop/userprofile')
         else:
             messages.error(request, " Email and Password does not match")
+    return render(request, 'signin.html')
+
+
+def guest(request, pk):
+    fname = "Guest"
+    c = Buyer.objects.filter(name__contains="Guest")
+    lname = f'{c.count()+int(pk)}'
+    email = f"guest{lname}@test.com"
+    user = "Buyer"
+    password = "1234"
+    cub = Buyer(name=f"{fname} {lname}",
+                username=f"{fname}{lname}",
+                email=email,
+                user_status=user)
+    cub.save()
+    mainuser = User.objects.create_user(
+        username=f"{fname}{lname}", password=password, email=email, first_name=fname, last_name=lname)
+    mainuser.save()
+    try:
+        user = auth.authenticate(
+            username=f"{fname}{lname}", password=password)
+        if user is not None:
+            auth.login(request, user)
+            return redirect('/shop/userprofile')
+    except:
+        messages.success(
+            request, "Guest Account has been successfully created")
+        return render(request, 'signin.html')
     return render(request, 'signin.html')
 
 
@@ -519,6 +547,11 @@ def forgetPasswordReset(request):
 
 @login_required(login_url='/shop/signin/')
 def logout(request):
+    try:
+        "delete items for guest user"
+        pass
+    except:
+        pass
     auth.logout(request)
     return redirect('/shop/signin')
 

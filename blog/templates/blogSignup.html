@@ -2,7 +2,7 @@
 {% block title %}
     <title>Blog | Signup</title>
 {%endblock%}
-<div>
+<div class="bg">
     {% for i in messages %}
     <div class="msg-error">{{i}}</div>
     {% endfor %}
@@ -42,11 +42,11 @@
           <span onClick="showPassword()">Show password</span>
         </div>
         <div id="submit">
-          {% if checkU == 'buyer' %} {%else%}
-          <a class="btn" href="{% url 'blogsignin' %}">Sign In instead</a>
-          {%endif%}
           <button type="submit" class="btn">Sign up</button>
         </div>
+        {% if checkU == 'buyer' %} {%else%}
+        <div>You already have an acoount? <a href="{% url 'blogsignin' %}">Sign In</a></div>   
+        {%endif%}
       </div>
     </form>
   </div>

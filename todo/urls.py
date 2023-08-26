@@ -7,7 +7,7 @@ router.register(r'todo-view-set', TodoViewSets, basename='todos')
 
 
 urlpatterns = [
-    path('', todoHome),
+    path('', todoHome, name='todoHome'),
     path('Todo-Create/', todoCreate, name='todoCreate'),
     path('Todo-Update/<str:pk>/', todoUpdate, name='todoUpdate'),
     path('Todo-Done/<str:pk>/<str:done>/', todoDone, name='todoDone'),

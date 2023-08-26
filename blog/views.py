@@ -151,7 +151,7 @@ def blogpost(request, pk):
     return render(request, 'blogPost.html', {'post': post, 'cedit': cedit, 'userTrue': userTrue, 'commentTrue': commentTrue, 'like': like, 'comment': comment})
 
 # ------------------------------------------------------------------------------------
-# Signin / Signup / Forget_Password / Logout
+# Signin / Guest / Signup / Forget_Password / Logout
 
 
 def blogsignin(request):
@@ -165,6 +165,37 @@ def blogsignin(request):
             return redirect(f'{appUrl}/userProfile/{user}/')
         else:
             messages.error(request, " Email and Password does not match")
+    return render(request, 'blogSignin.html')
+
+
+def blogGuest(request, pk):
+    fname = "Guest"
+    c = Bloger.objects.filter(name__contains="Guest")
+    lname = f'{c.count()+int(pk)}'
+    username = f"{fname}{lname}"
+    email = f"guest{lname}@blogtest.com"
+    password = "1234"
+    Bloger.objects.all()
+    b = Bloger(name=f"{fname} {lname}",
+               username=username,
+               email=email,
+               date=datetime.now())
+    b.save()
+
+    mainuser = User.objects.create_user(
+        username=username, password=password, email=email, first_name=fname, last_name=lname)
+    mainuser.save()
+
+    try:
+        user = auth.authenticate(
+            username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+            return redirect(f'{appUrl}/userProfile/{user}/')
+    except:
+        messages.success(
+            request, "Your Account has been successfully created")
+        return render(request, 'blogSignin.html')
     return render(request, 'blogSignin.html')
 
 
@@ -279,6 +310,15 @@ def bloglogout(request):
     auth.logout(request)
     return redirect(loginUrl)
 
+# ------------------------------------------------------------------------------------
+
+
+def blogSubscribe(request):
+    if (request.method == "POST"):
+        fullname = request.POST["fullname"]
+        email = request.POST["email"]
+        messages.error(request, f'Thanks {fullname} for subscribing.')
+    return redirect(loginUrl)
 # ------------------------------------------------------------------------------------
 # User Profile / edit
 
