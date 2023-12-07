@@ -37,4 +37,5 @@ urlpatterns = [
          views.blogcommentEdit, name='blogcommentEdit'),
     path('commentDelete/<str:pk>/<str:ck>/',
          views.blogcommentDelete, name='blogcommentDelete'),
+    path('setting/', views.blogsetting, name='blogsetting'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

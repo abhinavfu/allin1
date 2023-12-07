@@ -40,7 +40,7 @@ INSTALLED_APPS = [
 
     # Manually Added
     'mainApp.apps.MainappConfig',
-    'shop.apps.ShopConfig',
+    'ecom',
     'blog.apps.BlogConfig',
     'rest_framework',
     'app',

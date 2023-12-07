@@ -5,6 +5,7 @@
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
+            <tr>{%for i in messages %}<span class="error">{{i}}</span>{%endfor%}</tr>
             <tr>
                 <th>
                     <label htmlFor="title">Title</label>

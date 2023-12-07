@@ -1,0 +1,165 @@
+{% extends 'base.html' %}  {% load cart %} {% block page %}
+{% block title %}
+<title>E-Shop | Order Details</title>
+{%endblock%}
+<div class="orders">
+  <center><h2>Order Details</h2></center>
+  {% if checkU != 'shipment' %}
+  <div class="orderitem">
+    <table>
+      <tr>
+        <th>Order id</th>
+        <td>{{orders.id}}</td>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <td>{{address.name}}</td>
+      </tr>
+      <tr>
+        <th>Address</th>
+        <td>
+          <div>
+            <div>{{address.address1}}, {{address.address2}}, {{address.city}}, 
+              {{address.pincode}}
+            </div>
+            <div>State: {{address.state}}</div>
+            <div>Country: {{address.country}}</div>
+            <div>Landmark: {{address.landmark}}</div>
+            <div>Phone: {% if address.country == 'India' %}+91 {%endif%}{{address.phone}}</div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>Subtotal</th>
+        <td>{{currency}}{{orders.subtotal}}</td>
+      </tr>
+      <tr>
+        <th>Shipping</th>
+        <td>{{currency}}{{orders.shipping}}</td>
+      </tr>
+      <tr>
+        <th>Order Total</th>
+        <td>{{currency}}{{orders.ordertotal}}</td>
+      </tr>
+      <tr>
+        <th>Payment Method</th>
+        <td>{{orders.paymentmethod}}</td>
+      </tr>
+      <tr>
+        <th>Order Payment Status</th>
+        <td>{{orders.paymentstatus}}</td>
+      </tr>
+      <tr>
+        <th>Order Status</th>
+        <td>
+          {{orders.orderstatus}}
+          <span>
+            {% if orders.orderstatus == 'Delivered' %}
+            {% elif orders.orderstatus == 'Cancelled'%}
+            {%else%}
+            <span>
+              {% if checkU == 'admin' %}
+              <a href="{% url 'orderEdit' orders.id %}" class="btn btn-blue"
+              >Edit</a
+              >
+              {%endif%}
+            </span>
+            {%endif%}
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <th>Order Date</th>
+        <td>{{orders.created_at}}</td>
+      </tr>
+    </table>
+    <div>
+      <div class="cart-items">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 100px">Item</th>
+              <th class="cart-name">Name</th>
+              <th style="width: 100px">Price</th>
+              <th style="width: 150px">Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for j in request|checkoutProducts:orders.id %}
+            <tr>
+              <td>
+                <a href="{% url 'productInfo' j.product.id %}">
+                  <div class="cart-img">
+                    {% if j.product.pic1 %}
+                    <img src="{{j.product.pic1.url}}" alt="product item" />
+                    {% else %}
+                    <img src="/static/images/No_image.png" alt="" />
+                    {% endif %}
+                  </div>
+                </a>
+              </td>
+              <td>{{j.product}}</td>
+              <td>{{currency}}{{j.total}}</td>
+              <td>{{j.q}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="cart-mob">
+        {% for j in request|checkoutProducts:orders.id %}
+        <div class="cart-c">
+          <div class="cart-img">
+            {% if j.product.pic1 %}
+            <img src="{{j.product.pic1.url}}" alt="product item" />
+            {% else %}
+            <img src="/static/images/No_image.png" alt="" />
+            {% endif %}
+          </div>
+          <div>
+            <div style="color: #7c5b47">{{j.product}}</div>
+            <div>Price : {{currency}}{{j.total}}</div>
+            <div class="cart-quantity">Qty : {{j.q}}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  {%else%}
+  <div class="orderitem">
+    <div>
+      <div>Ship To:</div><br>
+      <div>{{address.name}}</div><br>
+      <div>{{address.address1}}, {{address.address2}}, {{address.city}}, 
+        {{address.pincode}}
+      </div>
+      <div>{{address.state}}</div>
+      <div>{{address.country}}</div>
+      <div>Landmark: {{address.landmark}}</div>
+      <div>Phone: {% if address.country == 'India' %}+91 {%endif%}{{address.phone}}</div>
+    </div>
+    <table>
+      <tr>
+        <th>Order Date</th>
+        <td>{{orders.created_at}}</td>
+      </tr>
+      <tr>
+        <th>Payment Method</th>
+        <td>{{orders.paymentmethod}}</td>
+      </tr>
+      <tr>
+        <th>Order Payment Status</th>
+        <td>{{orders.paymentstatus}}</td>
+      </tr>
+      <tr>
+        <th>Order Status</th>
+        <td>
+          {{orders.orderstatus}}
+        </td>
+      </tr>
+    </table>
+  </div>
+  {%endif%}
+</div>
+{%endblock%}

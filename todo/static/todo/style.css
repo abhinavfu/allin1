@@ -7,15 +7,16 @@
 }
 li {
     margin: 10px;
-    background-color: rgba(128, 128, 128, 0.2);
+    background-color: rgba(128, 128, 128, 0.1);
     border-radius: 10px;
 }
 a{
     text-decoration: none;
+    color: rgb(20, 125, 215);
 }
 a:active,
 a:visited{
-    color: #0066cc;
+    color: transparent;
 }
 button{
     padding: 5px 10px;
@@ -33,12 +34,13 @@ nav ul li a {
     display: block;
 }
 nav ul li:hover{
-    background-color: rgba(128, 128, 128, 0.4);
+    background-color: rgba(128, 128, 128, 0.2);
 }
 .abs {
     position: absolute;
     top: 65px;
     border-radius: 5px;
+    z-index: 5;
 }
 /* ----------------- Home --------------- */
 .fixed {
@@ -71,12 +73,12 @@ h1{
 .todos{
     padding: 10px;
     margin: 10px 0px;
-    background: rgba(128, 128, 128, 0.2);
+    background: rgba(128, 128, 128, 0.12);
     border-radius: 10px;
     display: flex;
 }
 .todos:hover{
-    background: rgba(128, 128, 128, 0.4);
+    background: rgba(128, 128, 128, 0.2);
 }
 .todo-done {
     margin-top: 15px;
@@ -103,6 +105,11 @@ color: aqua;
     opacity: 0.6;
 }
 /* ------------ Create | Update ------------------- */
+.error{
+    color:rgb(255, 100, 100);
+    background-color: rgb(255, 225, 225);
+    padding: 10px 20px;
+}
 .todo-form{
     background-color: aliceblue;
     margin: 20px 20px 30px 20px;

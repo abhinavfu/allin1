@@ -16,9 +16,9 @@ Detailed documentation is in the "docs" directory.
 Quick start
 ----------------------------------------------------------------------
 =====
-Shop
+Ecom
 =====
-Shop is a Django app to conduct web-based Shop. This is E-commerce web-page
+Ecom is a Django app to conduct web-based Shop. This is E-commerce web-page
 In this, user can be buyer or seller. Seller can add products to the website.
 Buyer can purchase the products. 
 Detailed documentation is in the "docs" directory.
@@ -45,14 +45,14 @@ Quick start
     INSTALLED_APPS = [
         'mainApp',
         'blog',
-        'shop',
+        'ecom',
         'app',
         'todo',
     ]
 2. Include the app URLconf in your project urls.py like this::
     path('', include('mainApp.urls')),
     path('blog/', include('blog.urls')),
-    path('shop/', include('shop.urls')),
+    path('ecom/', include('ecom.urls')),
     path('app/', include('app.urls')),
     path('todo/', include('todo.urls')),
 

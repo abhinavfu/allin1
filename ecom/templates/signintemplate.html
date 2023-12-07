@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block page %}
+<div class="bg uniPad">
+    <div class="bgitems">
+      <div class="circle c1"></div>
+      <div class="circle c2"></div>
+      <div class="circle c3"></div>
+      <div class="circle c4"></div>
+    </div>
+    <div class="sign-account d-none">
+      <div>Welcome</div>
+      <img src="/static/images/logo.svg" alt="Logo">
+      <div><a class="btn btn-blue" href="{% url 'signup' 'Buyer' %}">Create account</a><a class="btn btn-blue" href="{% url 'signin' %}">Sign In instead</a></div>
+    </div>
+    {% block signin %}{% endblock %}
+</div>
+  
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends 'base.html' %} {% block page %}
+{% block title %}
+<title>E-Shop | Edit Profile</title>
+{%endblock%}
+<form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div id="signup">
+    <div>
+      <h1>Edit Information</h1>
+    </div>
+    <div class="input-field">
+      <input
+        name="fname"
+        type="text"
+        required
+        id="fname"
+        value="{{user.name}}"
+      />
+      <label htmlFor="fname">Name</label>
+      <p id="fnameerror" class="error"></p>
+    </div>
+    <div class="input-field">
+      <input
+        name="email"
+        type="email"
+        required
+        id="email"
+        value="{{user.email}}"
+      />
+      <label htmlFor="email">E-mail I'd</label>
+      <p id="usererror" class="error"></p>
+    </div>
+    <div class="input-field">
+      <input
+        name="email"
+        type="email"
+        required
+        id="email"
+        value="{{user.email}}"
+      />
+      <label htmlFor="email">E-mail I'd</label>
+      <p id="usererror" class="error"></p>
+    </div>
+    <div class="input-field">
+      <input
+        name="phone"
+        type="text"
+        required
+        id="phone"
+        value="{{user.phone}}"
+      />
+      <label htmlFor="phone">Phone</label>
+    </div>
+    <div class="input-field">
+      <input
+        name="addressline1"
+        type="text"
+        required
+        id="addressline1"
+        value="{{user.addressline1}}"
+      />
+      <label htmlFor="addressline1">Addressline 1</label>
+    </div>
+    <div class="input-field">
+      <input
+        name="addressline2"
+        type="text"
+        required
+        id="addressline2"
+        value="{{user.addressline2}}"
+      />
+      <label htmlFor="addressline2">Addressline 2</label>
+    </div>
+    <div class="input-field">
+      <input
+        name="addressline3"
+        type="text"
+        required
+        id="addressline3"
+        value="{{user.addressline3}}"
+      />
+      <label htmlFor="addressline3">Addressline 3</label>
+    </div>
+    <div class="input-field">
+      <input name="pin" type="text" required id="pin" value="{{user.pin}}" />
+      <label htmlFor="pin">Pincode</label>
+    </div>
+    <div class="input-field">
+      <input name="city" type="text" required id="city" value="{{user.city}}" />
+      <label htmlFor="city">City</label>
+    </div>
+    <div class="input-field">
+      <input
+        name="state"
+        type="text"
+        required
+        id="state"
+        value="{{user.state}}"
+      />
+      <label htmlFor="state">State</label>
+    </div>
+    <div class="input-field">
+      <input
+        name="country"
+        type="text"
+        required
+        id="country"
+        value="{{user.country}}"
+      />
+      <label htmlFor="country">Country</label>
+    </div>
+    <div class="input-field">
+      <input name="pic" type="file" id="pic" />
+      <label htmlFor="pic">Profile Pic</label>
+    </div>
+    <div id="submit">
+      <button type="submit" class="btn btn-green">Update Info</button>
+    </div>
+  </div>
+</form>
+
+{% block addproduct %}{% endblock %}{% endblock %}

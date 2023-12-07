@@ -26,28 +26,28 @@
             <div>Following</div></a>
           </div>
         </div>
+        <div><center>
+          {% if editProfile %}
+            <div><a class="btn" href="{% url 'bloguserProfileEdit' %}">Edit Profile</a></div>
+          {%else%}
+            <div>
+              {% if  request|follows:bloger.username %}
+                <a class="btn" href="{% url 'blogunfollow' bloger.username %}">UNFOLLOW</a>
+              {%else%}
+                <a class="btn" href="{% url 'blogfollow' bloger.username %}">FOLLOW</a>
+              {%endif%}
+            </div>
+          {%endif%}</center>
+        </div>
       </div>
     </div>
     <div class="uinfo">
       <h2>{{bloger.name}}</h2>
       {% if bloger.bio == "" %}
-      Tell others about yourself
+      What best describes you?
       {%else%}
       <p>{{bloger.bio}}</p>
       {%endif%}
-      <div>
-        {% if editProfile %}
-          <div><a class="btn" href="{% url 'bloguserProfileEdit' %}">Edit Profile</a></div>
-        {%else%}
-          <div>
-            {% if  request|follows:bloger.username %}
-              <a class="btn" href="{% url 'blogunfollow' bloger.username %}">UNFOLLOW</a>
-            {%else%}
-              <a class="btn" href="{% url 'blogfollow' bloger.username %}">FOLLOW</a>
-            {%endif%}
-          </div>
-        {%endif%}
-      </div>
     </div>
     {% if request.user.is_authenticated %}
       <div class="ucreatePost">
@@ -70,5 +70,10 @@
     </div>
     {%endfor%}
   </div>
+  {% if posts|length == 0%}
+  <div class="nocontent" >
+    No post to display.
+  </div>
+  {%endif%}
 </div>
 {% endblock %}

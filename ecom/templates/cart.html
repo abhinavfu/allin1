@@ -1,0 +1,147 @@
+{% extends 'base.html' %} {% block page %}
+{% block title %}
+<title>E-Shop | Cart</title>
+{%endblock%}
+<div>
+  {% if cart|length > 0 %}
+  <div class="cart">
+    <div class="cart-items">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 100px">Item</th>
+            <th class="cart-name">Name</th>
+            <th style="width: 100px">Price</th>
+            <th style="width: 150px">Quantity</th>
+            <th style="width: 100px">Subtotal</th>
+            <th style="width: 100px">Remove</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for data in cart %}
+          <tr>
+            <td>
+              <div class="cart-img">
+                {% if data.image %}
+                <img src="{{data.image}}" alt="product item" />
+                {% else %}
+                <img src="/static/images/No_image.png" alt="" />
+                {% endif %}
+              </div>
+            </td>
+            <td>{{data.name}}</td>
+            <td>{{currency}}{{data.promotion_price}}</td>
+            <td class="cart-btn">
+                {% if data.quantity > 1 %}
+                <a class="cart-remove" href="{% url 'cartUpdate' data.id -1 %}"
+                  >-</a
+                >
+                {% else %}
+                <a class="cart-remove" href="#">-</a>
+                {%endif%}
+                <div class="cart-quantity">{{data.quantity}}</div>
+                <a class="cart-add" href="{% url 'cartUpdate' data.id 1 %}">+</a>
+            </td>
+            <td>{{currency}}{{data.subtotal}}</td>
+            <td><a href="{% url 'cartDelete' data.id %}"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M170.5 51.6L151.5 80h145l-19-28.4c-1.5-2.2-4-3.6-6.7-3.6H177.1c-2.7 0-5.2 1.3-6.7 3.6zm147-26.6L354.2 80H368h48 8c13.3 0 24 10.7 24 24s-10.7 24-24 24h-8V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V128H24c-13.3 0-24-10.7-24-24S10.7 80 24 80h8H80 93.8l36.7-55.1C140.9 9.4 158.4 0 177.1 0h93.7c18.7 0 36.2 9.4 46.6 24.9zM80 128V432c0 17.7 14.3 32 32 32H336c17.7 0 32-14.3 32-32V128H80zm80 64V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16z"/></svg></a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="cart-mob">
+      {% for data in cart %}
+      <div class="cart-c">
+        <div class="cart-img">
+          {% if data.image %}
+          <img src="{{data.image}}" alt="product item" />
+          {% else %}
+          <img src="/static/images/No_image.png" alt="" />
+          {% endif %}
+        </div>
+        <div>
+          <div style="color: #7c5b47">{{data.name}}</div>
+          <div>Price : {{currency}}{{data.promotion_price}}</div>
+          <div class="cart-btn">
+            {% if data.quantity > 1 %}
+            <a class="cart-remove" href="{% url 'cartUpdate' data.id -1 %}"
+              >-</a
+            >
+            {% else %}
+            <a class="cart-remove" href="#">-</a>
+            {%endif%}
+            <span class="cart-quantity">{{data.quantity}}</span>
+            <a class="cart-add" href="{% url 'cartUpdate' data.id 1 %}">+</a>
+          </div>
+          <div>Subtotal : {{currency}}{{data.subtotal}}</div>
+          <div class="cart-del">
+            <a href="{% url 'cartDelete' data.id %}"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M170.5 51.6L151.5 80h145l-19-28.4c-1.5-2.2-4-3.6-6.7-3.6H177.1c-2.7 0-5.2 1.3-6.7 3.6zm147-26.6L354.2 80H368h48 8c13.3 0 24 10.7 24 24s-10.7 24-24 24h-8V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V128H24c-13.3 0-24-10.7-24-24S10.7 80 24 80h8H80 93.8l36.7-55.1C140.9 9.4 158.4 0 177.1 0h93.7c18.7 0 36.2 9.4 46.6 24.9zM80 128V432c0 17.7 14.3 32 32 32H336c17.7 0 32-14.3 32-32V128H80zm80 64V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16z"/></svg></a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="cart-amount">
+      <h3>Summary</h3>
+      <hr />
+      <form class="cart-offer" action="" method="POST">
+        {% csrf_token %}
+        <div class="input-field">
+          <input type="text" id="c-offer" name="c-offer" required />
+          <label for="c-offer">Apply Offer Here</label>
+        </div>
+        <button class="c-offer-btn" type="submit">Apply</button>
+      </form>
+      <hr />
+      <h5>Estimate Shipping and Tax</h5>
+      <hr />
+      <div class="amount-total">
+        <p>Subtotal</p>
+        <p>{{currency}}{{payment.subtotal}}</p>
+      </div>
+      <div class="amount-total">
+        <p>Shipping</p>
+        <p>{{currency}}{{payment.shipping}}</p>
+      </div>
+      <div class="amount-total">
+        <p>Tax (8%)</p>
+        <p>{{currency}}{{payment.tax}}</p>
+      </div>
+      <div class="amount-total">
+        <p>Offer Applied (10%)</p>
+        <p>{{currency}}-offer</p>
+      </div>
+      <hr />
+      <div class="amount-total">
+        <h4>Order Total</h4>
+        <h4>{{currency}}{{payment.ordertotal}}</h4>
+      </div>
+      <hr />
+      <a href="{% url 'confirmOrder' %}"><button class="btn btn-blue">Place Order</button></a>
+    </div>
+  </div>
+  {% else %}
+  <div class="noitem">
+    <h3>
+      No items to display. <br />
+      Add something.
+    </h3>
+  </div>
+  {% endif %}
+</div>
+<!-- Script for adjusting auto height -->
+{% if cart|length > 5 %}
+<script>
+  x = document.getElementsByClassName("cart-items");
+  for (let i = 0; i < x.length; i++) {
+    x[i].style.height = "auto";
+  }
+</script>
+{% else %}
+<script>
+  x = document.getElementsByClassName("cart-items");
+  for (let i = 0; i < x.length; i++) {
+    x[i].style.height = "700px";
+  }
+</script>
+{%endif%} {%endblock%}

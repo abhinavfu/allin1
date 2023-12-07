@@ -1,0 +1,15 @@
+{% extends 'blogBase.html' %} {% block blog %}
+{% block title %}
+    <title>Blog | Setting</title>
+{%endblock%}
+<div class="blogsetting">
+    <h2>Setting</h2>
+    <ul>
+        <li><a href=""><div>Personal Information</div></a></li>
+        <li><a href="{% url 'bloguserProfileEdit' %}"><div>Edit Profile info</div></a></li>
+        <li><a href="{% url 'blogfollowers' bloger.username %}"><div>Followers</div></a></li>
+        <li><a href="{% url 'blogfollowing' bloger.username %}"><div>Following</div></a></li>
+        <li><a href="" class="red"><div>Delete Account</div></a></li>
+    </ul>
+</div>
+{% endblock %}

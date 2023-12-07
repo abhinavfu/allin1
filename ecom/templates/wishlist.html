@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% block page %}
+{% block title %}
+<title>E-Shop | Whislist</title>
+{%endblock%}
+<div>
+  {% if wishlist|length > 0 %}
+  <div class="wishlist">
+    <div>
+        <div class="d-flex">
+          {% for data in wishlist %}
+          <div class="product-card">
+            <a href="{% url 'productInfo' data.product.id %}">
+              <div class="img-box">
+                {% if data.product.pic1 %}
+                <img src="{{data.product.pic1.url}}" alt="image of {{data.product.name}}" />
+                {% else %}
+                <img src="/static/images/No_image.png" alt="" />
+                {% endif %}
+              </div>
+              <h4>{{data.product.name}}</h4>
+              <div class="pricebox">
+                <div class="price1">{{currency}} {{data.product.promotion_price}}</div>
+                <div class="price2">
+                  <del> {{currency}} {{data.product.price}}</del>
+                </div>
+                <div class="discount">{{data.product.discount}}% off</div>
+              </div>
+            </a>
+            <br>
+            <span><a class="btn btn-red" href="{% url 'wishlistRemove' data.id %}">Remove</a></span>
+        </div>
+          {% endfor %}
+        </div>
+      </div>
+  </div>
+  {% else %}
+  <div class="noitem">
+    <h3>
+      No items to display. <br />
+      Add something.
+    </h3>
+  </div>
+  {% endif %}
+</div>
+{%endblock%}

@@ -1,0 +1,183 @@
+{% extends 'base.html' %} {% block page %}
+{% block title %}
+<title>E-Shop | Home</title>
+{%endblock%}
+<div class="home">
+    <section class="hero">
+        <div class="div50"><img src="/static/images/hero.avif" alt=""></div>
+        <div class="div50 hero-content">
+            <h3>Best Season Sale</h3>
+            <h1>Show The World <br>  Your Own <br>  Unique Style</h1>
+            <h3>LIVE THE FASHION</h3>
+            <p>Living the fashion is all about expressing yourself through your style. Whether you're into classic looks or bold, daring styles, living the fashion means embracing your own unique sense of style.
+                
+            </p><br>
+            <span><a class="btn" href="{% url 'shop' 'all' %}">Shop Now</a></span>
+        </div>
+    </section>
+    <section class="uniPad features">
+        <div class="features-container">
+            <div class="card"><h4>FREE SHIPPING</h4>On Bulk Orders</div>
+            <div class="card"><h4>ISO CERTIFIED</h4>100% Gaurantee</div>
+            <div class="card"><h4>HUGE SAVINGS</h4>At Lowest Price</div>
+            <div class="card"><h4>EASY RETURN</h4>No Question Asked</div>
+        </div>
+    </section>
+    <section class="uniPad">
+        <h1>Best Selling Products</h1>
+        <div class="product-container">
+            {% for data in products %}
+            <a href="{% url 'productInfo' data.id %}">
+                <div class="product-card">
+                    {% if data.sale %}
+                    <div class="sale">Sale!</div>
+                    {%endif%}
+                    <div class="product-img">
+                        {% if data.pic1 %}
+                        <img src="{{data.pic1.url}}" alt="image of {{data.name}}" />
+                        {% else %}
+                        <img src="/static/images/No_image.png" alt="" />
+                        {% endif %}
+                      </div>
+                    <div class="product-info">
+                        <h3 class="tag">{{data.mainCategory}} {{data.subCategory}}</h3>
+                        <h2>{{data.name}}</h2>
+                        <div class="pricebox">
+                            <span class="price1">{{currency}}{{data.promotion_price}}</span>
+                            <span class="price2">
+                            <del>{{currency}}{{data.price}}</del>
+                            </span>
+                            <span class="discount">{{data.discount}}% off</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {%empty%}
+            <div class="noitem">
+                No Products available to display.
+            </div>
+            {%endfor%}
+        </div>
+    </section>
+    <section class="uniPad">
+        <h1>Our Products</h1>
+        <div class="our-products">
+            <div class="div50"><img src="/static/images/p1.jpg" alt=""></div>
+            <div class="div50">
+                <div>
+                    <h1>Why us?</h1>
+                    <ul>
+                        <li>High Quality Materials</li>
+                        <li>Stylish Designs</li>
+                        <li>Affordable Prices</li>
+                        <li>Variety of Sizes</li>
+                        <li>Fast Shipping</li>
+                        <li>Excellent Customer Service</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="our-products">
+            <div class="div50">
+                <div>
+                    <h1>Benefits of Brands</h1>
+                    <ul>
+                        <li>Increased Visibility: Wearing branded clothing can help to increase visibility for a company or organization. People who wear the clothing become walking advertisements, and this can help to spread awareness of the brand. </li>
+                        <li>Professionalism: Branded clothing can help to create a sense of professionalism and unity among employees.</li>
+                        <li>Quality: Branded clothing is often made from higher quality materials than non-branded clothing. This can help to ensure that the clothing lasts longer and looks better for longer.</li>
+                        <li>Brand Loyalty: Wearing branded clothing can help to create a sense of loyalty among customers.</li>
+                        <li>Cost Savings: Buying branded clothing in bulk can help to save money in the long run.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="div50"><img src="/static/images/p2.jpg" alt=""></div>
+        </div>
+        <div class="our-products">
+            <div class="div50"><img src="/static/images/p3.jpg" alt=""></div>
+            <div class="div50">
+                <div>
+                    <h1>Lifestyle and Fashion Trends</h1>
+                    <ul>
+                        <li>Must-Have Accessories for the Summer</li>
+                        <li>The Best Denim Trends of the Season</li>
+                        <li>Colorful Prints and Patterns to Try Now </li>
+                        <li>Statement Sleeves and Shoulder Details</li>
+                        <li>Bold and Bright Colors to Wear Now</li>
+                        <li>The Latest Shoe Trends for Summer</li>
+                        <li>The Hottest Swimwear Trends of the Year</li>
+                        <li>The Best Bags for Every Occasion</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="uniPad">
+        <h1>Trending Products</h1>
+        <div class="product-container">
+            {% for data in trending %}
+            <a href="{% url 'productInfo' data.id %}">
+                <div class="product-card">
+                    {% if data.sale %}
+                    <div class="sale">Sale!</div>
+                    {%endif%}
+                    <div class="product-img">
+                        {% if data.pic1 %}
+                        <img src="{{data.pic1.url}}" alt="image of {{data.name}}" />
+                        {% else %}
+                        <img src="/static/images/No_image.png" alt="" />
+                        {% endif %}
+                      </div>
+                    <div class="product-info">
+                        <h3 class="tag">{{data.mainCategory}} {{data.subCategory}}</h3>
+                        <h2>{{data.name}}</h2>
+                        <div class="pricebox">
+                            <span class="price1">{{currency}}{{data.promotion_price}}</span>
+                            <span class="price2">
+                            <del>{{currency}}{{data.price}}</del>
+                            </span>
+                            <span class="discount">{{data.discount}}% off</span>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {%empty%}
+            <div class="noitem">
+                No Products available to display.
+            </div>
+            {%endfor%}
+        </div>
+    </section>
+    <section class="uniPad features">
+        <h1>Discounts</h1>
+        <div class="sec-container"></div>
+        <div style="font-size: 30px; text-align: center;">25% FLAT OFF on sale*. Terms and Conditions Apply. </div>
+    </section>
+    <section class="uniPad">
+        <h1>Customers Reviews</h1>
+        <div class="sec-container d-flex">
+            <div class="review">
+                <div style="font-weight: 700;">John Walker</div>
+                <div>Ratings &#11088; &#11088; &#11088; &#11088; <span style="color: gray;">1 month ago</span></div>
+                <br>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatum, vel nihil. Recusandae nam cum id, reprehenderit facilis eligendi eius temporibus?</p>
+            </div>
+            <div class="review">
+                <div style="font-weight: 700;">Peter Parker</div>
+                <div>Ratings &#11088; &#11088; &#11088; &#11088; &#11088; <span style="color: gray;">2 Weeks ago</span></div>
+                <br>
+                <p>I got my spidy websuit with great fabric and I'm very happy with the quality.</p>
+            </div>
+        </div>
+    </section>
+    <section class="uniPad">
+        <h1>Brands</h1>
+        <div class="sec-container d-flex">
+            {% for i in brands %}
+                <div class="brand">
+                    {{i}}
+                </div>
+            {%endfor%}
+        </div>
+    </section>
+</div>
+{%endblock%}

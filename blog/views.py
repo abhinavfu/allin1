@@ -21,7 +21,7 @@ def bloghome(request):
     # posts = CreatePost.objects.all().order_by('date').reverse
     # getting only [3] items order_by '-ve' date to reverse
     posts = CreatePost.objects.all().order_by('-date')[:3]
-    latest = CreatePost.objects.all().order_by('-date')[:1]
+    latest = CreatePost.objects.all().order_by('-date')[:5]
     # ---------------------------------------------------------
     #  home views count
     try:
@@ -160,6 +160,10 @@ def blogsignin(request):
         password = request.POST["password"]
 
         user = auth.authenticate(username=username, password=password)
+        if user == None:
+            x = Bloger.objects.get(email=username)
+            user = auth.authenticate(username=x.username, password=password)
+            
         if user is not None:
             auth.login(request, user)
             return redirect(f'{appUrl}/userProfile/{user}/')
@@ -524,3 +528,12 @@ def blogcommentDelete(request, pk, ck):
     comment.delete()
 
     return redirect(f'{appUrl}/post/{pk}')
+
+
+def blogsetting(request):
+    bloger = Bloger.objects.get(username=auth.get_user(request))
+    return render(request, 'blogsetting.html', {'bloger': bloger})
+
+
+def blogDeleteAccount(request):
+    pass

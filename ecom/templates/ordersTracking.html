@@ -1,0 +1,83 @@
+{% extends 'base.html' %} {% block page %}
+{% block title %}
+<title>E-Shop | Order Tracking</title>
+{%endblock%}
+<style>
+    .track-c{
+        display: flex;
+        justify-content: center;
+    }
+    .tracks{
+        width: 430px;
+        /* border: 1px solid gray; */
+    }
+    .tracks :is(h3,ul){
+        padding: 15px;
+        list-style: none;
+    }
+    .tracks ul li{
+        padding: 5px 0px;
+    }
+    .tracks ul li strong{
+        font-weight: 600;
+    }
+    .trackitem{
+        border-top:  1px solid gray;
+        border-bottom:  1px solid gray;
+        padding: 20px 0px;
+    }
+    .tracking{
+        display: flex;
+        color: gray;
+        align-items: center;
+        position: relative;
+        flex-wrap: nowrap;
+    }
+    .tracking div{
+        padding: 15px  ;
+    }
+    .dot{
+        position: absolute;
+        top: 15px;
+        left: 93px;
+    }
+    .dot svg{
+        width: 15px;
+        height: 15px;
+        border: 4px solid white;
+        border-radius: 50%;
+    }
+    .border-r{
+        border-right: 2px solid black;
+        width: 125px;
+    }
+    .border-r .time{
+        font-size: 18px;
+    }
+    .border-r .date{
+        font-size: 14px;
+    }
+    .status{
+        width: 340px;
+    }
+</style>
+<center><h1>Order Tracking</h1></center>
+<div class="track-c">
+    <div class="tracks">
+        <h3>Shipment details</h3>
+        <div class="trackitem">
+        {% for track in tracking %}
+        <div class="tracking">
+            <div class="dot"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 9"><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><circle cx="4.5" cy="4.5" r="3.75"/><path class="cls-1" d="M4.5,1.5a3,3,0,1,1-3,3,3,3,0,0,1,3-3M4.5,0A4.5,4.5,0,1,0,9,4.5,4.49,4.49,0,0,0,4.5,0Z"/></g></g></svg></div>
+            <div class="border-r"><span class="time">{{track.time|time}}</span><br><span class="date">{{track.time | date}}</span></div><div class="status">{{track.status}}</div>
+        </div>
+        {%endfor%}
+        </div>
+        <ul>
+            <li><strong>Delivery Type:</strong> {{delivery_type}}</li>
+            <li><strong>Courier:</strong> {{courier}}</li>
+            <li><strong>Tracking Number:</strong> {{tracking_num}}</li>
+        </ul>
+    </div>
+</div>
+{%endblock%}

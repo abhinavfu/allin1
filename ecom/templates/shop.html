@@ -1,0 +1,135 @@
+{% extends 'base.html' %} {% block page %}
+{% block title %}
+<title>E-shop | Shop</title>
+{%endblock%}
+<div class="shoppage">
+  <div class="sidebar" id="sidebar">
+    <ul>
+      <li>
+        <h4 class="dropdown-btn">Main Category</h4>
+
+        <ul class="dropdown-container">
+          {% for i in mainCat %}
+          <li>
+            <a href="{% url 'shop' i.name %}">{{i.name}}</a>
+          </li>
+          {%endfor%}
+        </ul>
+      </li>
+      <li>
+        <h4 class="dropdown-btn">Sub Category</h4>
+        <ul class="dropdown-container">
+          {% for i in subCat %}
+          <li><a href="{% url 'shop' i.name %}">{{i.name}}</a></li>
+          {%endfor%}
+        </ul>
+      </li>
+      <li>
+        <h4 class="dropdown-btn">Brands</h4>
+        <ul class="dropdown-container">
+          {% for i in brand %}
+          <li><a href="{% url 'shop' i.name %}">{{i.name}}</a></li>
+          {%endfor%}
+        </ul>
+      </li>
+    </ul>
+    <span id="sidebarclose">X</span>
+  </div>
+  <div class="container">
+      <h1>Groceries Products</h1>
+      <div class="filter d-flex">
+        {% if search == None %}
+        <span>Showing all results</span>
+        {%else%}
+        <span>Showing {{product.count}} items for '{{search}}' result.</span>
+        {%endif%}
+        <span id="sidebaropen" class="btn btn-green"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
+          <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2z"/>
+        </svg></span>
+        <span class="d-none"><span id="card3"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-three-columns" viewBox="0 0 16 16">
+          <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13zM1.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5H5V1H1.5zM10 15V1H6v14h4zm1 0h3.5a.5.5 0 0 0 .5-.5v-13a.5.5 0 0 0-.5-.5H11v14z"/>
+        </svg></span><span id="card5"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-three-columns" viewBox="0 0 16 16">
+          <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13zM1.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5H5V1H1.5zM10 15V1H6v14h4zm1 0h3.5a.5.5 0 0 0 .5-.5v-13a.5.5 0 0 0-.5-.5H11v14z"/>
+        </svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-layout-three-columns" viewBox="0 0 16 16">
+          <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0h13A1.5 1.5 0 0 1 16 1.5v13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 14.5v-13zM1.5 1a.5.5 0 0 0-.5.5v13a.5.5 0 0 0 .5.5H5V1H1.5zM10 15V1H6v14h4zm1 0h3.5a.5.5 0 0 0 .5-.5v-13a.5.5 0 0 0-.5-.5H11v14z"/>
+        </svg></span></span>
+        <span class="filterby">Filter by
+          <form action="" method="POST" id="filterproducts" enctype="multipart/form-data">
+              {% csrf_token %}
+              <select name="filterby" id="filterby">
+                  <option value="Relevance" {{r}} onclick="submit()">Relevance</option>
+                  <option value="Popularity" {{p}} onclick="submit()">Most Popular</option>
+                  <option value="Newest" {{n}} onclick="submit()">Newest</option>
+                  <option value="Price low to High" {{lh}} onclick="submit()">Price low to High</option>
+                  <option value="Price High to low" {{hl}} onclick="submit()">Price High to low</option>
+              </select>
+          </form>
+        </span>
+      </div>
+      <div class="card3" id="product-card">
+          {% for data in product %}
+          <a href="{% url 'productInfo' data.id %}">
+            <div class="product-card">
+              {% if data.sale %}
+              <div class="sale">Sale!</div>
+              {%endif%}
+                <div class="product-img">
+                  {% if data.pic1 %}
+                  <img src="{{data.pic1.url}}" alt="image of {{data.name}}" />
+                  {% else %}
+                  <img src="/static/images/No_image.png" alt="" />
+                  {% endif %}
+                </div>
+                <div class="product-info">
+                    <h3 class="tag">{{data.mainCategory}}, {{data.subCategory}}, {{data.brand}}</h3>
+                    <h2>{{data.name}}</h2>
+                    <div class="pricebox">
+                        <span class="price1">{{currency}}{{data.promotion_price}}</span>
+                        <span class="price2">
+                            <del>{{currency}}{{data.price}}</del>
+                        </span>
+                        <span class="discount">{{data.discount}}% off</span>
+                    </div>
+                </div>
+            </div>
+          </a>
+          {%endfor%}
+        </div>
+        <div>
+          {% for data in product %}
+          {%empty%}
+          <div class="noitem">
+              No Products available to display.
+          </div>
+          {%endfor%}
+      </div>
+</div>
+<script>
+  let card3 = document.getElementById("card3");
+  let card5 = document.getElementById("card5");
+  let productcard = document.getElementById("product-card");
+
+  let sidebar = document.getElementById("sidebar");
+  let sidebaropen = document.getElementById("sidebaropen");
+  let sidebarclose = document.getElementById("sidebarclose");
+
+  card3.addEventListener("click", function () {
+      productcard.className = 'card3'
+    });
+  card5.addEventListener("click", function () {
+      productcard.className = 'card5'
+    });
+  function submit() {
+          let filterby = document.getElementById("filterproducts");
+          filterby.submit();
+      }
+  sidebaropen.addEventListener("click", function () {
+      sidebar.style.display = 'block'
+      sidebarclose.style.display = 'block'
+    });
+  sidebarclose.addEventListener("click", function () {
+      sidebar.style.display = 'none'
+      sidebarclose.style.display = 'none'
+    });
+</script>
+{% endblock %}

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import *
 from blog.models import Blog_page_view_count
-from shop.models import Shop_page_view_count
+from ecom.models import Shop_page_view_count
 from app.models import App_page_view_count
 from todo.models import Todo_page_view_count
 # Create your views here.
@@ -24,7 +24,7 @@ def homemainApp(request):
                                                                              'Security, Scalability',
                                                                              'Posts, Likes,', 'Comments, Follows',
                                                                              'Multiple Contents', 'Responsive webpage']},
-            {'title': 'E-Shop', 'image': 'shop.png', 'link': 'shop/', 'info': ['Ecommerce project',
+            {'title': 'E-Shop', 'image': 'shop.png', 'link': 'ecom/', 'info': ['Ecommerce project',
                                                                                'Security, Scalability',
                                                                                'Seller – Add products, Confirm orders',
                                                                                'Buyer – Add to cart, Add to whishlist, COD Payment, Track order',

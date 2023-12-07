@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -24,6 +25,23 @@ def todoHome(request):
         except:
             pass
         # ---------------------------------------------------------
+        try:
+            if request.method == "POST":
+                uid = request.POST["uid"]
+                todo = Todo.objects.get(uid=uid)
+                try:
+                    if request.POST["done"] == "on":
+                        done = True
+                except:
+                    done = False
+                data = {"is_done": done}
+
+                serializer = TodoSerializer(todo, data=data, partial=True)
+                if serializer.is_valid():
+                    serializer.save()
+                return redirect(todoURl)
+        except:
+            pass
     except:
         pass
     return render(request, "todohome.html", {'todo': todo, 'todoCompleted': todoCompleted})
@@ -38,7 +56,14 @@ def todoCreate(request):
         serializer = TodoSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-        return redirect(todoURl)
+            return redirect(todoURl)
+        else:
+            if len(title) < 3:
+                messages.error(
+                    request, "Title must be more than 2 characters.")
+            if len(title) == 0:
+                pass
+
     return render(request, 'todoCreate.html')
 
 
@@ -60,18 +85,14 @@ def todoUpdate(request, pk):
         serializer = TodoSerializer(todo, data=data, partial=True)
         if serializer.is_valid():
             serializer.save()
-        return redirect(todoURl)
+            return redirect(todoURl)
+        else:
+            if len(title) < 3:
+                messages.error(
+                    request, "Title must be more than 2 characters.")
+            if len(title) == 0:
+                pass
     return render(request, 'todoUpdate.html', {'todo': todo})
-
-
-def todoDone(request, pk, done):
-    todo = Todo.objects.get(uid=pk)
-    data = {"is_done": done}
-
-    serializer = TodoSerializer(todo, data=data, partial=True)
-    if serializer.is_valid():
-        serializer.save()
-    return redirect(todoURl)
 
 
 def todoDelete(request, pk):

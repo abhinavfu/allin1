@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'ecom/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'ecom/styleMob.css' %}" />
+    {% block title %}
+    <title>E-Shop</title>
+    {%endblock%}
+</head>
+<body>
+    <div class="uniPad">{% include 'navbar.html' %}</div>
+    <div id="pageup">
+        <a href="#navbar">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-arrow-up-circle"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"
+            />
+          </svg>
+        </a>
+    </div>
+    <div class="min-height">{% block page %} {% endblock %}</div>
+    <div>{% include 'footer.html' %}</div>
+</body>
+<script>
+  // ======== Dropdown ============
+  //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+  var dropdown = document.getElementsByClassName("dropdown-btn");
+  var menu = document.getElementById("menu");
+  var menuitems = document.getElementById("menuitems");
+  var menuclose = document.getElementById("menuclose");
+
+  var i;
+
+  for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click", function () {
+      this.classList.toggle("active");
+      var dropdownContent = this.nextElementSibling;
+      if (dropdownContent.style.display === "block") {
+        dropdownContent.style.display = "none";
+      } else {
+        dropdownContent.style.display = "block";
+      }
+    });
+  }
+  // -------------- menu ---------------
+  menu.onclick = function () {
+    if (menuitems.style.display == "block") {
+      menuitems.style.display = "none";
+      menuclose.style.display = 'none'
+    } else {
+      menuitems.style.display = "block";
+      menuclose.style.display = 'block'
+    }
+  };
+  menuclose.addEventListener("click", function () {
+      menuitems.style.display = 'none'
+      menuclose.style.display = 'none'
+    });
+</script>
+</html>

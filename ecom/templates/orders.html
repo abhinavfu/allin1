@@ -1,0 +1,84 @@
+{% extends 'base.html' %} {% load cart %} {% block page %}
+{% block title %}
+<title>E-Shop | Orders</title>
+{%endblock%}
+<div class="orders" class="min-height" style="min-height: 500px">
+  {% if checkU == 'admin' %}
+  <div class="d-flex" style="padding: 20px">
+    <a class="btn btn-blue" href="{% url 'userprofile' %}">My Products</a>
+    <a class="btn btn-blue" href="{% url 'addProduct' %}">Add Product</a>
+    <a class="btn btn-blue" href="{% url 'orders' %}">Your Orders</a>
+    <a class="btn btn-blue" href="/admin/">Admin Page</a>
+  </div>
+  {%endif%}
+  {% if orders|length > 0 %} {% for i in orders %}
+  <div class="orderitem">
+    <div>
+        <a href="{% url 'orderDetails' i.id %}">
+          <h2>Order id : {{i.id}}</h2>
+          <span style="color: gray">Order Date : {{i.created_at}}</span>
+          <h2>Order Status : {{i.orderstatus}}</h2>
+        </a>
+        {% if i.orderstatus == 'Cancelled' %}
+        {%else%}
+        {% if checkU == 'buyer' %}
+        <div style="padding: 15px 0px">
+          <a class="btn btn-blue" href="{% url 'ordersTracking' i.id %}">Track Order</a>
+          <br /><br />
+          <button class="btn btn-red dropdown-btn" onclick="toggle(1)">
+            Cancel Order
+          </button>
+          <div class="dropdown-container">
+            <h4>Do you want to Cancel this Order ?</h4><br>
+            <a class="btn btn-red" href="{% url 'orderCancel' i.id %}">Cancel Order</a>
+            <a class="btn btn-blue" href="{% url 'orders' %}">Back</a>
+          </div>
+        </div>
+        {%endif%}
+        {%endif%}
+      </div>
+      {% if checkU == 'shipment' %}
+      {%else%}
+      <div>
+        <a href="{% url 'orderDetails' i.id %}">
+        <div class="cart-items">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 100px">Item</th>
+                <th class="cart-name">Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for j in request|checkoutProducts:i.id %}
+              <tr>
+                <td>
+                  <div class="cart-img">
+                    {% if j.product.pic1 %}
+                    <img src="{{j.product.pic1.url}}" alt="product item" />
+                    {% else %}
+                    <img src="/static/images/No_image.png" alt="" />
+                    {% endif %}
+                  </div>
+                </td>
+                <td>{{j.product}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div></a>
+      </div>
+      {%endif%}
+    </div>
+  
+  {%endfor%} {% else %}
+  <div class="noitem">
+    <h3>
+      No orders to display. <br />
+      Order something.
+    </h3>
+  </div>
+  {% endif %}
+</div>
+
+{%endblock%}

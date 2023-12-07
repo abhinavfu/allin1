@@ -1,0 +1,152 @@
+<nav id="navbar">
+  <span class="logo"><a href="{% url 'home' %}"><img src="/static/images/logo.svg" alt="Logo"></a></span>
+  <div class="d-none d-flex">
+    <ul>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'shop' 'all' %}">Products</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
+    </ul>
+    <div class="d-flex">
+      <form
+        action="{% url 'shop' 'all' %}"
+        method="GET"
+        enctype="multipart/form-data"
+      >
+        <input
+          id="search"
+          name="search"
+          class="form-control"
+          type="search"
+          placeholder="Search"
+          list="suggest-list"
+        />
+        <button class="btn btn-green" type="submit">
+          <svg
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-search"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+            />
+          </svg>
+        </button>
+      </form>
+      {% if checkU == 'buyer' or checkU == 'user'%}
+      <button class="btn btn-blue">
+        <a href="{% url 'cart' %}">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-cart3"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
+            />
+          </svg>
+          {% if request.user.is_authenticated %} {% if cart|length > 0 %}
+          <div id="cc" class="cart-count">{{cart|length}}</div>
+          {%else%} {%endif%} {%endif%}
+        </a>
+      </button>
+      {%else%} {%endif%}
+      
+        {% if request.user.is_authenticated %}
+        <a class="btn btn-green dropdown-btn" onclick="toggle(1)"
+          >{{ request.user }}</a
+        >
+        <div class="dropdown-container">
+          <a class="btn btn-blue" href="{% url 'userprofile' %}">Profile</a>
+          <a class="btn btn-red" href="{% url 'logout' %}">Logout</a>
+        </div>
+        {%else%}
+        <a class="btn btn-green" href="{% url 'signin' %}">SignIn</a>
+        {%endif%}
+      
+    </div>
+  </div>
+  <div>
+    <form
+      action="{% url 'shop' 'all' %}"
+      method="GET"
+      enctype="multipart/form-data"
+      id="form-search"
+    >
+      <input
+        id="search"
+        name="search"
+        class="form-control"
+        type="search"
+        placeholder="Search"
+        list="suggest-list"
+      />
+      <button class="btn btn-green" type="submit">
+        <svg
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-search"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
+          />
+        </svg>
+      </button>
+    </form>
+    <button class="btn btn-green menu" id="menu"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+    </svg></button>
+  </div>
+  <div id="menuitems" class="m-d-none">
+    <span class="logo"><a href="{% url 'home' %}"><img src="/static/images/logo.svg" alt="Logo"></a></span>
+    <ul>
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'shop' 'all' %}">Products</a></li>
+      <li><a href="{% url 'about' %}">About</a></li>
+      <li><a href="{% url 'contact' %}">Contact</a></li>
+    </ul>
+    <span id="menuclose">X</span>
+    
+    {% if checkU == 'buyer' or checkU == 'user'%}
+    <button class="btn btn-blue">
+      <a href="{% url 'cart' %}">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-cart3"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"
+          />
+        </svg>
+        {% if request.user.is_authenticated %} {% if cart|length > 0 %}
+        <div id="cc" class="cart-count">{{cart|length}}</div>
+        {%else%} {%endif%} {%endif%}
+      </a>
+    </button>
+    {%else%} {%endif%}
+    <div id="menuitem2">
+      {% if request.user.is_authenticated %}
+      <a class="btn btn-green dropdown-btn" onclick="toggle(1)"
+        >{{ request.user }}</a
+      >
+      <div class="dropdown-container">
+        <a class="btn btn-blue" href="{% url 'userprofile' %}">Profile</a>
+        <a class="btn btn-red" href="{% url 'logout' %}">Logout</a>
+      </div>
+      {%else%}
+      <a class="btn btn-green" href="{% url 'signin' %}">SignIn</a>
+      {%endif%}
+    </div>
+  </div>
+</nav>
