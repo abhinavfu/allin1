@@ -1,0 +1,295 @@
+/* ------------ Mobile devices ------------ */
+@media only screen and (max-width: 600px) {
+    .uniPad {
+      padding: 0px 4%;
+    }
+    .div50{
+        width: 100%;
+    }
+    .hero img{
+      width: 100%;
+      height: auto;
+    }
+    /* ----------------------- Best Selling Products ---------------------------------- */
+    .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0px;
+    }
+    .product-card {
+      width: 170px;
+      margin: 10px 0px;
+      border-radius: 5px;
+      padding-bottom: 10px;
+  }
+    /* ----------------------- Our Products ---------------------------------- */
+    .our-products {
+        margin: 20px 0px;
+        border-radius: 10px;
+        padding: 20px 10px 40px 10px;
+        background-color: rgba(128, 128, 128, 0.126);
+    }
+    .our-products .div50{
+        display: block;
+    }
+    .our-products .div50 img{
+        width: 100%;
+        height: 100%;
+    }
+    .our-products .div50> div{
+        padding:0px;
+    }
+    .our-products .div50 h1{
+        font-size: 40px;
+        padding: 0px 0px;
+    }
+    .review{
+      margin: 10px 0px;
+    }
+    /* =============== Navbar =============== */
+    #menu,#form-search {
+      display: block;
+      position: absolute;
+      top: 10px;
+    }
+    #form-search{
+      width: 240px;
+      left: 120px;
+      display: flex;
+    }
+    #menu{
+      right: 10px;
+    }
+    .navbar >ul {
+      display: none;
+    }
+    #menuitems {
+      display: none;
+      position: fixed;
+      top: 0px;
+      left: 0px;
+      z-index: 5;
+      padding: 10px 20px;
+      width: 100%;
+      height: 100vh;
+      background-color: white;
+    }
+    #menuitems .logo img{width: 80px;}
+    #menuitems ul {
+      margin: 20px 0px;
+      display: block;
+    }
+    #menuitems li {
+      padding: 10px 20px;
+      border-radius: 5px;
+      margin: 5px;
+      text-align: center;
+      background-color: rgba(128, 128, 128, 0.1);
+    }
+    #menuitems li a {
+      display: block;
+      width: 100%;
+    }
+    #menuitem2{
+      position: relative;
+    }
+    #menuitem2 .dropdown-container {
+      position: absolute;
+      width: 100%;
+      padding-top: 20px;
+      background-color: rgba(128, 128, 128, 0.1);
+    }
+    .form-control {
+      width: 170px;
+    }
+    /* =============== Shop Section =============== */
+    .shoppage, .shoppage .container{
+      display: block;
+      width: 100%;
+    }
+    .shoppage .container{
+      padding: 10px;
+    }
+    .sidebar{
+      width: 100vw;
+      height: 100vh;
+      z-index: 5;
+      position: fixed;
+      top: 0px;
+      padding: 70px 20px;
+      display: none;
+    }
+    #sidebaropen{
+      float: right;
+      cursor: pointer;
+      display: block;
+    }
+    #menuclose,#sidebarclose{
+      width: 10px;
+      height: 10px;
+      z-index: 6;
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      font-size: 25px;
+      cursor: pointer;
+      display: none;
+    }
+    .shoppage .container .d-flex {
+      display: flex;
+    }
+    .d-none{
+      display: none;
+    }
+    .shoppage .card3{
+      display: flex;
+      justify-content: space-around;
+    }
+    .shoppage .card3 .product-card{
+      width: 190px;
+    }
+    
+    /* =============== product info =============== */
+    
+    .p-detail {
+      width: 100%;
+      padding: 20px 5px;
+    } /* =============== footer =============== */
+    .footer {
+      background-color: rgba(116, 181, 221, 0.5);
+      display: block;
+      justify-content: space-evenly;
+      padding: 20px;
+    }
+    .footer .logo img{
+      width: 120px;
+      height: 60px;
+    }
+    .div33 {
+      width: 100%;
+      text-align: center;
+    }
+    /* ================== User Profile ============== */
+    .userProfile {
+      display: block;
+    }
+    .profile {
+      width: 100%;
+      margin: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .profileinfo {
+      width: 100%;
+    }
+    .userProducts {
+      padding: 50px 10px;
+    }
+    .userProducts .content{
+      width: 170px;
+      padding: 0px;
+      margin: 10px 0px;
+    }
+    .userProducts .product-card{
+      width: 100%;
+    }
+    /* ================== Cart ================= */
+    .cart {
+      display: block;
+    }
+    .noitem {
+      width: 100%;
+      font-size: 50px;
+    }
+    .cart-items {
+      display: none;
+    }
+    .cart-mob {
+      display: block;
+      padding: 25px;
+    }
+    .cart-c {
+      display: flex;
+      background-color: rgba(128, 128, 128, 0.1);
+      margin: 5px 0px;
+      padding: 5px;
+    }
+    .cart-c .cart-img {
+      margin-right: 20px;
+      width: 120px;
+      height: 150px;
+      background-color: rgba(255, 255, 255, 0);
+    }
+    .cart-c{
+      width: 100%;
+      display: flex;
+    }
+    .cart-btn {
+      width: 100%;
+      text-align: center;
+    }
+    .cart-del {
+      border: 1px solid red;
+      background-color: rgb(255, 199, 199);
+      text-align: center;
+      padding: 5px;
+      border-radius: 5px;
+    }
+    /* ==== Cart Amount Section ==== */
+    .cart-amount {
+      width: 100%;
+      padding: 50px 25px;
+    }
+    /* ------------ Address ------------ */
+    .addressSec {
+      padding: 50px 10px;
+    }
+    .addressSec > .address {
+      width: auto;
+    }
+    .address {
+      padding: 20px;
+      margin: 10px 0px;
+    }
+      /* ------------ Confirm Order ------------ */
+    .confirmOrder {
+      padding: 50px 0px;
+    }
+    .confirmOrder .cart-amount {
+      padding: 20px;
+    }
+    .confirmOrder :is(.addressinfo, .address, .cart-amount) {
+      width: auto;
+      margin: 20px 0px;
+    }
+    .confirmOrder .addressinfo .address{margin: 0px;}
+    /* ------------ Orders ------------ */
+    .orderitem {
+      display: block;
+    }
+    .orderitem .cart-mob  {
+      padding: 10px 0px;
+    }
+    /* =============== Payment ================= */
+    .payment {
+      display: block;
+      padding: 0px;
+    }
+    .pay-method {
+      width: 100%;
+      padding: 50px 0px;
+      /* background-image: linear-gradient(-145deg, rgb(0, 170, 0), skyblue); */
+    }
+    .pay-amount {
+      width: 100%;
+      text-align: center;
+      color: white;
+      background-image: linear-gradient(145deg, rgb(0, 170, 0), skyblue);
+    }
+    /* =============== orders ================= */
+    .noitem h3{
+      font-size: 70px;
+    }
+  }
+  

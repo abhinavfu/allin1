@@ -9,7 +9,7 @@
 :root {
   --bg-lightgray: #cbd1d2;
   --blue: rgb(35, 115, 220);
-  --lightred: lightcoral;
+  --lightred: rgb(255, 110, 110);
   --green: #26a541;
   --post-bg: rgba(190, 190, 190, 0.15);
 }
@@ -88,6 +88,13 @@ button:hover, .btn:hover {
 .nocontent{
   color: var(--bg-lightgray);
   font-size: 70px;
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: rgb(165, 165, 165, 0.6);
 }
 /* ---------- dropdown -------- */
 .dropdown-btn {position: relative;}
@@ -115,13 +122,20 @@ nav {
 }
 nav .navlink {
   padding: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: end;
 }
-nav .navlink ul {
+nav .navlink >ul {
   list-style: none;
   display: flex;
 }
 nav .navlink ul li {
-  margin: 0px 10px;
+  padding: 5px 10px;
+}
+nav .navlink ul li:hover {
+  border-radius: 5px;
+  background-color: rgba(128, 128, 128, 0.2);
 }
 /* ---------- Home ---------- */
 .hero {
@@ -184,15 +198,12 @@ nav .navlink ul li {
   width: 25%;
 }
 :is(.div50, .homeBlog, .homeArtist, footer) h1 {
-  font-size: 70px;
+  font-size: 60px;
   padding: 20px 0px;
 }
-.about,
-.homeBlog,
-.homeArtist,
-.latest,
-footer {
-  padding: 10%;
+.about{padding: 10%;}
+:is(.homeBlog,.homeArtist,.latest,footer) {
+  padding: 70px 10%;
 }
 .homecontent, .footercontainer {
   display: flex;
@@ -251,7 +262,7 @@ footer {
   background-color: var(--bg-lightgray);
 }
 .latest {
-  display: flex;
+  display: flex;  
 }
 /* ---------- Blog ---------- */
 .blogSec {
@@ -361,7 +372,7 @@ footer {
 .ustatus .unum {font-size: 35px;}
 .uinfo {
   padding: 20px;
-}
+}x
 .uinfo :is(h2, p, div) {
   padding: 10px;
 }
@@ -370,8 +381,9 @@ footer {
   display: flex;
   justify-content: center;
 }
-.createPost {
+.createPost, .profileEdit{
   padding: 10px;
+  background-color: var(--bg-lightgray);
 }
 .createPost button[type="submit"] {
   padding: 10px;
@@ -448,6 +460,28 @@ form {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+/* ---------- Setting ---------- */
+.blogsetting{
+  padding: 50px;
+}
+.blogsetting ul{
+  padding: 15px 0px;
+}
+.blogsetting ul li{
+  padding: 10px;
+  margin: 5px 0px;
+  border-radius: 5px;
+  background-color: rgba(128, 128, 128, 0.15);
+}
+.blogsetting ul li:hover {
+  background-color: rgba(128, 128, 128, 0.2);
+}
+.blogsetting ul li a{
+  width: 100%;
+}
+:is(.blogsetting,.navlink) .red{
+  color: var(--lightred);
 }
 /* ---------- Footer ---------- */
 footer {
