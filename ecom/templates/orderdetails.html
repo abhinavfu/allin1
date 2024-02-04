@@ -20,12 +20,13 @@
         <td>
           <div>
             <div>{{address.address1}}, {{address.address2}}, {{address.city}}, 
-              {{address.pincode}}
+              PIN : {{address.pincode}}
             </div>
             <div>State: {{address.state}}</div>
             <div>Country: {{address.country}}</div>
             <div>Landmark: {{address.landmark}}</div>
             <div>Phone: {% if address.country == 'India' %}+91 {%endif%}{{address.phone}}</div>
+            <div>Address Type: {{address.addresstype}}</div>
           </div>
         </td>
       </tr>

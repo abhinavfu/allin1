@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import Q
+from django.urls import reverse # Used to generate URLs by reversing the URL patterns
 # Create your models here.
 
 
@@ -8,6 +9,10 @@ class MainCategory(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def get_absolute_url(self):
+        """Returns the URL to access a detail record for this Main Category."""
+        return reverse('MainCategory-detail', args=[str(self.id)])
 
 
 class SubCategory(models.Model):

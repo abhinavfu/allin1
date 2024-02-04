@@ -356,6 +356,9 @@ nav ul li{
     background-color: white;
     color: var(--blue);
   }
+  .btn-blue:hover svg {
+    color: white;
+  }
   :is(form .btn-blue, .btn-blue:hover) {
     background-color: var(--blue);
     color: white;
@@ -552,7 +555,7 @@ nav ul li{
     padding: 20px;
   }
   .img-container {
-    width: 40%;
+    width: 30%;
   }
   /* ........... */
   .exp {

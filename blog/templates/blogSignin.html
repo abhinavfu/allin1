@@ -3,9 +3,6 @@
     <title>Blog | Signin</title>
 {%endblock%}
 <div class="bg">
-    {% for i in messages %}
-    <div class="msg-error">{{i}}</div>
-    {% endfor %}
     <form action="" method="POST" class="min-height">
       {% csrf_token %}
       <div class="form">
@@ -13,6 +10,9 @@
           <h1>Sign in</h1>
         </div>
         <div>To continue to Blog</div>
+        {% for i in messages %}
+          <div class="msg-error">{{i}}</div>
+        {% endfor %}
         <div class="input-field">
           <label htmlFor="username">E-mail I'd or Username</label>
           <input name="username" type="text" id="username" required />

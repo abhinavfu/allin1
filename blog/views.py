@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
@@ -159,16 +160,22 @@ def blogsignin(request):
         username = request.POST["username"]
         password = request.POST["password"]
 
-        user = auth.authenticate(username=username, password=password)
-        if user == None:
-            x = Bloger.objects.get(email=username)
-            user = auth.authenticate(username=x.username, password=password)
+        try:
+            user = auth.authenticate(username=username, password=password)
+            if user == None:
+                try:
+                    x = Bloger.objects.get(username=username) 
+                except:
+                    x = Bloger.objects.get(email=username)
+                user = auth.authenticate(username=x.username, password=password)
             
-        if user is not None:
-            auth.login(request, user)
-            return redirect(f'{appUrl}/userProfile/{user}/')
-        else:
-            messages.error(request, " Email and Password does not match")
+            if user is not None:
+                auth.login(request, user)
+                return redirect(f'{appUrl}/userProfile/{user}/')
+            else:
+                messages.error(request, "Email and Password does not match")
+        except:
+            messages.error(request, "User does not exsist")
     return render(request, 'blogSignin.html')
 
 
@@ -330,27 +337,31 @@ def blogSubscribe(request):
 # @login_required(login_url=loginUrl)
 def bloguserProfile(request, pk):
     try:
-        bloger = Bloger.objects.get(username=pk)
+        try:
+            bloger = Bloger.objects.get(username=pk)
+        except:
+            bloger = Bloger.objects.get(username=auth.get_user(request))
+
+        posts = CreatePost.objects.filter(
+            bloger=bloger.id).order_by('date').reverse
+        following = Following.objects.filter(
+            username=pk).order_by('date').reverse
+        follower = Follower.objects.filter(
+            username=pk).order_by('date').reverse
+        # -------------------------------------------------
+        if bloger.username == str(auth.get_user(request)):
+            editProfile = True
+        else:
+            editProfile = False
+        x = Following.objects.filter(
+            username=auth.get_user(request))
+
+        context = {'bloger': bloger, 'posts': posts, 'following': following,
+                'follower': follower, 'editProfile': editProfile, }
+        
+        return render(request, 'blogUserProfile.html', context)
     except:
-        bloger = Bloger.objects.get(username=auth.get_user(request))
-
-    posts = CreatePost.objects.filter(
-        bloger=bloger.id).order_by('date').reverse
-    following = Following.objects.filter(
-        username=pk).order_by('date').reverse
-    follower = Follower.objects.filter(
-        username=pk).order_by('date').reverse
-    # -------------------------------------------------
-    if bloger.username == str(auth.get_user(request)):
-        editProfile = True
-    else:
-        editProfile = False
-    x = Following.objects.filter(
-        username=auth.get_user(request))
-
-    context = {'bloger': bloger, 'posts': posts, 'following': following,
-               'follower': follower, 'editProfile': editProfile, }
-    return render(request, 'blogUserProfile.html', context)
+        return HttpResponse("<div>ERROR : You are already logged in another app. Please Logout and revisit the app.</div>")
 
 
 @login_required(login_url=loginUrl)

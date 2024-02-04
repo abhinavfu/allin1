@@ -521,6 +521,9 @@
       width: 120px;
       height: 150px;
     }
+    #my-contact {
+      padding: 0px 3%;
+    }
     #contact,
     #social {
       width: 100%;

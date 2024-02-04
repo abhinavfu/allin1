@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from random import randint
 from django.core.mail import send_mail
 from django.conf import settings
@@ -462,17 +463,22 @@ def signin(request):
         username = request.POST["username"]
         password = request.POST["password"]
         
-        user = auth.authenticate(username=username, password=password)
-        # user = auth.authenticate(email=username, password=password)
-        if user == None:
-            x = Buyer.objects.get(email=username)
-            user = auth.authenticate(username=x.username, password=password)
+        try:
+            user = auth.authenticate(username=username, password=password)
+            if user == None:
+                try:
+                    x = Buyer.objects.get(username=username) 
+                except:
+                    x = Buyer.objects.get(email=username)
+                user = auth.authenticate(username=x.username, password=password)
 
-        if user is not None:
-            auth.login(request, user)
-            return redirect(f'{AppURL}/userprofile')
-        else:
-            messages.error(request, " Email and Password does not match")
+            if user is not None:
+                auth.login(request, user)
+                return redirect(f'{AppURL}/userprofile')
+            else:
+                messages.error(request, "Email and Password does not match")
+        except:
+            messages.error(request, "User does not exsist")
     return render(request, 'signin.html')
 
 
@@ -866,34 +872,44 @@ def orders(request):
     return render(request, 'orders.html', {'orders': orders, 'cart':c, 'checkU': checkU})
 
 
+# addressExtract
+
+def addressExtract(request, data):
+    data = str(data)
+    find = ["'name': '","'phone': '","'country': '","'address1': '","'address2': '","'landmark': '","'city': '","'state': '","'pincode': '","'addresstype': '"]
+    filter_address = []
+    for i in range(len(find)):
+        s = data.index(find[i])
+        try:
+            e = data.index(find[i+1])
+        except:
+            e = 1
+        filter_address.append(data[s+len(find[i]):e-3])
+    
+    address_cleaned = {
+        "name": filter_address[0],
+        "phone": filter_address[1],
+        "country": filter_address[2],
+        "address1": filter_address[3],
+        "address2": filter_address[4],
+        "landmark": filter_address[5],
+        "city": filter_address[6],
+        "state": filter_address[7],
+        "pincode": filter_address[8],
+        "addresstype": filter_address[9],
+    }
+    return address_cleaned
+
+
 @login_required(login_url=loginUrl)
 def orderDetails(request, pk):
     checkU = checkUser(request)
-    # addressExtract
-
-    def addressExtract(request, data):
-        a = data.replace("'", "").split(sep=",")
-        a = [i[1:] if i.startswith(" ") else i for i in a]
-
-        address_cleaned = {
-            "name": a[0][len('name: '):],
-            "phone": a[1][len('phone: '):],
-            "country": a[2][len('country: '):],
-            "address1": a[3][len('address1: '):],
-            "address2": a[4][len('address2: '):],
-            "landmark": a[5][len('landmark: '):],
-            "city": a[6][len('city: '):],
-            "state": a[7][len('state: '):],
-            "pincode": a[8][len('pincode: '):],
-            "addresstype": a[9][len('addresstype: '):],
-        }
-        return address_cleaned
     # for buyers
     try:
         buyer = Buyer.objects.get(username=auth.get_user(request))
         orders = Payment.objects.filter(buyer=buyer).get(id=pk)
         orderitem = Order.objects.all()
-        address = addressExtract(request, orders.address[1:-1])
+        address = addressExtract(request, orders.address)
         c= Cart.objects.filter(buyer=buyer)
     except:
         pass
@@ -901,7 +917,7 @@ def orderDetails(request, pk):
     try:
         orders = Payment.objects.filter(seller=SELLER).get(id=pk)
         orderitem = Order.objects.all()
-        address = addressExtract(request, orders.address[1:-1])
+        address = addressExtract(request, orders.address)
         c=None
     except:
         pass
@@ -932,28 +948,29 @@ def ordersTracking(request, pk):
     try:
         buyer = Buyer.objects.get(username=auth.get_user(request))
         orders = Payment.objects.filter(buyer=buyer).get(id=pk)
-        address = Address.objects.filter(buyer=buyer).get(id=pk)
+        address = addressExtract(request, orders.address)
         orderitem = Order.objects.all()
     except:
         pass
     WAREHOUSE = "Mumbai, warehouse"
-    DISTRICT = address.city.capitalize()
+    DISTRICT = address["city"]
     COURIER = "Shop Express"
     TRACKING_NUM = "SE5465YS2"
     Delivery_Type = "2-6 Days"
+    time = datetime.now()
     Expected_Delivery = datetime.now().date()
     tracking = [
         {"time": orders.created_at, "status": "Order Recieved"},
         {"time": orders.created_at, "status": f"Your order is being processed in {WAREHOUSE}."},
-        {"time": datetime.now(),
+        {"time": time,
          "status": f"Your order is ready to be shipped from {WAREHOUSE}."},
-        {"time": datetime.now(), "status": "Your order is shipped"},
-        {"time": datetime.now(), "status": f"Your order has arrived in {WAREHOUSE}."},
-        {"time": datetime.now(),
+        {"time": time, "status": "Your order is shipped"},
+        {"time": time, "status": f"Your order has arrived in {WAREHOUSE}."},
+        {"time": time,
          "status": f"Your order has been picked by {COURIER} and on the way to {DISTRICT}."},
-        {"time": datetime.now(), "status": f"Your order has arrived in {DISTRICT} and expected sheduled delivery is {Expected_Delivery}."},
-        {"time": datetime.now(), "status": "Your order is out for delivery."},
-        {"time": datetime.now(), "status": "Delivered"},
+        {"time": time, "status": f"Your order has arrived in {DISTRICT} and expected sheduled delivery is {Expected_Delivery}."},
+        {"time": time, "status": "Your order is out for delivery."},
+        {"time": time, "status": "Delivered"},
     ]
     context = {
         'checkU': checkU,
