@@ -7,6 +7,7 @@ import os
 from datetime import datetime
 import math
 from .models import *
+from .serializers import *
 from django.core.mail import send_mail
 from random import randint
 
@@ -139,10 +140,13 @@ def blogpost(request, pk):
     try:
         bloger = Bloger.objects.get(username=auth.get_user(request))
         if request.method == "POST":
-            comment = Comment(bloger=bloger,
-                              post=post,
-                              Commented=request.POST['comment'])
-            comment.save()
+            try:
+                data = {"bloger":bloger.id,"post":post.id,"Commented":request.POST['comment']}
+                serializer = CommentSerializer(data=data)
+                if serializer.is_valid(raise_exception=True):
+                    serializer.save()
+            except:
+                pass
             return redirect(f'{appUrl}/post/{pk}')
     except:
         pass
@@ -187,10 +191,7 @@ def blogGuest(request, pk):
     email = f"guest{lname}@blogtest.com"
     password = "1234"
     Bloger.objects.all()
-    b = Bloger(name=f"{fname} {lname}",
-               username=username,
-               email=email,
-               date=datetime.now())
+    b = Bloger(name=f"{fname} {lname}",username=username,email=email,date=datetime.now())
     b.save()
 
     mainuser = User.objects.create_user(
@@ -220,16 +221,13 @@ def blogsignup(request):
         repassword = request.POST["rpassword"]
         if password == repassword:
             try:
-                Bloger.objects.all()
-                b = Bloger(name=f"{fname} {lname}",
-                           username=username,
-                           email=email,
-                           date=datetime.now())
-                b.save()
-
-                mainuser = User.objects.create_user(
-                    username=username, password=password, email=email, first_name=fname, last_name=lname)
-                mainuser.save()
+                data_bloger = {"name":f"{fname} {lname}","username":username,"email":email,"date":datetime.now()}
+                data_user = {"username":username,"password":password,"email":email,"first_name":fname,"last_name":lname}
+                serializer_bloger = BlogerSerializer(data=data_bloger)
+                serializer_user = UserSerializer(data=data_user)
+                if serializer_bloger.is_valid(raise_exception=True) and serializer_user.is_valid(raise_exception=True):
+                    serializer_bloger.save()
+                    serializer_user.save()
 
                 try:
                     user = auth.authenticate(
@@ -369,15 +367,16 @@ def bloguserProfileEdit(request):
     user = auth.get_user(request)
     bloger = Bloger.objects.get(username=user)
     if request.method == 'POST':
-        bloger.name = request.POST["name"]
-        bloger.bio = request.POST["bio"]
-        try:
+
+        if (request.FILES.get('pic')):
+            data_bloger = {"name":request.POST["name"],"bio":request.POST["bio"],"pic":request.FILES['pic']}
+        else:
+            data_bloger = {"name":request.POST["name"],"bio":request.POST["bio"]}
+        serializer_bloger = BlogerSerializer(bloger,data=data_bloger,partial=True)
+        if serializer_bloger.is_valid(raise_exception=True):
             if (request.FILES.get('pic')):
-                os.remove('media/blogprofile/'+str(bloger.pic1))
-                bloger.pic = request.FILES['pic']
-        except:
-            bloger.pic = request.FILES['pic']
-        bloger.save()
+                os.remove('media/'+str(bloger.pic))
+            serializer_bloger.save()
         return redirect(f'{appUrl}/userProfile/{user}/')
     return render(request, 'blogUserProfileEdit.html', {'bloger': bloger})
 
@@ -389,12 +388,20 @@ def bloguserProfileEdit(request):
 def blogpostCreate(request):
     if request.method == 'POST':
         user = auth.get_user(request)
-        p = CreatePost(bloger=Bloger.objects.get(username=user),
-                       title=request.POST['title'],
-                       description=request.POST['ctext'],
-                       pic1=request.FILES['pic1'],
-                       date=datetime.now())
-        p.save()
+        bloger=Bloger.objects.get(username=user)
+
+        try:
+            data = {"bloger":bloger.id,
+                    "title":request.POST['title'],
+                    "description":request.POST['ctext'],
+                    "pic1":request.FILES['pic1'],
+                    "date":datetime.now()}
+            serializer = CreatePostSerializer(data=data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                messages.success(request, f"Post Successfull")
+        except Exception as e:
+            messages.error(request, f"Creating a new Post Failed!! \n{e}")
         return redirect(f'{appUrl}/userProfile/{user}/')
 
     return render(request, 'blogPostCreate.html')
@@ -405,16 +412,19 @@ def blogpostEdit(request, pk):
     p = CreatePost.objects.all().get(id=pk)
     if request.method == 'POST':
         user = auth.get_user(request)
-        # p.bloger = Bloger.objects.get(username=user)
-        p.title = request.POST['title']
-        p.description = request.POST['ctext']
         try:
-            if (request.FILES.get('pic1')):
-                os.remove('media/'+str(p.pic1))
-                p.pic1 = request.FILES['pic1']
-        except:
-            p.pic1 = request.FILES['pic1']
-        p.save()
+            if request.FILES.get('pic1'):
+                data = {"title":request.POST['title'],"description":request.POST['ctext'],"pic1":request.FILES['pic1']}
+            else:
+                data = {"title":request.POST['title'],"description":request.POST['ctext']}
+            serializer = CreatePostSerializer(p,data=data, partial=True)
+            if serializer.is_valid(raise_exception=True):
+                if (request.FILES.get('pic1')):
+                    os.remove('media/'+str(p.pic1))
+                serializer.save()
+                messages.success(request, "Post Updated Successfully")
+        except Exception as e:
+            messages.error(request, f"Updating Post Failed!! \n{e}")
         return redirect(f'{appUrl}/userProfile/{user}/')
 
     return render(request, 'blogPostEdit.html', {"post": p})
@@ -526,8 +536,12 @@ def blogcommentEdit(request, pk, ck):
     cedit = ck
     if request.method == "POST":
         comment = Comment.objects.get(id=ck)
-        comment.Commented = request.POST['commentedit']
-        comment.save()
+        try:
+            serializer = CommentSerializer(comment,data={"Commented":request.POST['commentedit']}, partial=True)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+        except:
+            pass
 
         return redirect(f'{appUrl}/post/{pk}')
     return render(request, 'blogPost.html', {'post': post, 'cedit': int(cedit), 'userTrue': False, 'like': like, 'comment': comment})

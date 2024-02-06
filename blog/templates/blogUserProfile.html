@@ -54,20 +54,23 @@
         <a class="btn" href="{% url 'blogpostCreate' %}">Create New Post</a>
       </div>
     {%endif%}
+    <div>{% for i in messages %}<center class="msg-error">{{i}}</center>{%endfor%}</div>
   </div>
   <div class="uposts">
     {% for i in posts %}
+    <a href="{% url 'blogpost' i.id %}">
     <div class="div30">
-      <a href="{% url 'blogpost' i.id %}">
         <div>
           {% if request|videoTrue:i.id %}
           <video src="{{i.pic1.url}}"></video>
-          {%else%}
+          {%elif i.pic1 %}
           <img src="{{i.pic1.url}}" alt="" />
+          {%else%}
+              <img src="/static/images/No_image_available.png" alt="" />
           {%endif%}
         </div>
-      </a>
-    </div>
+      </div>
+    </a>
     {%endfor%}
   </div>
   {% if posts|length == 0%}
