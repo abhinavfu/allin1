@@ -5,7 +5,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from datetime import datetime
 import os
-import json
+from .serializers import *
 from .models import *
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
@@ -267,26 +267,31 @@ def addProduct(request):
 
         base_price = int(request.POST['price'])
         discount = int(request.POST['discount'])
-        final_price = float(base_price - (base_price*discount/100))
-        p = Product(mainCategory=mainCat.get(name=request.POST['mainCat']),
-                    subCategory=subCat.get(name=request.POST['subCat']),
-                    brand=brand.get(name=request.POST['brand']),
-                    name=request.POST['name'],
-                    price=base_price,
-                    discount=discount,
-                    promotion_price=final_price,
-                    tags=request.POST['tags'],
-                    size=request.POST['size'],
-                    colour=request.POST['colour'],
-                    stock=request.POST['stock'],
-                    description=request.POST['description'],
-                    pic1=request.FILES['pic1'],
-                    pic2=request.FILES['pic2'],
-                    pic3=request.FILES['pic3'],
-                    pic4=request.FILES['pic4'],
-                    created_at=datetime.now(),
-                    )
-        p.save()
+        final_price = int(base_price - (base_price*discount/100))
+        try:
+            data = {"mainCategory":mainCat.get(name=request.POST['mainCat']).id,
+                    "subCategory":subCat.get(name=request.POST['subCat']).id,
+                    "brand":brand.get(name=request.POST['brand']).id,
+                    "name":request.POST['name'],
+                    "price":base_price,
+                    "discount":discount,
+                    "promotion_price":final_price,
+                    "tags":request.POST['tags'],
+                    "size":request.POST['size'],
+                    "colour":request.POST['colour'],
+                    "stock":request.POST['stock'],
+                    "description":request.POST['description'],
+                    "pic1":request.FILES['pic1'],
+                    "pic2":request.FILES['pic2'],
+                    "pic3":request.FILES['pic3'],
+                    "pic4":request.FILES['pic4'],
+                    "created_at":datetime.now(),}
+            serializer = ProductSerializer(data=data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                messages.success(request, f"Product added successfully")
+        except Exception as e:
+            messages.error(request, f"Creating a new Product Failed!! \n{e}")
         return redirect(f'{AppURL}/userprofile')
     return render(request, 'addproduct.html', {'user': user, 'mainCat': mainCat, 'subCat': subCat, 'brand': brand, 'checkU': checkU})
 
@@ -302,40 +307,44 @@ def editProduct(request, pk):
     if request.method == "POST":
         base_price = int(request.POST['price'])
         discount = int(request.POST['discount'])
-        final_price = float(base_price - (base_price*discount/100))
-
-        d.mainCategory = mainCat.get(name=request.POST['mainCat'])
-        d.subCategory = subCat.get(name=request.POST['subCat'])
-        d.brand = brand.get(name=request.POST['brand'])
-        d.name = request.POST['name']
-        d.price = base_price
-        d.discount = discount
-        d.promotion_price = final_price
-        d.tags = request.POST['tags']
-        d.size = request.POST['size']
-        d.colour = request.POST['colour']
-        d.stock = request.POST['stock']
-        d.description = request.POST['description']
-        d.sale = request.POST['sale']
+        final_price = int(base_price - (base_price*discount/100))
         try:
+            data = {"mainCategory":mainCat.get(name=request.POST['mainCat']).id,
+                    "subCategory":subCat.get(name=request.POST['subCat']).id,
+                    "brand":brand.get(name=request.POST['brand']).id,
+                    "name":request.POST['name'],
+                    "price":base_price,
+                    "discount":discount,
+                    "promotion_price":final_price,
+                    "tags":request.POST['tags'],
+                    "size":request.POST['size'],
+                    "colour":request.POST['colour'],
+                    "stock":request.POST['stock'],
+                    "description":request.POST['description'],
+                    "created_at":datetime.now(),}
             if (request.FILES.get('pic1')):
-                os.remove('media/'+str(d.pic1))
-                d.pic1 = request.FILES['pic1']
+                data["pic1"] = request.FILES['pic1']
             if (request.FILES.get('pic2')):
-                os.remove('media/'+str(d.pic2))
-                d.pic2 = request.FILES['pic2']
+                data["pic2"] = request.FILES['pic2']
             if (request.FILES.get('pic3')):
-                os.remove('media/'+str(d.pic3))
-                d.pic3 = request.FILES['pic3']
+                data["pic3"] = request.FILES['pic3']
             if (request.FILES.get('pic4')):
-                os.remove('media/'+str(d.pic4))
-                d.pic4 = request.FILES['pic4']
-        except:
-            d.pic1 = request.FILES['pic1']
-            d.pic2 = request.FILES['pic2']
-            d.pic3 = request.FILES['pic3']
-            d.pic4 = request.FILES['pic4']
-        d.save()
+                data["pic4"] = request.FILES['pic4']
+
+            serializer = ProductSerializer(d,data=data,partial=True)
+            if serializer.is_valid(raise_exception=True):
+                if (request.FILES.get('pic1')):
+                    os.remove('media/'+str(d.pic1))
+                if (request.FILES.get('pic2')):
+                    os.remove('media/'+str(d.pic2))
+                if (request.FILES.get('pic3')):
+                    os.remove('media/'+str(d.pic3))
+                if (request.FILES.get('pic4')):
+                    os.remove('media/'+str(d.pic4))
+                serializer.save()
+                messages.success(request, f"Product Updated successfully")
+        except Exception as e:
+            messages.error(request, f"Updating Product Failed!! \n{e}")
         return redirect(f'{AppURL}/userprofile')
     return render(request, 'editproduct.html', {'user': seller, 'mainCat': mainCat, 'subCat': subCat, 'brand': brand, 'd': d, 'checkU': checkU})
 
@@ -529,31 +538,19 @@ def signup(request, pk):
         repassword = request.POST["rpassword"]
         if password == repassword:
             try:
-                if user == "Shipment":
-                    print(f"-------------------{user}---------------------")
-                    cuship = Shipment(name=f"{fname} {lname}",
-                                      username=f"{fname}{lname}",
-                                      email=email,
-                                      user_status=user)
-                    print(f"-------------------{user}---------------------")
-                    cuship.save()
-                    print(f"-------------------{user}---------------------")
+                data_user = {"name":f"{fname} {lname}","username":f"{fname}{lname}","email":email,"user_status":user,"date":datetime.now()}
+                data_mainuser = {"username":f"{fname}{lname}","password":password,"email":email,"first_name":fname,"last_name":lname}
+                if user == "Shipment": 
+                    serializer_user = ShipmentSerializer(data=data_user, partial=True)
                 else:
-                    print(f"-------------------{user}---------------------")
-                    Buyer.objects.all()
-                    cub = Buyer(name=f"{fname} {lname}",
-                                username=f"{fname}{lname}",
-                                email=email,
-                                user_status=user)
-                    cub.save()
+                    serializer_user = BuyerSerializer(data=data_user, partial=True)
 
-                print(f"------------------- main user ---------------------")
-                mainuser = User.objects.create_user(
-                    username=f"{fname}{lname}", password=password, email=email, first_name=fname, last_name=lname)
-                mainuser.save()
+                serializer_mainuser = UserSerializer(data=data_mainuser)
+                if serializer_user.is_valid(raise_exception=True) and serializer_mainuser.is_valid(raise_exception=True):
+                    serializer_user.save()
+                    serializer_mainuser.save()
 
                 try:
-                    print(f"------------------- user auth ---------------------")
                     user = auth.authenticate(
                         username=f"{fname}{lname}", password=password)
                     if user is not None:
@@ -563,8 +560,8 @@ def signup(request, pk):
                     messages.success(
                         request, "Your Account has been successfully created")
                     return render(request, 'signin.html')
-            except:
-                messages.error(request, "Username or Email id already exsits")
+            except Exception as e:
+                messages.error(request, str(e))
                 return render(request, 'signup.html')
         else:
             messages.error(request, "Password does not match")
@@ -702,28 +699,38 @@ def editProfile(request, pk):
     checkU = checkUser(request)
     if checkU == 'admin':
         s = User.objects.all().get(id=pk)
+    elif checkU == 'shipment':
+        s = Shipment.objects.all().get(id=pk)
     else:
         s = Buyer.objects.all().get(id=pk)
 
     if request.method == 'POST':
-        s.name = request.POST["fname"]
-        s.email = request.POST["email"]
-        s.phone = request.POST["phone"]
-        s.addressline1 = request.POST["addressline1"]
-        s.addressline2 = request.POST["addressline2"]
-        s.addressline3 = request.POST["addressline3"]
-        s.pin = request.POST["pin"]
-        s.city = request.POST["city"]
-        s.state = request.POST["state"]
-        s.country = request.POST["country"]
-        try:
-            if (request.FILES.get('pic')):
-                os.remove('media/'+str(s.pic))
-                s.pic = request.FILES["pic"]
-        except:
-            s.pic = request.FILES["pic"]
+        data_user = {"name":request.POST["fname"],
+                        "email":request.POST["email"],
+                        "phone":request.POST["phone"],
+                        "addressline1":request.POST["addressline1"],
+                        "addressline2":request.POST["addressline2"],
+                        "addressline3":request.POST["addressline3"],
+                        "pin":request.POST["pin"],
+                        "city":request.POST["city"],
+                        "state":request.POST["state"],
+                        "country":request.POST["country"]}
+        if (request.FILES.get('pic')):
+            data_user['pic'] = request.FILES['pic']
+        # checking User status
+        if checkU == 'admin':
+            serializer_user = UserSerializer(s,data=data_user,partial=True)
+        elif checkU == 'shipment':
+            serializer_user = ShipmentSerializer(s,data=data_user,partial=True)
+        else:
+            serializer_user = BuyerSerializer(s,data=data_user,partial=True)
 
-        s.save()
+        if serializer_user.is_valid(raise_exception=True):
+            try:
+                if (request.FILES.get('pic')):
+                    os.remove('media/'+str(s.pic))
+            except:pass
+            serializer_user.save()
         return redirect(f'{AppURL}/userprofile')
     return render(request, 'editprofile.html', {'user': s, 'checkU': checkU})
 
@@ -1013,18 +1020,24 @@ def addAddress(request):
     buyer = Buyer.objects.get(username=auth.get_user(request))
 
     if request.method == "POST":
-        address = Address(buyer=Buyer.objects.get(username=auth.get_user(request)),
-                          name=request.POST['name'],
-                          phone=request.POST['phone'],
-                          address1=request.POST['address1'],
-                          address2=request.POST['address2'],
-                          landmark=request.POST['landmark'],
-                          city=request.POST['city'],
-                          state=request.POST['state'],
-                          country=request.POST['country'],
-                          pincode=request.POST['pincode'],
-                          addresstype=request.POST['addresstype'])
-        address.save()
+        try:
+            data = {"buyer":buyer.id,
+                    "name":request.POST['name'],
+                    "phone":request.POST['phone'],
+                    "address1":request.POST['address1'],
+                    "address2":request.POST['address2'],
+                    "landmark":request.POST['landmark'],
+                    "city":request.POST['city'],
+                    "state":request.POST['state'],
+                    "country":request.POST['country'],
+                    "pincode":request.POST['pincode'],
+                    "addresstype":request.POST['addresstype']}
+            serializer = AddressSerializer(data=data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                messages.success(request, f"Address added successfully")
+        except Exception as e:
+            messages.error(request, f"Creating a new Address Failed!! \n{e}")
         return redirect(f'{AppURL}/address')
     return render(request, 'addressAdd.html', {'user': buyer, 'checkU': checkU})
 
@@ -1036,18 +1049,23 @@ def editAddress(request, pk):
 
     address = Address.objects.all().get(id=pk)
     if request.method == "POST":
-        address.name = request.POST['name']
-        address.phone = request.POST['phone']
-        address.address1 = request.POST['address1']
-        address.address2 = request.POST['address2']
-        address.landmark = request.POST['landmark']
-        address.city = request.POST['city']
-        address.state = request.POST['state']
-        address.country = request.POST['country']
-        address.pincode = request.POST['pincode']
-        address.addresstype = request.POST['addresstype']
-
-        address.save()
+        try:
+            data = {"name":request.POST['name'],
+                    "phone":request.POST['phone'],
+                    "address1":request.POST['address1'],
+                    "address2":request.POST['address2'],
+                    "landmark":request.POST['landmark'],
+                    "city":request.POST['city'],
+                    "state":request.POST['state'],
+                    "country":request.POST['country'],
+                    "pincode":request.POST['pincode'],
+                    "addresstype":request.POST['addresstype']}
+            serializer = AddressSerializer(address,data=data,partial=True)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                messages.success(request, f"Address updated successfully")
+        except Exception as e:
+            messages.error(request, f"Updating address failed!! \n{e}")
         return redirect(f'{AppURL}/address')
     return render(request, 'addressEdit.html', {'user': buyer, 'checkU': checkU, 'd': address})
 

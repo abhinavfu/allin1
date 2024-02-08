@@ -106,8 +106,14 @@
   <a class="btn btn-blue" href="{% url 'orders' %}">Your Orders</a>
   <a class="btn btn-blue" href="/abhinavfuadmin/">Admin Page</a>
 </div>
+
+{% if product %}
 <div class="userProducts">
-  <h1>My Products</h1>
+  <h1>My Products </h1>
+  <p>Showing {{product|length}} products.</p>
+  {% for i in messages %}
+  <div class="msg-error">{{i}}</div>
+  {% endfor %}
   <div>
     <div class="d-flex">
       {% for data in product %}
@@ -151,6 +157,7 @@
     </div>
   </div>
 </div>
+{%endif%} 
 {%endif%} 
 <!-- for Shipment User -->
 {% if checkU == 'shipment' %}

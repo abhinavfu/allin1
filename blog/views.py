@@ -223,7 +223,7 @@ def blogsignup(request):
             try:
                 data_bloger = {"name":f"{fname} {lname}","username":username,"email":email,"date":datetime.now()}
                 data_user = {"username":username,"password":password,"email":email,"first_name":fname,"last_name":lname}
-                serializer_bloger = BlogerSerializer(data=data_bloger)
+                serializer_bloger = BlogerSerializer(data=data_bloger, partial=True)
                 serializer_user = UserSerializer(data=data_user)
                 if serializer_bloger.is_valid(raise_exception=True) and serializer_user.is_valid(raise_exception=True):
                     serializer_bloger.save()
@@ -239,8 +239,8 @@ def blogsignup(request):
                     messages.success(
                         request, "Your Account has been successfully created")
                     return render(request, 'blogSignin.html')
-            except:
-                messages.error(request, "Username or Email id already exsits")
+            except Exception as e:
+                messages.error(request, str(e))
                 return render(request, 'blogSignup.html')
         else:
             messages.error(request, "Password does not match")
@@ -374,8 +374,10 @@ def bloguserProfileEdit(request):
             data_bloger = {"name":request.POST["name"],"bio":request.POST["bio"]}
         serializer_bloger = BlogerSerializer(bloger,data=data_bloger,partial=True)
         if serializer_bloger.is_valid(raise_exception=True):
-            if (request.FILES.get('pic')):
-                os.remove('media/'+str(bloger.pic))
+            try:
+                if (request.FILES.get('pic')):
+                    os.remove('media/'+str(bloger.pic))
+            except:pass
             serializer_bloger.save()
         return redirect(f'{appUrl}/userProfile/{user}/')
     return render(request, 'blogUserProfileEdit.html', {'bloger': bloger})
