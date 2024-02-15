@@ -22,13 +22,15 @@ def homemainApp(request):
     content = {"project": [
         {'name': 'Django Project', 'projects': [
             {'title': 'Blog', 'image': 'blog.png', 'link': 'blog/', 'info': ['Blog project',
+                                                                             'Django Rest Framework',
                                                                              'Security, Scalability',
                                                                              'Posts, Likes,', 'Comments, Follows',
                                                                              'Multiple Contents', 'Responsive webpage']},
-            {'title': 'E-Shop', 'image': 'shop.png', 'link': 'ecom/', 'info': ['Ecommerce project',
+            {'title': 'E-Shop', 'image': 'shop.png', 'link': 'shop/', 'info': ['Ecommerce project',
+                                                                               'Django Rest Framework',
                                                                                'Security, Scalability',
-                                                                               'Seller – Add products, Confirm orders',
-                                                                               'Buyer – Add to cart, Add to whishlist, COD Payment, Track order',
+                                                                               'Seller - Add products, Confirm orders',
+                                                                               'Buyer - Add to cart, Add to whishlist, COD Payment, Track order',
                                                                                ]},
             {'title': 'Apps Pointer', 'image': 'app.png', 'link': 'app/', 'info': ['App project',
                                                                                    'Django Rest Framework',
@@ -52,8 +54,8 @@ def homemainApp(request):
     return render(request, 'homemain.html', content)
 
 
-def about(request):
-    print(HttpRequest.META, request.headers)
+def aboutme(request):
+    # print("-----------",request.headers)
     # A dictionary containing all available HTTP headers. Available headers depend on the client and server, but here are some examples:
     # CONTENT_LENGTH – The length of the request body (as a string).
     # CONTENT_TYPE – The MIME type of the request body.
@@ -85,7 +87,7 @@ def about(request):
     return render(request, 'about.html')
 
 
-def contact(request):
+def contactme(request):
     # ---------------------------------------------------------
     #  contact views count
     try:
@@ -106,7 +108,7 @@ def contact(request):
                          subject=subject, message=message)
             p.save()
             messages.success(request, "Feedback sent Successfully")
-            return redirect('/contact/')
+            return redirect('/contact-me/')
     except:
         messages.error(request, "Error sending Feedback")
 
