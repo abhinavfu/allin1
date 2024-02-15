@@ -461,6 +461,10 @@ form {
   justify-content: space-between;
   align-items: center;
 }
+.msg-error {
+  padding: 10px;
+  background-color: rgb(255, 75, 75, 0.5);
+}
 /* ---------- Setting ---------- */
 .blogsetting{
   padding: 50px;

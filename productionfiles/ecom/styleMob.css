@@ -102,6 +102,9 @@
     .form-control {
       width: 170px;
     }
+    .nav-cart {
+      margin: 10px;
+    }
     /* =============== Shop Section =============== */
     .shoppage, .shoppage .container{
       display: block;
@@ -153,7 +156,7 @@
     
     .p-detail {
       width: 100%;
-      padding: 20px 5px;
+      padding: 20px 10px;
     } /* =============== footer =============== */
     .footer {
       background-color: rgba(116, 181, 221, 0.5);
