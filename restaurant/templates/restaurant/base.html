@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Little Lemon</title>
+    <meta name="description" content="A brief description" />
+    <meta
+      name="author"
+      content="Based in Chicago, Illinois, Little Lemon is a family owned Mediterranean restaurant, focused on traditional recipes served with a modern twist."
+    />
+
+    <!-- Load favicon -->
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="{% static 'img/favicon.ico' %}"
+    />
+
+    <!-- Include your CSS files here -->
+    <link
+      rel="preload"
+      as="style"
+      href="{% static 'css/style.css' %}"
+      onload="this.rel = 'stylesheet'"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Karla&family=Markazi+Text:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ----------------------- Dropdown ------------------------------- */
+      .dropdown-btn {
+          display: block;
+          cursor: pointer;
+      }
+      .dropdown-container {
+        display: none;
+        padding-left: 8px;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!--Header content-->
+    {% include 'restaurant/partials/_header.html' %}
+
+    <main>{% block content %} {% endblock %}</main>
+
+    <!--Footer content-->
+    {% include 'restaurant/partials/_footer.html' %} 
+    <script>
+      // ======== Dropdown ============
+      //* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+      var dropdown = document.getElementsByClassName("dropdown-btn");
+      var menu = document.getElementById("menu");
+      var menuitems = document.getElementById("menuitems");
+      var menuclose = document.getElementById("menuclose");
+
+      var i;
+
+      for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].addEventListener("click", function () {
+          this.classList.toggle("active");
+          var dropdownContent = this.nextElementSibling;
+          if (dropdownContent.style.display === "block") {
+            dropdownContent.style.display = "none";
+          } else {
+            dropdownContent.style.display = "block";
+          }
+        });
+      }
+      // -------------- menu ---------------
+      menu.onclick = function () {
+        if (menuitems.style.display == "block") {
+          menuitems.style.display = "none";
+          menuclose.style.display = 'none'
+        } else {
+          menuitems.style.display = "block";
+          menuclose.style.display = 'block'
+        }
+      };
+      menuclose.addEventListener("click", function () {
+          menuitems.style.display = 'none'
+          menuclose.style.display = 'none'
+        });
+    </script>
+  </body>
+</html>

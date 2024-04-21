@@ -2,3 +2,4 @@ Django
 Pillow==10.0.0
 whitenoise==6.5.0
 djangorestframework
+djoser

@@ -9,6 +9,6 @@ urlpatterns = [
     path('about-me/', views.aboutme, name='aboutmainApp'),
     path('contact-me/', views.contactme, name='contactmainApp'),
     # path('contact-me/POST', views.contactme, name='contactmainApp'),
-    path('PagesViews/', views.PageView, name='pageViews'),
+    path('pages-views/', views.pageView, name='pagesViews'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

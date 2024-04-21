@@ -1,0 +1,106 @@
+{% extends 'restaurant/base.html' %} 
+{% load static %} {% load tags %}
+{% block content %}
+<section>
+  <h1>Orders</h1>
+</section>
+<section>
+  <article>
+    {% if orders|length > 0 %} 
+    {% for i in orders %}
+    <section class="orderitem">
+      <article>
+        <a href="{% url 'lemon-orders_item' i.id %}">
+          <h2>Order id : {{i.id}}</h2>
+          <span style="color: gray">Order Date : {{i.date}}</span>
+          {% if i.status == False %}
+          <h2>Status : Pending</h2>
+          {%endif%}
+        </a>
+        {% if i.status == 'Cancelled' %}
+        {%else%}
+        {% if True %}
+        <div style="padding: 15px 0px">
+          <button class="btn dropdown-btn" onclick="toggle(1)">
+            Cancel Order
+          </button>
+          <div class="dropdown-container">
+            <p>Do you want to Cancel this Order ?</p><br>
+            <a class="btn" href="#">Yes! Cancel Order</a><br>
+            <a class="btn" href="{% url 'lemon-orders' %}">Back</a>
+          </div>
+        </div>
+        {%endif%}
+        {%endif%}
+      </article>
+      {% if False %}
+      {%else%}
+      <article>
+        <div class="cart-items">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 100px">Item</th>
+                <th class="cart-name">Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for j in request|checkoutProducts:i.id %}
+              <tr>
+                <td>
+                  <div class="cart-img">
+                    {% if j.menuitem.pic %}
+                    <img src="{{j.menuitem.pic.url}}" alt="menuitem item" />
+                    {% else %}
+                    <img src="/static/images/No_image.png" alt="" />
+                    {% endif %}
+                  </div>
+                </td>
+                <td>{{j.menuitem}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </article>
+      {%endif%}
+    </section>
+      {%endfor%} 
+    {% else %}
+    <div class="noitem">
+      <h3>
+        No orders to display. <br />
+        Order something.
+      </h3>
+    </div>
+    {% endif %}
+  </article>
+</section>
+
+<div class="orders" class="min-height" style="min-height: 500px">
+  <!-- {% if checkU == 'admin' %}
+  <div class="d-flex" style="padding: 20px">
+    <a class="btn btn-blue" href="{% url 'lemon-userprofile' %}">My Products</a>
+    <a class="btn btn-blue" href="{% url 'lemon-addProduct' %}">Add Product</a>
+    <a class="btn btn-blue" href="{% url 'lemon-orders' %}">Your Orders</a>
+    <a class="btn btn-blue" href="/abhinavfuadmin/">Admin Page</a>
+  </div>
+  {%endif%} -->  
+</div>
+
+<script>
+   document.getElementById('update').addEventListener('click', function (e) {
+    const formdata = {
+      quantity: document.getElementById('quantity').value,
+    }
+
+    fetch("{% url 'lemon-apicart' 16 %}", { method: 'GET', body: JSON.stringify(formdata), headers: {
+        "Content-type": "application/json",
+        "Authorization": "token {{token}}"
+    } })
+      .then(r => r.text())
+      .then(data => {console.log(JSON.stringify(formdata));})
+  })
+
+</script>
+{% endblock %}

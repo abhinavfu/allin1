@@ -1,0 +1,90 @@
+{% extends 'restaurant/base.html' %} 
+{% load static %} 
+{% block content %}
+<section>
+   <article>
+      <h1>Menu item</h1>
+      <span>
+         <a href="{% url 'lemon-home' %}">Home</a> /
+         <a href="{% url 'lemon-menu' %}">Menu</a> /
+         {{menu_item.title}}
+      </span>
+      <!--Begin row-->
+      <div class="row">
+         <!--Begin col-->
+         <div class="column">
+            <h2>
+                {{ menu_item.title }}
+            </h2>
+            <p>
+                {{ menu_item.menu_item_description }}
+            </p>
+            <p>
+                Price: ${{ menu_item.price }}
+            </p>
+            <p>
+               <label for="quantity">Quantity</label>
+               <input type="number" name="quantity" id="quantity" max="100" min="1" value="1" required>
+            </p>
+            
+            <button type="button" id="button">Add to cart</button>
+            <p id="already"></p>
+         </div>
+         <!--End col-->
+         <!--Begin col-->
+         <div class="column">
+            {% if menu_item.pic %}
+            <img src="{{menu_item.pic.url}}" alt="{{menu_item.name}}" />
+            {% else %}
+            <img src="{% static 'img/Grill.jpg' %}" alt="{{ menu_item.name}}" />
+            {% endif %}
+        </div>
+         <!--End col-->
+      </div>
+      <!--End row-->
+   </article>
+</section>
+<script>
+   document.getElementById('button').addEventListener('click', function (e) {
+    const formdata = {
+      menuitem_id: "{{menu_item.id}}",
+      quantity: document.getElementById('quantity').value,
+    }
+    if ("{{token}}"==""){
+            document.getElementById('already').innerHTML = "You are not logged-in"
+    }
+
+    fetch("{% url 'lemon-apicart' %}",{headers: {
+        "Content-type": "application/json",
+        "Authorization": "token {{token}}"
+    }})
+      .then(r => r.json())
+      .then(data => {
+         
+         var array = data["results"]
+         if (data["count"]==0){
+            document.getElementById('already').innerHTML = "Added Successfully"
+         }
+         for (let i = 0; i < array.length; i++) {
+            const element = array[i]["menuitem"]["id"];
+            if (element == "{{ menu_item.id }}"){
+               document.getElementById('already').innerHTML = "Already in cart";
+               break
+            }
+            else {
+               document.getElementById('already').innerHTML = "Added Successfully"
+            } 
+         }
+      })
+
+    fetch("{% url 'lemon-apicart' %}", { method: 'POST', body: JSON.stringify(formdata), headers: {
+        "Content-type": "application/json",
+        "Authorization": "token {{token}}"
+    } })
+      .then(r => r.text())
+      .then(data => {
+         console.log(JSON.stringify(formdata));
+      })
+  })
+</script>
+{% endblock %}

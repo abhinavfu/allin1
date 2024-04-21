@@ -32,6 +32,11 @@ def homemainApp(request):
                                                                                'Seller - Add products, Confirm orders',
                                                                                'Buyer - Add to cart, Add to whishlist, COD Payment, Track order',
                                                                                ]},
+            {'title': 'Restaurant', 'image': 'restaurant.png', 'link': 'restaurant/', 'info': ['Restaurant project',
+                                                                                   'Django Rest Framework',
+                                                                                   'Token Authentication',
+                                                                                   'Security, Scalability',
+                                                                                   'Table Booking','Order Management']},
             {'title': 'Apps Pointer', 'image': 'app.png', 'link': 'app/', 'info': ['App project',
                                                                                    'Django Rest Framework',
                                                                                    'Security, Scalability',
@@ -118,7 +123,7 @@ def contactme(request):
 # Pages Views in all apps in this project
 
 
-def PageView(request):
+def pageView(request):
     feedback = Feedback.objects.all()
     context = {"Portfolio": Portfolio_page_view_count.objects.get(id=1),
                "Feedback": feedback.count(),

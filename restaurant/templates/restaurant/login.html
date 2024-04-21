@@ -1,0 +1,44 @@
+{% extends 'restaurant/base.html' %} {% load static %} {% block content %}
+<section>
+  <article>
+    <h1>Login</h1>
+    <!--Begin row-->
+    <div class="row">
+      <!--Begin col-->
+      <div class="column">
+        <form method="POST" id="form">
+            {% csrf_token %}
+            <p>
+              <label for="username">Username:</label>
+              <input type="text" placeholder="Your Email or Username" maxlength="200" minlength="3" required id="username" name="username">
+            </p>
+            <p>
+              <label for="password">Password:</label>
+              <input type="password" placeholder="Your password" maxlength="50" minlength="3" required id="password" name="password">
+            </p>
+            <button type="submit" id="button">Login</button>
+          </form>
+          <p>Don't have account? <a href="{% url 'lemon-register' %}">Register</a></p>
+          or
+          <p>Login as a <a href="{% url 'lemon-guest' 1 %}">Guest User</a></p>
+      </div>
+      <!--End col-->
+
+      <!--Begin col-->
+      <div class="column">
+        <figure class="figure">
+          <img
+            src="{% static 'img/mario-and-adrian.jpg' %}"
+            alt="Mario and Adrian"
+          />
+          <figcaption class="figure-caption">
+            Little Lemon owners Mario and Adrian.
+          </figcaption>
+        </figure>
+      </div>
+      <!--End col-->
+    </div>
+    <!--End row-->
+  </article>
+</section>
+{% endblock %}

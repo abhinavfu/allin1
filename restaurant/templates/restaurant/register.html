@@ -1,0 +1,72 @@
+{% extends 'restaurant/base.html' %} {% load static %} {% block content %}
+<section>
+  <article>
+    <h1>Signup</h1>
+    <!--Begin row-->
+    <div class="row">
+      <!--Begin col-->
+      <div class="column">
+        <form method="POST" id="form">
+            {% csrf_token %}
+            <p>
+              <label for="firstname">First name:</label>
+              <input type="text" placeholder="Your first name" maxlength="200" minlength="3" required id="firstname" name="firstname">
+            </p>
+            <p>
+              <label for="lastname">Last name:</label>
+              <input type="text" placeholder="Your last name" maxlength="200" minlength="3" required id="lastname" name="lastname">
+            </p>
+            <p>
+              <label for="username">Username:</label>
+              <input type="text" placeholder="Your Username" maxlength="200" minlength="3" required id="username" name="username">
+            </p>
+            <p>
+              <label for="email">Email:</label>
+              <input type="email" placeholder="Your Email" maxlength="200" minlength="3" required id="email" name="email">
+            </p>
+            <p>
+              <label for="password1">Password:</label>
+              <input type="password" placeholder="Your password" maxlength="50" minlength="3" required id="password1" name="password1">
+            </p>
+            <p>
+              <label for="password2">Re-Password:</label>
+              <input type="password" placeholder="Re-enter password" maxlength="50" minlength="3" required id="password2" name="password2">
+            </p>
+            <p class="error-msg" id="error-msg"></p>
+            <button type="submit" id="button">Signup</button>
+          </form>
+          <p>Already have account? <a href="{% url 'lemon-signin' %}">Signin</a></p>
+      </div>
+      <!--End col-->
+
+      <!--Begin col-->
+      <div class="column">
+        <figure class="figure">
+          <img
+            src="{% static 'img/restaurant_inside.jpg' %}"
+            alt="restaurant inside"
+          />
+          <figcaption class="figure-caption">
+            Little Lemon restaurant inside.
+          </figcaption>
+        </figure>
+      </div>
+      <!--End col-->
+    </div>
+    <!--End row-->
+  </article>
+</section>
+<script>
+    var password1 = document.getElementById("password1");
+    var password2 = document.getElementById("password2");
+    var errormsg = document.getElementById("error-msg");
+
+    password2.addEventListener("input",()=>{
+        if (password1.value === password2.value){
+            errormsg.innerText = "Password match."
+        }else{
+            errormsg.innerText = "Password does not match."
+        };
+    })
+</script>
+{% endblock %}

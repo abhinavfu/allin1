@@ -1,0 +1,181 @@
+{% extends 'restaurant/base.html' %} 
+{% load static %} 
+{% block content %}
+<style>
+  .flex{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .flex input{
+    text-align: center;
+    max-width: 70px;
+    margin-left: 10px;
+    padding: 5px;
+  }
+  .text-gray{
+    color: gray;
+  }
+  .text-right{
+    padding-left: 40px;
+    text-align: right;
+  }
+  .payment-summary{ 
+    max-width: 400px;
+  }
+  table{
+    width: 100%;
+  }
+</style>
+<section><h1>Cart</h1></section>
+<section>
+  {% if cart %}
+   <article>
+      <table>
+        {% for i in cart %}
+        <tr>
+            <td>
+                <div class="column"  width="200" height="200">
+                {% if i.menuitem.pic %}
+                <img src="{{i.menuitem.pic.url}}" alt="{{i.menuitem.name}}" width="200" height="auto"/>
+                {% else %}
+                <img src="{% static 'img/Grill.jpg' %}" alt="{{ i.menuitem.name}}"  width="200" height="auto"/>
+                {% endif %}
+                </div>
+            </td>
+            <td>
+                <h2>{{ i.menuitem }}</h2>
+                <div class="flex">
+                  <span class="flex">
+                    <label for="quantity" class="text-gray">Quantity</label>
+                    <input type="number" name="quantity" id="qty{{i.id}}" onchange="update('{{i.id}}')" max="100" min="1" value="{{ i.quantity }}" required>
+                  </span>
+                  <p id="unitprice{{i.id}}" style="display: none;">{{ i.unit_price }}</p>
+                  <p id="price{{i.id}}">{{currency}}{{ i.price }}</p>
+                  <button type="button" id="delete" onclick="remove('{{i.id}}')">X</button>
+                </div>
+            </td>
+        </tr>
+        {%endfor%}
+      </table>
+   </article>
+   <article class="payment-summary">
+    <h3>Payment Summary</h3>
+    <table>
+      <tr>
+        <td class="text-gray">Order Summary</td>
+        <td class="text-right" id="subtotal">{{currency}}{{payment.subtotal}}</td>
+      </tr>
+      <tr>
+        <td class="text-gray">Shipping</td>
+        <td class="text-right" id="shipping">{{currency}}{{payment.shipping}}</td>
+      </tr>
+      <tr>
+        <td class="text-gray">Tax</td>
+        <td class="text-right">8%</td>
+      </tr>
+      <tr>
+        <td><hr></td>
+        <td><hr></td>
+      </tr>
+      <tr>
+        <td class="text-gray">Total Amount</td>
+        <td class="text-right" id="ordertotal">{{currency}}{{payment.ordertotal}}</td>
+      </tr>
+    </table><br>
+    <center><button type="button" id="order" class="btn">Place Order</button></center>
+    <center><p id="already"></p></center>
+    <center><a href="{% url 'lemon-orders' %}"><button type="button" id="gotoorder" class="btn">Go To Orders</button></a></center>
+  </article>
+  {%else%}
+  <p>No Item in cart.</p>
+  {%endif%}
+</section>
+<script>
+  // get cart informations
+  function cart() {
+    fetch(`{% url 'lemon-apicart' %}`, { method: 'GET', headers: {
+          "Content-type": "application/json",
+          "Authorization": "token {{token}}"
+      } })
+        .then(r => r.text())
+        .then(data => {data = JSON.parse(data)
+          x = data["results"]
+          var subtotal = 0
+          for (let i = 0; i < x.length; i++) {
+            subtotal = subtotal + parseFloat(x[i]["price"]);
+          }
+          console.log(x,subtotal)
+          if (subtotal<50){
+            shipping = parseInt("{{payment.shipping}}")
+            document.getElementById("shipping").innerText = "{{currency}}" + parseFloat(shipping).toFixed(2)
+          }
+          else{
+            shipping=0
+            document.getElementById("shipping").innerText = "{{currency}}" + parseFloat(shipping).toFixed(2)
+          }
+          document.getElementById("subtotal").innerText = "{{currency}}" + parseFloat(subtotal).toFixed(2)
+          var tax = (subtotal + shipping)*8/100
+          var ordertotal = subtotal + tax + shipping
+          document.getElementById("ordertotal").innerText = "{{currency}}" + parseFloat(ordertotal).toFixed(2)
+
+
+        })
+  }
+  cart()
+
+  // update cart item
+  function update(params) {
+      const formdata = {
+        quantity: document.getElementById(`qty${params}`).value,
+      }
+  
+      fetch(`{% url 'lemon-apicart' %}${params}/`, { method: 'PATCH', body: JSON.stringify(formdata), headers: {
+          "Content-type": "application/json",
+          "Authorization": "token {{token}}"
+      } })
+        .then(r => r.text())
+        .then(data => {
+        unitprice = document.getElementById(`unitprice${params}`).innerText
+        document.getElementById(`price${params}`).innerText =  "{{currency}}" + parseFloat(formdata.quantity * unitprice).toFixed(2)
+        cart()
+        })
+  }
+
+  // remove cart item
+  function remove(params) {
+      const formdata = "Removed"
+  
+      fetch(`{% url 'lemon-apicart' %}${params}/`, { method: 'DELETE', body: JSON.stringify(formdata), headers: {
+          "Content-type": "application/json",
+          "Authorization": "token {{token}}"
+      } })
+        .then(r => r.text())
+        .then(data => {console.log(formdata);location.reload()})
+      
+  }
+
+
+  document.getElementById('gotoorder').style.display = "none"
+  // place order
+  document.getElementById('order').addEventListener('click', function (e) {
+  const formdata = {
+    user: "{{user.id}}",
+  }
+  
+  fetch("{% url 'lemon-apiorder' %}", { method: 'POST', body: JSON.stringify(formdata), headers: {
+      "Content-type": "application/json",
+      "Authorization": "token {{token}}"
+  } })
+    .then(r => r.text())
+    .then(data => {console.log(JSON.stringify(formdata));
+      
+      console.log(data)
+      document.getElementById('already').innerHTML = "Order Placed Successfully"
+      document.getElementById('order').style.display = "none"
+      document.getElementById('gotoorder').style.display = "Block"
+    })
+  })
+</script>
+{% endblock %}

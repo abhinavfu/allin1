@@ -1,0 +1,78 @@
+{% extends 'restaurant/base.html' %} 
+{% load static %} {% load tags %} 
+{% block content %}
+<section>
+   <article class="orders">
+      <center><h2>Order Details</h2></center>
+      <div class="orderitem">
+        <table>
+          <tr>
+            <th>Order id</th>
+            <td>{{orders.id}}</td>
+          </tr>
+          <tr>
+            <th>Order Total</th>
+            <td>{{currency}}{{orders.total}}</td>
+          </tr>
+          <tr>
+            <th>Order Status</th>
+            <td>
+              {{orders.status}}
+              <span>
+                {% if orders.status == 'Delivered' %}
+                {% elif orders.status == 'Cancelled'%}
+                {%else%}
+                <span>
+                  {% if checkU == 'admin' %}
+                  <a href="{% url 'lemon-orderEdit' orders.id %}" class="btn btn-blue"
+                  >Edit</a
+                  >
+                  {%endif%}
+                </span>
+                {%endif%}
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <th>Order Date</th>
+            <td>{{orders.date}}</td>
+          </tr>
+        </table>
+        <div>
+          <div class="cart-items">
+            <table>
+              <thead>
+                <tr>
+                  <th style="width: 100px">Item</th>
+                  <th class="cart-name">Name</th>
+                  <th style="width: 100px">Price</th>
+                  <th style="width: 150px">Quantity</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for j in request|checkoutProducts:orders.id %}
+                <tr>
+                  <td>
+                    <a href="{% url 'lemon-menu_item' j.menuitem.id %}">
+                      <div class="cart-img">
+                        {% if j.menuitem.pic %}
+                        <img src="{{j.menuitem.pic.url}}" alt="menuitem item" />
+                        {% else %}
+                        <img src="/static/images/No_image.png" alt="" />
+                        {% endif %}
+                      </div>
+                    </a>
+                  </td>
+                  <td><center>{{j.menuitem}}</center></td>
+                  <td><center>{{currency}}{{j.price}}</center></td>
+                  <td><center>{{j.quantity}}</center></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+   </article>
+</section>
+{% endblock %}

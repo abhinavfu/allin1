@@ -1,0 +1,26 @@
+{% load static %}
+<header>
+  <img src="{% static 'img/logo.png' %}" />
+</header>
+<nav>
+  <ul>
+    <li><a href="{% url 'lemon-home' %}">Home</a></li>
+    <li><a href="{% url 'lemon-about' %}">About</a></li>
+    <li><a href="{% url 'lemon-menu' %}">Menu</a></li>
+    <li><a href="{% url 'lemon-book' %}">Book</a></li>
+    <li><a href="{% url 'lemon-reservations' %}">Reservations</a></li>
+    {% if user.is_authenticated %}
+    <li><a href="{% url 'lemon-cart' %}">Cart</a></li>
+    <li><a href="{% url 'lemon-orders' %}">Order</a></li>
+    <li><a href="{% url 'lemon-userprofile' %}">Profile</a></li>
+    <li><a href="{% url 'lemon-userlogout' %}">Logout</a></li>
+    {%else%}
+    <li><a href="{% url 'lemon-signin' %}">Login</a></li>
+    {%endif%}
+  </ul>
+</nav>
+<div class="msg-container">
+  {% for i in messages %}
+  <center><div class="msg"><p>{{i}}</p></div></center>
+  {%endfor%}
+</div>

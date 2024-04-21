@@ -1,0 +1,169 @@
+{% extends 'restaurant/base.html' %}
+{% load static %}
+
+{% block content %}
+<section>
+  <article>
+    <h1>Make a reservation</h1>
+    <!--Begin row-->
+    <div class="row">
+      <!--Begin col-->
+      <div class="column">
+          {% csrf_token %}
+          <form method="POST" id="form">
+            {% csrf_token %}
+            <p>
+              <label for="first_name">Name:</label>
+              <input type="text" placeholder="Your Name" maxlength="200" required id="first_name">
+            </p>
+            <p>
+              <label for="reservation_date">Reservation Date:</label>
+              <input type="date" placeholder="Reservation date" min="{{today_date}}" required id="reservation_date">
+            </p>
+            <p>
+              <label for="reservation_slot">Reservation time:</label>
+              <select id="reservation_slot">
+                <option value="0" disabled>Select time</option>
+              </select>
+            </p>
+            <p>
+              <label for="no_of_guests">Reservation Date:</label>
+              <input type="number" placeholder="No. of guests" min="0" max="50" required id="no_of_guests">
+            </p>
+            <button type="button" id="button">Reserve</button>
+          </form>
+          <br>
+          <div id="booking-error-name"></div>
+          <div id="booking-error-guest"></div>
+      </div>
+      <!--End col-->
+
+      <!--Begin col-->
+      <div class="column">
+        <h2>Bookings For <span id="today"></span></h2>
+        <div id="bookings">
+        </div>
+      </div>
+      <!--End col-->
+    </div>
+    <!--End row-->
+  </article>
+</section>
+
+<script>
+  const date = new Date()
+  let x = document.getElementById('reservation_date').value
+ 
+  if (x == ""){
+    document.getElementById('reservation_date').value = '{{today_date}}'
+  }
+  else{
+    document.getElementById('reservation_date').value = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate().toString().padStart(2, "0")}`
+  }
+  
+  // console.log(document.getElementById('reservation_date').value)
+  getBookings()
+
+  /*  Reservation Date */
+  document.getElementById("reservation_date", addEventListener("change", getBookings()));
+
+
+  function getBookings() {
+    let reserved_slots = []
+    const date = document.getElementById('reservation_date').value
+      
+    document.getElementById('today').innerHTML = date
+    
+    fetch("{% url 'lemonbookings' %}" + '?date=' + date)
+      .then(r => r.json())
+      .then(data => {
+        reserved_slots = []
+        bookings = ''
+        
+        /* Reserved Slots */
+        for(let item = 0; item < data.length; item++){
+          console.log("item :",data[item].fields);
+          reserved_slots.push(data[item].fields.reservation_slot);
+          bookings += `<p>${data[item].fields.name} - ${formatTime(data[item].fields.reservation_slot)}</p>`;
+        };
+        
+        /* Selected slots  */
+        slot_options = '<option value="0" disabled>Select time</option>';
+        for (var i = 10; 20>i; i++){
+            const label = formatTime(i)
+            if (reserved_slots.includes(i) == true){
+              slot_options += `<option value=${i} disabled>${label}</option>`
+            }
+            else{
+              slot_options += `<option value=${i}>${label}</option>`
+            };
+          };
+
+        
+        document.getElementById('reservation_slot').innerHTML = slot_options
+        if(bookings==''){
+          bookings = "No bookings"
+        }
+        document.getElementById('bookings').innerHTML = bookings
+      })
+  }
+  // format time in AM or PM
+  function formatTime(time) {
+    const ampm = time < 12 ? 'AM' : 'PM'
+    const t = time < 12 ? time : time > 12 ? time - 12 : time
+    const label = `${t} ${ampm}`
+    return label
+  }
+
+  // Submit Booking informations 
+  document.getElementById('button').addEventListener('click', function (e) {
+    const formdata = {
+      first_name: document.getElementById('first_name').value,
+      no_of_guests: document.getElementById('no_of_guests').value,
+      reservation_date: document.getElementById('reservation_date').value,
+      reservation_slot: document.getElementById('reservation_slot').value,
+    }
+    var bookingErrorName = document.getElementById('booking-error-name')
+    var bookingErrorGuest = document.getElementById('booking-error-guest')
+    var first_name = false
+    var guests = false
+    // If user is authenticate
+    if ("{{request.user.is_authenticated}}"=="True"){
+      // check Booking name
+      if (formdata.first_name != ""){
+        if (formdata.first_name.length >= 2) {
+          first_name = true
+          bookingErrorName.innerHTML = ""
+        }else{
+          bookingErrorName.innerHTML = "Name must be more than 2 characters."
+        }
+      }else{
+        bookingErrorName.innerHTML = "Name should not be empty."
+      }
+      
+      // check no. of guests
+      if (formdata.no_of_guests != ""){
+        if (typeof(parseInt(formdata.no_of_guests)) == typeof(2) && parseInt(formdata.no_of_guests)>0) {
+          guests = true
+          bookingErrorGuest.innerHTML = ""
+        }else{
+          bookingErrorGuest.innerHTML = "Guest must be greater than 0."
+        }
+      }else{
+        bookingErrorGuest.innerHTML = "Guests must be in numbers." 
+      }
+      // if both condition True
+      if (first_name && guests){
+        fetch("{% url 'lemonbookings' %}", { method: 'post', body: JSON.stringify(formdata) })
+          .then(r => r.text())
+          .then(data => {getBookings()})
+      }else{
+          console.log("Credentials mot right.")
+      }
+    }else{
+      bookingErrorName.innerHTML = "You are not logged-in"
+    }
+  })
+</script>
+{% endblock %}
+

@@ -1,0 +1,34 @@
+{% extends 'restaurant/base.html' %} {% load static %} {% block content %}
+<section>
+  <article>
+    <!--Begin row-->
+    <div class="row">
+      <!--Begin col-->
+      <div class="column">
+        <h2>Welcome {{user}}</h2>
+        <p>Name : {{user.first_name}} {{user.last_name}}</p>
+        <p>Email : {{user.email}}</p>
+        {% if request.user.is_superuser %}
+        Go to <a href="/abhinavfuadmin/">Admin Interface</a>
+        {% endif %}
+      </div>
+      <!--End col-->
+
+      <!--Begin col-->
+      <div class="column">
+        <figure class="figure">
+          <img
+            src="{% static 'img/head_chef.jpg' %}"
+            alt="Mario"
+          />
+          <figcaption class="figure-caption">
+            Little Lemon owners Mario.
+          </figcaption>
+        </figure>
+      </div>
+      <!--End col-->
+    </div>
+    <!--End row-->
+  </article>
+</section>
+{% endblock %}
