@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 import os
 from datetime import datetime
 import math
@@ -260,22 +261,21 @@ def blogforgetPassword(request):
             if user.is_superuser:
                 return redirect('/admin')
             # user = user.objects.get(username=username)
-            subject = 'Your OTP for reset your password'
+            subject = 'Blog : Your OTP for reset your password'
             message = '''
                         OTP for reset your password is %d
 
-                        Team : eshop.com
+                        Team : Blog
 
                     ''' % num
             email_from = 'xyz'
             email_pass = 'xyz'
-            # email_from = settings.EMAIL_HOST_USER
-            # email_pass = settings.EMAIL_HOST_PASSWORD
-            # recipient_list = [user.email, ]
-            recipient_list = ['aabhinavfu007@gmail.com']
+            email_from = settings.EMAIL_HOST_USER
+            email_pass = settings.EMAIL_HOST_PASSWORD
+            recipient_list = [user.email, ]
             try:
-                # send_mail(subject, message, recipient_list, auth_user=email_from, auth_password=email_pass,
-                #           fail_silently=False,)
+                send_mail(subject, message, recipient_list, auth_user=email_from, auth_password=email_pass,
+                          fail_silently=False,)
                 messages.error(request, 'OTP Sending to your E-mail')
                 return redirect(f'{appUrl}/forgetPassword/verify-OTP/')
             except:

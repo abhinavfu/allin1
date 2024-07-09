@@ -591,8 +591,7 @@ def forgetPassword(request):
 
                     ''' % num
             email_from = settings.EMAIL_HOST_USER
-            # recipient_list = [user.email, ]
-            recipient_list = ["aabhinavfu007@gmail.com", ]
+            recipient_list = [user.email, ]
             send_mail(subject, message, email_from, recipient_list, fail_silently=False)
             messages.success(request, f'OTP has been send to {recipient_list[0]}. Please check your email.')
             return redirect(f'{AppURL}/forgetPassword/verify-OTP/')
