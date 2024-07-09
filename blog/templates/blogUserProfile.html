@@ -6,9 +6,9 @@
   <div class="userProfileSec">
     <div class="user">
       {% if bloger.pic %}
-      <div class="uimg"><img src="{{bloger.pic.url}}" alt="" /></div>
+      <div class="uimg"><img src="{{bloger.pic.url}}" alt="" loading="lazy"/></div>
       {%else%}
-      <div class="uimg"><img src="/static/images/No_image_available.png" alt="" /></div>
+      <div class="uimg"><img src="/static/images/No_image_available.png" alt="" loading="lazy"/></div>
       {%endif%}
       <div>
         <h1 style="text-align: center;">@{{bloger.username}}</h1>
@@ -64,9 +64,9 @@
           {% if request|videoTrue:i.id %}
           <video src="{{i.pic1.url}}"></video>
           {%elif i.pic1 %}
-          <img src="{{i.pic1.url}}" alt="" />
+          <img src="{{i.pic1.url}}" alt="" loading="lazy"/>
           {%else%}
-              <img src="/static/images/No_image_available.png" alt="" />
+              <img src="/static/images/No_image_available.png" alt="" loading="lazy"/>
           {%endif%}
         </div>
       </div>

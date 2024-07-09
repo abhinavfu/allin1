@@ -12,9 +12,9 @@
         <li>
             <a href="{% url 'bloguserProfile' i.follower.username %}">
                 {% if i.follower.pic %}
-                    <div class="fimg"><img src="{{i.follower.pic.url}}" alt="" /></div>
+                    <div class="fimg"><img src="{{i.follower.pic.url}}" alt="" loading="lazy"/></div>
                 {%else%}
-                    <div class="fimg"><img src="/static/images/No_image_available.png" alt="" /></div>
+                    <div class="fimg"><img src="/static/images/No_image_available.png" alt="" loading="lazy"/></div>
                 {%endif%}
                 <h3>{{i.follower.username}}</h3>
             </a>

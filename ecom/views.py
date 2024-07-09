@@ -11,7 +11,6 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth, messages
 from django.contrib.auth.models import User
-from django.shortcuts import render
 
 # Create your views here.
 AppURL = "/shop"
@@ -576,7 +575,7 @@ def forgetPassword(request):
         try:
             user = User.objects.get(username=username)
             num = randint(100000, 999999)
-            request.session['num'] = 12345  # num
+            request.session['num'] = num # 12345 
             request.session['resetuser'] = username
             if user.is_superuser:
                 return redirect(f'{AppURL}/admin')
@@ -584,16 +583,18 @@ def forgetPassword(request):
                 user = Buyer.objects.get(username=username)
             except:
                 user = User.objects.get(username=username)
-            subject = 'Your OTP for reset your password'
+            subject = 'Eshop : Your OTP for reset your password'
             message = '''
                         OTP for reset your password is %d
 
-                        Team : eshop.com
+                        Team : eshop
 
                     ''' % num
             email_from = settings.EMAIL_HOST_USER
-            recipient_list = [user.email, ]
-            # send_mail(subject, message, email_from, recipient_list)
+            # recipient_list = [user.email, ]
+            recipient_list = ["aabhinavfu007@gmail.com", ]
+            send_mail(subject, message, email_from, recipient_list, fail_silently=False)
+            messages.success(request, f'OTP has been send to {recipient_list[0]}. Please check your email.')
             return redirect(f'{AppURL}/forgetPassword/verify-OTP/')
         except:
             messages.error(request, 'User Not Found')
@@ -621,6 +622,7 @@ def forgetPasswordReset(request):
             user = User.objects.get(username=username)
             user.set_password(password)
             user.save()
+            messages.success(request, f'Password has been changed sucessfully.')
             return redirect(f'{AppURL}/signin')
         else:
             messages.error(request, 'Password Does not match')
@@ -660,18 +662,19 @@ def userProfile(request):
         username = request.POST["username"]
         try:
             num = randint(100000, 999999)
-            request.session['num'] = 12345  # num
+            request.session['num'] = num  # 12345
             request.session['useremail'] = username
-            # subject = 'Your OTP for Verifing your Email-Id'
-            # message = '''
-            #             OTP for Verify your Email-Id is %d
+            subject = 'Your OTP for Verifing your Email-Id'
+            message = '''
+                        OTP for Verify your Email-Id is %d
 
-            #             Team : eshop.com
+                        Team : eshop
 
-            #         ''' % num
-            # email_from = settings.EMAIL_HOST_USER
-            # recipient_list = [user.email, ]
-            # send_mail(subject, message, email_from, recipient_list)
+                    ''' % num
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [user.email, ]
+            send_mail(subject, message, email_from, recipient_list)
+            messages.success(request, f'OTP has been send to {recipient_list[0]}')
             return redirect(f'{AppURL}/email-verify-OTP/')
         except:
             return redirect(f'{AppURL}/userprofile/')

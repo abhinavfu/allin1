@@ -1,0 +1,14 @@
+{% extends 'basemain.html' %} {% load static %} {% block homemain %}
+{% block title %}
+<title>404 Error</title>
+{%endblock%}
+
+<center class="page404">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 747.24 592.94"><defs><style>.cls-1{font-size:420px;stroke-width:2px;}.cls-1,.cls-2{stroke-miterlimit:10;font-family:Allura-Regular, Allura;}.cls-2{font-size:120px;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><text class="cls-1" transform="translate(29.73 334.9)">404 </text><text class="cls-2" transform="translate(36.55 476.66)">Page not found</text></g></g></svg>
+    <div>
+        <p>We can't seem to find the page you are looking for.</p>
+        <p>Error code : 404</p><br>
+        <a href="{% url 'mainApp:homemainApp' %}"><button class="layout"><p>Go Back to Home</p></button></a>
+    </div>
+</center>
+{%endblock%}

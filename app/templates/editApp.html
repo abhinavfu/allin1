@@ -7,7 +7,7 @@
         <div class="input-field inputfile">
             <label for="picapp">
                 {% if app.picapp %}
-                    <img src="{{app.picapp.url}}" alt="">
+                    <img src="{{app.picapp.url}}" alt="" loading="lazy">
                 {%else%}
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
                     <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>

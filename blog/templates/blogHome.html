@@ -84,10 +84,10 @@
     <div class="heroimg">
       {% if posts.count < 3 %}
         <div class="hero-img1 shadow">
-          <img src="../static/images/hero1.jpg" alt="" />
+          <img src="../static/images/hero1.jpg" alt="" loading="lazy"/>
         </div>
         <div class="hero-img2 shadow">
-          <img src="../static/images/post2.jpg" alt="" />
+          <img src="../static/images/post2.jpg" alt="" loading="lazy"/>
         </div>
       {%else%}
         <a href="{% url 'blogpost' hero1.id %}">
@@ -95,7 +95,7 @@
             {% if request|videoTrue:hero1.id %}
             <video src="{{hero1.pic1.url}}"></video>
             {%else%}
-            <img src="{{hero1.pic1.url}}" alt="" />
+            <img src="{{hero1.pic1.url}}" alt="" loading="lazy"/>
             {%endif%}
           </div>
         </a>
@@ -104,7 +104,7 @@
             {% if request|videoTrue:hero2.id %}
             <video src="{{hero2.pic1.url}}"></video>
             {%else%}
-            <img src="{{hero2.pic1.url}}" alt="" />
+            <img src="{{hero2.pic1.url}}" alt="" loading="lazy"/>
             {%endif%}
           </div>
         </a>
@@ -115,7 +115,7 @@
   </div>
 </div>
 <div class="about" id="about">
-  <div class="div50"><img src="../static/images/about.png" alt="" /></div>
+  <div class="div50"><img src="../static/images/about.png" alt="" loading="lazy"/></div>
   <div class="div50">
     <h1>ABOUT US</h1>
     <p>
@@ -132,7 +132,7 @@
     {% if posts.count < 3 %}
       {% for i in '123' %}
       <div class="homeposts">
-        <img src="../static/images/post{{i}}.jpg" alt="" />
+        <img src="../static/images/post{{i}}.jpg" alt="" loading="lazy"/>
       </div>
       {% endfor %}
     {%else%} 
@@ -144,7 +144,7 @@
             {% if request|videoTrue:i.id %}
             <video src="{{i.pic1.url}}"></video>
             {%else%}
-            <img src="{{i.pic1.url}}" alt="" />
+            <img src="{{i.pic1.url}}" alt="" loading="lazy"/>
             {%endif%}
           </a>
         </div>
@@ -161,7 +161,7 @@
     {% if posts.count < 3 %}
       {% for i in '123' %}
       <div class="homeposts">
-        <img src="../static/images/user{{i}}.jpg" alt="" />
+        <img src="../static/images/user{{i}}.jpg" alt="" loading="lazy"/>
       </div>
       {% endfor %}
     {%else%}
@@ -171,9 +171,9 @@
         <div>
           <a href="{% url 'bloguserProfile' i.username %}">
             {% if i.pic %}
-            <img style="min-width: 350px;" src="{{i.pic.url}}" alt="" />
+            <img style="min-width: 350px;" src="{{i.pic.url}}" alt="" loading="lazy"/>
             {%else%}
-            <img src="/static/images/No_image_available.png" alt="" />
+            <img src="/static/images/No_image_available.png" alt="" loading="lazy"/>
             {%endif%}
           </a>
         </div>
@@ -195,7 +195,7 @@
               {% if request|videoTrue:i.id %}
               <video src="{{i.pic1.url}}"></video>
               {%else%}
-              <img src="{{i.pic1.url}}" alt="" />
+              <img src="{{i.pic1.url}}" alt="" loading="lazy"/>
               {%endif%}
             </a>
           </div>

@@ -18,9 +18,9 @@
     <div class="container">
         <div class="img-box">
             {% if app.picapp %}
-            <img src="{{app.picapp.url}}" alt="image of {{app.name}}" />
+            <img src="{{app.picapp.url}}" alt="image of {{app.name}}" loading="lazy"/>
             {% else %}
-            <img src="/static/appimages/No_image.png" alt="" />
+            <img src="/static/appimages/No_image.png" alt="" loading="lazy"/>
             {% endif %}
         </div>
         <div>

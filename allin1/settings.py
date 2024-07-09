@@ -13,6 +13,9 @@ import os
 from datetime import timedelta
 # from pathlib import Path
 
+# add 'envprivate.py' in production root directory
+from envprivate import PRIVATE
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,9 +27,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'django-insecure-f9e9rng-l)rbrew00@6zfcq!i&w1_5(h#a&3wmzg(hp1ri-zwh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = PRIVATE["DEBUG"] 
 
-ALLOWED_HOSTS = []
+if DEBUG == True:
+    ALLOWED_HOSTS = []
+else:
+    ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -176,3 +182,16 @@ DJOSER = {
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
 }
+
+
+# Email Configuration
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = PRIVATE["EMAIL_HOST_USER"]
+EMAIL_HOST_PASSWORD = PRIVATE["EMAIL_HOST_PASSWORD"]
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+# EMAIL_TIMEOUT = 
+# EMAIL_SSL_KEYFILE = 
+# EMAIL_SSL_CERTFILE = 

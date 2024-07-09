@@ -8,7 +8,7 @@
     </div>
     <div class="sign-account d-none">
       <div>Welcome</div>
-      <img src="/static/images/logo.svg" alt="Logo">
+      <img src="/static/images/logo.svg" alt="Logo" loading="lazy">
       <div><a class="btn btn-blue" href="{% url 'signup' 'Buyer' %}">Create account</a><a class="btn btn-blue" href="{% url 'signin' %}">Sign In instead</a></div>
     </div>
     {% block signin %}{% endblock %}

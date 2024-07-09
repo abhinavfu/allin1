@@ -50,9 +50,9 @@
                 <td>
                   <div class="cart-img">
                     {% if j.menuitem.pic %}
-                    <img src="{{j.menuitem.pic.url}}" alt="menuitem item" />
+                    <img src="{{j.menuitem.pic.url}}" alt="menuitem item" loading="lazy"/>
                     {% else %}
-                    <img src="/static/images/No_image.png" alt="" />
+                    <img src="/static/images/No_image.png" alt="" loading="lazy"/>
                     {% endif %}
                   </div>
                 </td>

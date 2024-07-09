@@ -17,7 +17,7 @@
       }
   @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Dancing+Script&display=swap');
 </style>
-<svg class="lamp" viewBox="-21 0 100 125">
+<!-- <svg class="lamp" viewBox="-21 0 100 125">
   <defs>
     <filter id="goo">
       <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="color-matrix-blur"></feGaussianBlur>
@@ -66,26 +66,10 @@
       <animate attributeName="fill" values="rgb(0, 128, 128); rgb(0, 128, 128); rgb(0, 128, 128)" dur="20s" begin="-1" repeatCount="indefinite" />
     </ellipse>
   </g>
-</svg>
-<div class="hero-section glass">
+</svg> -->
+<div class="hero-section">
     <div id="my-info">
-      <div id="my-name">
-        Hello I'm <strong style="font-size: 50px;">Abhinav Anand</strong>
-      </div>
-      <div id="my-role">
-        I'm a <strong style="font-size: 80px;">Full Stack Developer</strong>
-      </div>
-      <div id="my-btn">
-        <a href="/#project">
-        <button class="layout">
-          <p>MY WORK</p>
-        </button></a>
-      </div>
-    </div>
-    <div id="my-img" class="outer">
-      <div class="inner">
-        <img src="../static/mainApp/abhi.jpg" alt="profile image of Abhinav Anand" />
-      </div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1442.5 700"><defs><style>.cls-1{fill:#00a99d;opacity:0.7;}.cls-2{font-size:200px;stroke-miterlimit:10;}.cls-2,.cls-6{fill:none;stroke:#000;stroke-width:5px;}.cls-2,.cls-4,.cls-5{font-family:MicrosoftSansSerif, Microsoft Sans Serif;}.cls-3{fill:#000;}.cls-4{font-size:60px;}.cls-5{font-size:42px;}.cls-6{stroke-linecap:round;stroke-linejoin:round;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><circle class="cls-1" cx="350" cy="350" r="350"/><text class="cls-2" transform="translate(237 420.21)">POR<tspan class="cls-3" x="433.4" y="0">TFOLIO</tspan></text><text class="cls-4" transform="translate(700 208.68)">Fullstack Developer</text><text class="cls-5" transform="translate(700 514.8)">By Abhinav Anand</text><polyline class="cls-6" points="1262.5 189.3 1440 189.3 1436.5 505.29 1084.5 501.8"/></g></g></svg>
     </div>
 </div>
 <div>
@@ -105,8 +89,8 @@
     <div id="{{i.name}}" class="">
       <h1 style="padding: 10px; background-color: #467f7e; color: white;">{{i.name}}</h1>
       {% for j in i.projects %}
-        <div class="project-c">
-          <div class="project-img"><img src="../static/mainApp/{{j.image}}" alt=""></div>
+        <div class="project-c p-appear">
+          <div class="project-img"><img src="../static/mainApp/{{j.image}}" alt="{{j.title}}" loading="lazy"></div>
           <div class="project-info">
             <h1>{{j.title}}</h1>
             <ul>

@@ -10,9 +10,9 @@
     <div class="container">
         <div class="img-box">
             {% if i.app.picapp %}
-            <img src="{{i.app.picapp.url}}" alt="image of {{i.app.name}}" />
+            <img src="{{i.app.picapp.url}}" alt="image of {{i.app.name}}" loading="lazy"/>
             {% else %}
-            <img src="/static/appimages/No_image.png" alt="" />
+            <img src="/static/appimages/No_image.png" alt="" loading="lazy"/>
             {% endif %}
         </div>
         <div>

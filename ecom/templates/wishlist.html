@@ -12,9 +12,9 @@
             <a href="{% url 'productInfo' data.product.id %}">
               <div class="img-box">
                 {% if data.product.pic1 %}
-                <img src="{{data.product.pic1.url}}" alt="image of {{data.product.name}}" />
+                <img src="{{data.product.pic1.url}}" alt="image of {{data.product.name}}" loading="lazy"/>
                 {% else %}
-                <img src="/static/images/No_image.png" alt="" />
+                <img src="/static/images/No_image.png" alt="" loading="lazy"/>
                 {% endif %}
               </div>
               <h4>{{data.product.name}}</h4>

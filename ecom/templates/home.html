@@ -4,7 +4,7 @@
 {%endblock%}
 <div class="home">
     <section class="hero">
-        <div class="div50"><img src="/static/images/hero.avif" alt=""></div>
+        <div class="div50"><img src="/static/images/hero.avif" alt="" loading="lazy"></div>
         <div class="div50 hero-content">
             <h3>Best Season Sale</h3>
             <h1>Show The World <br>  Your Own <br>  Unique Style</h1>
@@ -34,9 +34,9 @@
                     {%endif%}
                     <div class="product-img">
                         {% if data.pic1 %}
-                        <img src="{{data.pic1.url}}" alt="image of {{data.name}}" />
+                        <img src="{{data.pic1.url}}" alt="image of {{data.name}}" loading="lazy"/>
                         {% else %}
-                        <img src="/static/images/No_image.png" alt="" />
+                        <img src="/static/images/No_image.png" alt="" loading="lazy"/>
                         {% endif %}
                       </div>
                     <div class="product-info">
@@ -62,7 +62,7 @@
     <section class="uniPad">
         <h1>Our Products</h1>
         <div class="our-products">
-            <div class="div50"><img src="/static/images/p1.jpg" alt=""></div>
+            <div class="div50"><img src="/static/images/p1.jpg" alt="" loading="lazy"></div>
             <div class="div50">
                 <div>
                     <h1>Why us?</h1>
@@ -90,10 +90,10 @@
                     </ul>
                 </div>
             </div>
-            <div class="div50"><img src="/static/images/p2.jpg" alt=""></div>
+            <div class="div50"><img src="/static/images/p2.jpg" alt="" loading="lazy"></div>
         </div>
         <div class="our-products">
-            <div class="div50"><img src="/static/images/p3.jpg" alt=""></div>
+            <div class="div50"><img src="/static/images/p3.jpg" alt="" loading="lazy"></div>
             <div class="div50">
                 <div>
                     <h1>Lifestyle and Fashion Trends</h1>
@@ -122,9 +122,9 @@
                     {%endif%}
                     <div class="product-img">
                         {% if data.pic1 %}
-                        <img src="{{data.pic1.url}}" alt="image of {{data.name}}" />
+                        <img src="{{data.pic1.url}}" alt="image of {{data.name}}" loading="lazy"/>
                         {% else %}
-                        <img src="/static/images/No_image.png" alt="" />
+                        <img src="/static/images/No_image.png" alt="" loading="lazy"/>
                         {% endif %}
                       </div>
                     <div class="product-info">

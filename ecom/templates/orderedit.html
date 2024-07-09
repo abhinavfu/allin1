@@ -88,9 +88,9 @@
                 <a href="{% url 'productInfo' j.product.id %}">
                   <div class="cart-img">
                     {% if j.product.pic1 %}
-                    <img src="{{j.product.pic1.url}}" alt="product item" />
+                    <img src="{{j.product.pic1.url}}" alt="product item" loading="lazy"/>
                     {% else %}
-                    <img src="/static/images/No_image.png" alt="" />
+                    <img src="/static/images/No_image.png" alt="" loading="lazy"/>
                     {% endif %}
                   </div>
                 </a>

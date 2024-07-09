@@ -117,33 +117,33 @@
       <div class="mySlides fade">
         <div class="numbertext">1 / 4</div>
         {% if data.pic1 %}
-        <img src="{{data.pic1.url}}" style="width: 100%" />
+        <img src="{{data.pic1.url}}" style="width: 100%" loading="lazy"/>
         {% else %}
-        <img src="/static/images/No_image.png" alt="" />
+        <img src="/static/images/No_image.png" alt="" loading="lazy"/>
         {% endif %}
       </div>
       <div class="mySlides fade">
         <div class="numbertext">2 / 4</div>
         {% if data.pic2 %}
-        <img src="{{data.pic2.url}}" style="width: 100%" />
+        <img src="{{data.pic2.url}}" style="width: 100%" loading="lazy"/>
         {% else %}
-        <img src="/static/images/No_image.png" alt="" />
+        <img src="/static/images/No_image.png" alt="" loading="lazy"/>
         {% endif %}
       </div>
       <div class="mySlides fade">
         <div class="numbertext">3 / 4</div>
         {% if data.pic3 %}
-        <img src="{{data.pic3.url}}" style="width: 100%" />
+        <img src="{{data.pic3.url}}" style="width: 100%" loading="lazy"/>
         {% else %}
-        <img src="/static/images/No_image.png" alt="" />
+        <img src="/static/images/No_image.png" alt="" loading="lazy"/>
         {% endif %}
       </div>
       <div class="mySlides fade">
         <div class="numbertext">4 / 4</div>
         {% if data.pic4 %}
-        <img src="{{data.pic4.url}}" style="width: 100%" />
+        <img src="{{data.pic4.url}}" style="width: 100%" loading="lazy"/>
         {% else %}
-        <img src="/static/images/No_image.png" alt="" />
+        <img src="/static/images/No_image.png" alt="" loading="lazy"/>
         {% endif %}
       </div>
 
@@ -241,9 +241,9 @@
           {%endif%}
           <div class="product-img">
             {% if data.pic1 %}
-            <img src="{{data.pic1.url}}" alt="image of {{data.name}}" />
+            <img src="{{data.pic1.url}}" alt="image of {{data.name}}" loading="lazy"/>
             {% else %}
-            <img src="/static/images/No_image.png" alt="" />
+            <img src="/static/images/No_image.png" alt="" loading="lazy"/>
             {% endif %}
           </div>
             <div class="product-info">

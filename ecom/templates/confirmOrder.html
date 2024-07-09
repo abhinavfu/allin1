@@ -45,9 +45,9 @@
           <td>
             <div class="cart-img">
               {% if data.image %}
-              <img src="{{data.image}}" alt="product item" />
+              <img src="{{data.image}}" alt="product item" loading="lazy"/>
               {% else %}
-              <img src="/static/images/No_image.png" alt="" />
+              <img src="/static/images/No_image.png" alt="" loading="lazy"/>
               {% endif %}
             </div>
           </td>
@@ -65,9 +65,9 @@
     <div class="cart-c">
       <div class="cart-img">
         {% if data.image %}
-        <img src="{{data.image}}" alt="product item" />
+        <img src="{{data.image}}" alt="product item" loading="lazy"/>
         {% else %}
-        <img src="/static/images/No_image.png" alt="" />
+        <img src="/static/images/No_image.png" alt="" loading="lazy"/>
         {% endif %}
       </div>
       <div>

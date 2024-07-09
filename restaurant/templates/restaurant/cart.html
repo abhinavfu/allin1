@@ -38,9 +38,9 @@
             <td>
                 <div class="column"  width="200" height="200">
                 {% if i.menuitem.pic %}
-                <img src="{{i.menuitem.pic.url}}" alt="{{i.menuitem.name}}" width="200" height="auto"/>
+                <img src="{{i.menuitem.pic.url}}" alt="{{i.menuitem.name}}" width="200" height="auto" loading="lazy"/>
                 {% else %}
-                <img src="{% static 'img/Grill.jpg' %}" alt="{{ i.menuitem.name}}"  width="200" height="auto"/>
+                <img src="{% static 'img/Grill.jpg' %}" alt="{{ i.menuitem.name}}"  width="200" height="auto" loading="lazy"/>
                 {% endif %}
                 </div>
             </td>

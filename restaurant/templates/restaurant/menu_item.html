@@ -34,9 +34,9 @@
          <!--Begin col-->
          <div class="column">
             {% if menu_item.pic %}
-            <img src="{{menu_item.pic.url}}" alt="{{menu_item.name}}" />
+            <img src="{{menu_item.pic.url}}" alt="{{menu_item.name}}" loading="lazy"/>
             {% else %}
-            <img src="{% static 'img/Grill.jpg' %}" alt="{{ menu_item.name}}" />
+            <img src="{% static 'img/Grill.jpg' %}" alt="{{ menu_item.name}}" loading="lazy"/>
             {% endif %}
         </div>
          <!--End col-->

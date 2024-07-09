@@ -7,8 +7,8 @@
   {% if checkU != 'admin' %}
   <div class="profile">
     {% if user.pic %}
-    <img src="{{user.pic.url}}" alt="profile" />
-    {% else %} <img src="/static/images/No_image.png" alt="" />{% endif %}
+    <img src="{{user.pic.url}}" alt="profile" loading="lazy"/>
+    {% else %} <img src="/static/images/No_image.png" alt="" loading="lazy"/>{% endif %}
   </div>
   <div class="profileinfo">
     <table>
@@ -124,9 +124,9 @@
               <div class="sale">Sale!</div>
             {%endif%}
             {% if data.pic1 %}
-            <img src="{{data.pic1.url}}" alt="image of {{data.name}}" />
+            <img src="{{data.pic1.url}}" alt="image of {{data.name}}" loading="lazy"/>
             {% else %}
-            <img src="/static/images/No_image.png" alt="" />
+            <img src="/static/images/No_image.png" alt="" loading="lazy"/>
             {% endif %}
             <div class="product-info">
               <h4>{{data.name}}</h4>

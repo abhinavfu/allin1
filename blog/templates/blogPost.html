@@ -19,9 +19,9 @@
       <a href="{% url 'bloguserProfile' post.bloger.username %}">
         <div class="post-profile">
           {% if post.bloger.pic %}
-              <div class="pimg"><img src="{{post.bloger.pic.url}}" alt="" /></div>
+              <div class="pimg"><img src="{{post.bloger.pic.url}}" alt="" loading="lazy"/></div>
           {%else%}
-              <div class="pimg"><img src="/static/images/No_image_available.png" alt="" /></div>
+              <div class="pimg"><img src="/static/images/No_image_available.png" alt="" loading="lazy"/></div>
           {%endif%} 
           <h3>{{post.bloger.name}}</h3>
         </div>
@@ -33,9 +33,9 @@
       {% if request|videoTrue:post.id %}
       <div><video src="{{post.pic1.url}}" controls></video></div>
       {% elif post.pic1 %}
-      <div><img src="{{post.pic1.url}}" alt="" /></div>
+      <div><img src="{{post.pic1.url}}" alt="" loading="lazy"/></div>
       {%else%}
-      <div><img src="/static/images/No_image_available.png" alt="" /></div>
+      <div><img src="/static/images/No_image_available.png" alt="" loading="lazy"/></div>
       {%endif%}
       <div><span>Paragraph : </span> {{post.description}}</div>
     </div>

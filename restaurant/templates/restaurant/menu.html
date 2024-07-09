@@ -62,9 +62,9 @@
         <a href="{% url 'lemon-menu_item' pk=item.pk %}">
             <div class="menu-img">
                 {% if item.pic %}
-                <img src="{{item.pic.url}}" alt="{{item.name}}" />
+                <img src="{{item.pic.url}}" alt="{{item.name}}" loading="lazy"/>
                 {% else %}
-                <img src="{% static 'img/Grill.jpg' %}" alt="{{ item.name}}" />
+                <img src="{% static 'img/Grill.jpg' %}" alt="{{ item.name}}" loading="lazy"/>
                 {% endif %}
             </div>
         </a>

@@ -1,5 +1,5 @@
 <nav id="navbar">
-  <span class="logo"><a href="{% url 'home' %}"><img src="/static/images/logo.svg" alt="Logo"></a></span>
+  <span class="logo"><a href="{% url 'home' %}"><img src="/static/images/logo.svg" alt="Logo" loading="lazy"></a></span>
   <div class="d-none d-flex">
     <ul>
         <li><a href="{% url 'home' %}">Home</a></li>
@@ -105,7 +105,7 @@
     </svg></button>
   </div>
   <div id="menuitems" class="m-d-none">
-    <span class="logo"><a href="{% url 'home' %}"><img src="/static/images/logo.svg" alt="Logo"></a></span>
+    <span class="logo"><a href="{% url 'home' %}"><img src="/static/images/logo.svg" alt="Logo" loading="lazy"></a></span>
     <ul>
       <li><a href="{% url 'home' %}">Home</a></li>
       <li><a href="{% url 'shop' 'all' %}">Products</a></li>

@@ -75,9 +75,9 @@
               {%endif%}
                 <div class="product-img">
                   {% if data.pic1 %}
-                  <img src="{{data.pic1.url}}" alt="image of {{data.name}}" />
+                  <img src="{{data.pic1.url}}" alt="image of {{data.name}}" loading="lazy"/>
                   {% else %}
-                  <img src="/static/images/No_image.png" alt="" />
+                  <img src="/static/images/No_image.png" alt="" loading="lazy"/>
                   {% endif %}
                 </div>
                 <div class="product-info">

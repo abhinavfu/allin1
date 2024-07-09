@@ -93,63 +93,60 @@
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
-    min-height: 100vh;
+    min-height: 90vh;
     padding: 20px;
     overflow: hidden;
   }
   /* ==== my info ==== */
-  #my-info {
-    padding: 20px;
-  }
-  #my-name {
-    font-size: 25px;
-  }
-  #my-name strong {
-    padding-left: 10px;
-    font-family: 'Courgette', cursive;
-    color: teal;
-  }
-  #my-role {
-    font-size: 40px;
-  }
-  #my-role strong {
-    font-family: 'Dancing Script', cursive;
-    color: rgb(0, 97, 215);
-  }
-  #my-btn {
-    margin-top: 20px;
-    height: 50px;
-  }
-  #my-info button {
-    border-radius: 5px;
-    padding: 10px 30px;
-    cursor: pointer;
-  }
-  #my-info button:hover {
-    color: blue;
-    background-color: var(--bg-color);
-  }
-  #my-btn p {
-    font-size: 16px;
+  #my-info svg{
+    max-width: 1000px;
+    width: 900px;
+    min-width: 400px;
+   }
+  
+  .d-flex-about {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 10%;
   }
   .outer {
     border-radius: 50%;
-    padding: 20px;
+    padding: 10px;
+    margin: 20px;
     border: 0.2px solid rgba(128, 128, 128, 0.3);
     box-shadow: 6px 6px 10px -1px rgba(0, 0, 0, 0.15),
       -6px -6px 10px -1px rgba(255, 255, 255, 0.7);
   }
   :is(.inner,#my-img img){
-    min-width: 400px;
-    min-height: 400px;
-    max-width: 400px;
-    max-height: 400px;}
+    min-width: 220px;
+    min-height: 220px;
+    max-width: 220px;
+    max-height: 220px;}
   #my-img img {
     border-radius: 50%;
     box-shadow: 0px 3px 10px 0px var(--shadow-color);
   }
-    
   /* ====== Projects ======= */
+  @keyframes appear {
+    from {
+      opacity: 0;
+      /* clip-path: inset(100% 100% 0 0); */
+      transform: translateX(-100px);
+    }
+    to{
+      opacity: 1;
+      transform: translateX(0px);
+      /* clip-path: inset(0 0 0 0); */
+    }
+  }
+  /* works in chrome only */
+  .p-appear{
+    animation: appear linear;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+  }
   .project-c {
     display: flex;
     justify-content: space-evenly;
@@ -212,7 +209,8 @@
   }
   .me {
     margin: 30px 0px;
-    padding: 30px 10%;
+    padding: 30px;
+    max-width: 900px;
   }
   .skills {
     display: flex;
@@ -469,8 +467,18 @@
   tr:hover {
     background-color: rgba(100, 100, 100, 0.1);
   }
+  /* ---------------- 404 page not found -------------- */
+  .page404 svg {
+    max-width: 600px;
+    fill: teal;
+    stroke: teal;
+    margin: 0px 20px;
+  }
   /* ================ Tablet and Mobiles ============== */
   @media screen and (max-width: 900px) {
+    #my-info svg{
+      width: 650px;
+    }
     #newsletter > div {
       width: 70%;
       left: 15%;
@@ -507,6 +515,12 @@
     }
     .navbar ul {display: block; padding: 70px;}
     .navbar ul li {min-width: 100%;}
+    .hero-section{
+      min-height: 50vh;
+    }
+    #my-info svg{
+      width: 400px;
+    }
     #pageup {
       position: fixed;
       bottom: 30px;
@@ -539,4 +553,3 @@
       width: 10%;
     }
   }
-  
