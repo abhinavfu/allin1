@@ -48,5 +48,5 @@ urlpatterns = [
     path('userprofile/', userProfile, name='userprofile'),
     path('editprofile/<int:pk>', editProfile, name='editprofile'),
     path('email-verify-OTP/', emailVerifyOTP, name='emailVerifyOTP'),
-    path('logout/', logout, name='logout'),
+    path('logout/', ecomlogout, name='ecomlogout'),
 ] + static(MEDIA_URL, document_root=MEDIA_ROOT)

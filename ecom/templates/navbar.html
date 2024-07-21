@@ -4,8 +4,8 @@
     <ul>
         <li><a href="{% url 'home' %}">Home</a></li>
         <li><a href="{% url 'shop' 'all' %}">Products</a></li>
-        <li><a href="{% url 'about' %}">About</a></li>
-        <li><a href="{% url 'contact' %}">Contact</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
     </ul>
     <div class="d-flex">
       <form
@@ -63,7 +63,7 @@
         >
         <div class="dropdown-container">
           <a class="btn btn-blue" href="{% url 'userprofile' %}">Profile</a>
-          <a class="btn btn-red" href="{% url 'logout' %}">Logout</a>
+          <a class="btn btn-red" href="{% url 'ecomlogout' %}">Logout</a>
         </div>
         {%else%}
         <a class="btn btn-green" href="{% url 'signin' %}">SignIn</a>
@@ -109,8 +109,8 @@
     <ul>
       <li><a href="{% url 'home' %}">Home</a></li>
       <li><a href="{% url 'shop' 'all' %}">Products</a></li>
-      <li><a href="{% url 'about' %}">About</a></li>
-      <li><a href="{% url 'contact' %}">Contact</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
     </ul>
     <span id="menuclose">X</span>
     
@@ -142,7 +142,7 @@
       >
       <div class="dropdown-container">
         <a class="btn btn-blue" href="{% url 'userprofile' %}">Profile</a>
-        <a class="btn btn-red" href="{% url 'logout' %}">Logout</a>
+        <a class="btn btn-red" href="{% url 'ecomlogout' %}">Logout</a>
       </div>
       {%else%}
       <a class="btn btn-green" href="{% url 'signin' %}">SignIn</a>

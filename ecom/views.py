@@ -482,7 +482,7 @@ def signin(request):
 
             if user is not None:
                 auth.login(request, user)
-                return redirect(f'{AppURL}/userprofile')
+                return redirect(f'{AppURL}/')
             else:
                 messages.error(request, "Email and Password does not match")
         except:
@@ -510,7 +510,7 @@ def guest(request, pk):
             username=f"{fname}{lname}", password=password)
         if user is not None:
             auth.login(request, user)
-            return redirect(f'{AppURL}/userprofile')
+            return redirect(f'{AppURL}/')
     except:
         messages.success(
             request, "Guest Account has been successfully created")
@@ -554,7 +554,7 @@ def signup(request, pk):
                         username=f"{fname}{lname}", password=password)
                     if user is not None:
                         auth.login(request, user)
-                        return redirect(f'{AppURL}/userprofile')
+                        return redirect(f'{AppURL}/')
                 except:
                     messages.success(
                         request, "Your Account has been successfully created")
@@ -629,14 +629,14 @@ def forgetPasswordReset(request):
 
 
 @login_required(login_url=loginUrl)
-def logout(request):
+def ecomlogout(request):
     try:
         "delete items for guest user"
         pass
     except:
         pass
     auth.logout(request)
-    return redirect(f'{AppURL}/signin')
+    return redirect(f'/shop/signin')
 
 # # ------------------------------------------------------------------------------------
 # # Admin Profile
