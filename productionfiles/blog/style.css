@@ -434,15 +434,21 @@ nav .navlink ul li:hover {
   overflow: hidden;
 }
 .bg{
-  background-image: linear-gradient(var(--blue),var(--bg-lightgray));
+  padding: 20px;
+  background-color: rgb(255, 255, 255);
+  background-image: url("../images/lineart.svg");
+  background-repeat: repeat-y;
+  background-size: 100%;
+  min-height: 800px;
 }
 /* ---------- Form class ---------- */
 .bg .form{
   margin: 30px 10px 10px 10px;
   border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0.3);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  background-color: rgba(245, 252, 255,0.2);
+  border: 1px solid var(--bg-lightgray);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 form {
   display: flex;
