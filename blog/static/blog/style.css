@@ -157,6 +157,7 @@ nav .navlink ul li:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  gap: 10px;
 }
 .shadow {
   box-shadow: 10px 10px 10px gray;
@@ -466,10 +467,27 @@ form {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 5px;
 }
 .msg-error {
   padding: 10px;
   background-color: rgb(255, 75, 75, 0.5);
+}
+/* signin/signup hide show password */
+.bg .form .input-field{
+  position: relative;
+}
+.hide-show {
+  position: absolute;
+  top: 40px;
+  right: 10px;
+}
+.hide-show span {
+  cursor: pointer;
+  opacity: 0.5;
+}
+.hide-show input{
+  display: none;
 }
 /* ---------- Setting ---------- */
 .blogsetting{
@@ -512,9 +530,49 @@ footer ul li {
   background-color: lightblue;
 }
 .footeritem form ul{
-  min-width: 350px;
+  width: 100%;
 }
 
+@media only screen and (max-width: 900px) {
+  .homeposts h2{
+    font-size: 1rem;
+  }
+  .homeposts img {  
+    min-height: 200px;
+    max-height: auto;
+  }
+  .homeposts video {  
+    min-height: 150px;
+    max-height: auto;
+  }
+  .about{
+    display: block;
+  }
+  .about :is(.div50:first-child, .div50:last-child) {
+    width: 100%;
+  }
+  /* -------- Blog / post ------------ */
+  .blogSec,.postSec {
+    padding: 10% 10px;
+  }
+  .content {
+    width: 100%;
+    padding: 0px;
+  }
+  /* ---------- Profile -------- */
+  .userProfileSec {
+    padding: 10%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .user, .uposts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+  }
+}
 @media only screen and (max-width: 500px) {
   .hero, .about, .homecontent, .latest, .footercontainer {
     display: block;
@@ -537,25 +595,8 @@ footer ul li {
   .hero-img1, .hero-img2 {
     margin-bottom: 25px;
   }
-  .about :is(.div50:first-child, .div50:last-child) {
-    width: 100%;
-  }
-  /* -------- Blog / post ------------ */
-  .blogSec,.postSec {
-    padding: 10% 10px;
-  }
-  .content {
-    width: 100%;
-    padding: 0px;
-  }
-  /* ---------- Profile -------- */
-  .userProfileSec {
-    padding: 10%;
-  }
-  .user, .uposts {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 20px;
+  .bg .form{
+    margin: 30px 0px 10px 0px;
+    padding: 50px 20px;
   }
 }
