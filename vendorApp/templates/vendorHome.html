@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Management</title>
+    <style>
+        body{
+            scroll-behavior: smooth;
+        }
+        nav ul{
+            padding: 5px;
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 10px 5px;
+            padding: 5px;
+        }
+        nav ul li a{
+            text-decoration: none;
+            background-color: rgba(128, 128, 128, 0.15);
+            padding: 7px 10px ;
+            margin: 5px;
+            border-radius: 5px;
+        }
+        #how-to-use{
+            padding: 20px 10%;
+        }
+        #how-to-use :is(h1,h2){
+            padding-bottom: 5px;
+            border-bottom: 1px solid gray;
+        }
+        #how-to-use span{
+            border: 1px solid rgba(128, 128, 128, 0.2);
+            border-radius: 5px;
+            background-color: rgba(128, 128, 128, 0.2);
+            padding: 0px 5px;
+        }
+        #how-to-use ul{
+            list-style: disc;
+        }
+        #how-to-use th{
+            background-color: rgb(240, 240, 240);
+        }
+        #how-to-use th, td{
+            border: 1px solid gray;
+            padding: 10px;
+            min-width: 80px;
+            text-align: center;
+        }
+        .bash{
+            border: 1px solid lightblue;
+            border-left: 10px solid lightblue;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px 10px;
+            /* background-color: rgb(240, 240, 240); */
+            background-color: rgba(240, 255, 255, 0.5);
+            /* color: white; */
+            word-wrap: break-word;
+        }
+        /* ------------ Mobile devices ------------ */
+        @media only screen and (max-width: 600px) {
+            nav ul{
+                display: block;
+            }
+            #how-to-use{
+                padding: 10px;
+            }
+            #how-to-use th, td{
+            min-width: 30px;
+            padding: 5px;
+        }
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <nav>
+            <ul>
+                <li><a href="api/vendors/">Vendors List</a></li>
+                <li><a href="api/purchase_orders/">Purchase Orders List</a></li>
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_superuser %}
+                    <li><a href="/abhinavfuadmin/">Admin dashboard</a></li>
+                    {%endif%}
+                {%else%}
+                <li><a href="api-auth/login/">User Login</a></li>
+                {%endif%}
+                <li><a href="auth/users/">Create New User</a></li>
+                <li><a href="#vendor-API">How to use Vendor Management API ?</a></li>
+            </ul>
+        </nav>
+    </center>
+    <div id="how-to-use">
+        <h1>Welcome to Vendor Management System</h1>
+        <p>This Project is based on <span>Python</span>, <span>Django</span> and <span>Django REST Framework</span> for vendor
+            management, integrating aspects of data handling, API development, and basic performance
+            metric calculations.
+            <br>
+            Follow the below instructions for quick start and installation of the project.
+            After successfull installation test the APIs endpoints Using <span>Postman</span>, <span>Insomnia</span> or other related tools or softwares. The users are authenticated using <span>Token-based authentication</span>.
+        </p>
+        <h3>Objective</h3>
+        <p>Develop a Vendor Management System using Django and Django REST Framework. This
+            system will handle vendor profiles, track purchase orders, and calculate vendor performance
+            metrics.
+        </p>
+        <h3>Technical Requirements</h3>
+        <ul>
+            <li>Django (latest stable version)</li>
+            <li>Django REST Framework (latest stable version)</li>
+            <li>Comprehensive data validations</li>
+            <li>Django ORM for database interactions</li>
+            <li>Token-based authentication</li>
+            <li>PEP 8 compliant code</li>
+        </ul>
+        <h2>Quick start</h2>
+        <h3>Creating Vendor Management project</h3>
+        <ul>
+            <li>Creating <span>virtual environment</span>
+
+                <div class="bash">
+                    python -m venv /path/to/new/virtual/environment
+                </div>
+                <div class="bash">
+                    python -m venv c:\path\to\myenv
+                </div>
+                - command to activate virtual environment
+                <div class="bash">
+                    venv\Scripts\activate
+                </div>
+            </li>
+            <li>
+                install required libraries using command prompt
+                <div class="bash">
+                    pip install -r "requirements.txt"
+                </div>
+                or
+                <div class="bash">
+                    pip install django
+                <br>    pip install djangorestframework
+                <br>    pip install djoser
+                </div>
+            </li>
+            <li>
+                Another method for creating new <span>virtual environment</span> using command prompt (CMD)
+                <div class="bash">
+                    pip install pipenv
+                </div>
+                - After installing pipenv
+                <div class="bash">
+                    pipenv shell
+                </div>
+                <div class="bash">
+                    pipenv install -r "requirements.txt"
+                </div>
+                or
+                <div class="bash">
+                    pipenv install django
+                <br>    pipenv install djangorestframework
+                <br>    pipenv install djoser
+                </div>
+            </li>
+            <li>
+                Create a new project <span>vendorManagement</span>
+                <div class="bash">
+                    django-admin startproject vendorManagement
+                </div>
+                - After creating project, add <span>vendorApp</span> in project sub directory folder
+                <div class="bash">
+                    cd vendorManagement
+                <br>    django-admin startapp vendorApp
+                </div>
+            </li>
+        </ul> 
+        <h3>Installation</h3>
+        <ul>
+            <li>
+                1. Add "app" to your INSTALLED_APPS setting in your project <span>settings.py</span> like this::
+                <div class="bash">
+                    INSTALLED_APPS = [
+                    <br>    'rest_framework',
+                    <br>    'rest_framework.authtoken',
+                    <br>    'djoser',
+                    <br>    'vendorApp',
+                    <br>]
+                </div>
+            </li>
+            <li>
+                2. Include the app URLconf in your project <span>urls.py</span> like this::
+                <div class="bash">
+                    urlpatterns = [
+                    <br>
+                    <br> # vendor app
+                    <br> path('', include('vendorApp.urls')),
+                    <br>
+                    <br> # rest_framework & djoser
+                    <br> path('api-auth/', include('rest_framework.urls', namespace='rest_framework')), # login/logout
+                    <br> path('auth/', include('djoser.urls')), # create new user, activation, change password, etc.
+                    <br> path('auth/', include('djoser.urls.authtoken')),
+                    <br>
+                    <br> ]
+                </div>
+            </li>
+            <li>
+                3. Very important for <span>Token-based authentication</span>.
+                Add these lines of codes in the <span>setting.py</span> file to make token based authentication possible.
+                <div class="bash">
+                    REST_FRAMEWORK = {
+                    <br>
+                    <br>    'DEFAULT_RENDERER_CLASSES': [
+                    <br>        'rest_framework.renderers.JSONRenderer',
+                    <br>        'rest_framework.renderers.BrowsableAPIRenderer',
+                    <br>    ],
+                    <br>
+                    <br>    'DEFAULT_FILTER_BACKENDS': [
+                    <br>        'rest_framework.filters.OrderingFilter',
+                    <br>        'rest_framework.filters.SearchFilter',
+                    <br>    ],
+                    <br>
+                    <br>    'DEFAULT_AUTHENTICATION_CLASSES': (
+                    <br>        'rest_framework.authentication.TokenAuthentication', # important
+                    <br>        'rest_framework.authentication.SessionAuthentication',
+                    <br>    ),
+                    <br>
+                    <br>}
+                </div>
+            </li>
+            <li>
+                4. Run <span>python manage.py makemigrations</span> to make migrations to the INSTALLED_APPS models.
+            </li>
+            <li>
+                5. Run <span>python manage.py migrate</span> to create the INSTALLED_APPS models.
+            </li>
+            <li>
+                6. To create a Super_User or <strong>Admin</strong>, Run <span>python manage.py createsuperuser</span>.
+                <br>- username
+                <br>- email
+                <br>- password
+            </li>
+            <li>
+                7. Start the development server <span>python manage.py runserver</span>.
+            </li>
+        </ul>
+
+        <h2 id="vendor-API">Details on using the API endpoints</h2>
+        <p>
+            These are the useful <strong><span>URLs</span></strong> to navigate easily in <strong><span>web browser</span></strong>, <strong><span>Postman</span></strong> or <strong><span>Insomnia</span></strong> and can test these API endpoints.
+        </p>
+        <h3>Users</h3>
+        <ul>
+            <li>Using <strong><span>Djoser</span></strong> library for registration, change password, etc.</li>
+            <li>Users can <span>create new user</span> and can <span>login</span>.</li>
+            <li>Users can only see their informations. Admin can see list of all users.</li>
+            <li>For <span>registration</span> go to <span>http://127.0.0.1:8000/auth/users/</span>.</li>
+        </ul> 
+        <table>
+            <tr>
+                <th>URLs</th>
+                <th>User</th>
+            </tr>
+            <tr>
+                <td>http://127.0.0.1:8000/auth/users/</td>
+                <td>GET</td>
+            </tr>
+            <tr>
+                <td>http://127.0.0.1:8000/api-auth/login/</td>
+                <td>POST</td>
+            </tr>
+        </table> 
+        <h3>Token Generation</h3>
+        <p>
+            Users can generate token for authentication.
+            Use <span>POST</span> method with <span>username</span> and <span>password</span> for token generation.
+        </p> 
+        <table>
+            <tr>
+                <th>URLs</th>
+                <th>User</th>
+            </tr>
+            <tr>
+                <td>http://127.0.0.1:8000/api-token-auth/</td>
+                <td>POST</td>
+            </tr>
+        </table>
+        <ul>
+            <li>After user get their <span>token</span> they can <span>get access</span> to API endpoints.</li>
+            <li>Without <span>token</span> users <span>can not get acceess</span> to API endpoints.</li>
+        </ul>
+
+        <h3>1. Vendor Profile Management:</h3>
+        <table>
+            <tr>
+                <th>URLs</th>
+                <th>Admin</th>
+                <th>User</th>
+                <th>Vendor</th>
+            </tr>
+            <tr>
+                <td>http://127.0.0.1:8000/api/vendors/</td>
+                <td>GET, POST</td>
+                <td>GET, POST</td>
+                <td>GET, POST</td>
+            </tr>
+        </table>
+        <ul>
+            <li>Authentication: Token-based authentication required.</li>
+            <li>
+                All Users can <span>get</span> list of all vendors and can <span>create</span> a new vendor by adding following fields such as
+                <br>- <span>name</span>
+                <br>- <span>contact_details</span>
+                <br>- <span>address</span>
+                <br>- <span>vendor_code</span> should be unique
+            </li>
+        </ul>
+
+        <table>
+            <tr>
+                <th>URLs</th>
+                <th>Admin</th>
+                <th>User</th>
+                <th>Vendor</th>
+            </tr>
+            <tr>
+                <td>http://127.0.0.1:8000/api/vendors/{vendor_id}/</td>
+                <td>GET, DELETE</td>
+                <td>GET</td>
+                <td>GET, PUT</td>
+            </tr>
+        </table>
+        <ul>
+            <li>Authentication: Token-based authentication required.</li>
+            <li>Admin can <span>get</span> information about single Vendor and can only <span>delete</span> single Vendor.</li>
+            <li>Users can <span>get</span> information about single Vendor.</li>
+            <li>Vendors can <span>get</span> information about single Vendor and can only <span>update</span> their
+                <br>- <span>name</span>
+                <br>- <span>contact_details</span>
+                <br>- <span>address</span>
+            </li>
+        </ul>
+
+        <h3>2. Purchase Order Tracking:</h3>
+        <table>
+            <tr>
+                <th>URLs</th>
+                <th>Admin</th>
+                <th>User</th>
+                <th>Vendor</th>
+            </tr>
+            <tr>
+                <td>http://127.0.0.1:8000/api/purchase_orders/</td>
+                <td>GET</td>
+                <td>GET, POST</td>
+                <td>GET</td>
+            </tr>
+        </table>
+        <ul>
+            <li>Authentication: Token-based authentication required.</li>
+            <li>Admin can <span>get</span> list of Purchase Orders.</li>
+            <li>Users can <span>get</span> list of Purchase Orders and can <span>create</span> a new Purchase order by adding following fields such as
+                <br>- <span>po_number</span> should be unique,
+                <br>- <span>vendor</span> select vendor using vendor_id, 
+                <br>- <span>items</span> in JSON format (eg.- {"name":"Item name"} ),
+                <br>- <span>quantity</span> must be greater than 0.
+            </li>
+            <li>Vendor can <span>get</span> list of Purchase Orders.</li>
+        </ul>
+
+        <table>
+            <tr>
+                <th>URLs</th>
+                <th>Admin</th>
+                <th>User</th>
+                <th>Vendor</th>
+            </tr>
+            <tr>
+                <td>http://127.0.0.1:8000/api/purchase_orders/{po_id}/</td>
+                <td>GET, DELETE</td>
+                <td>GET, PUT</td>
+                <td>GET, PUT</td>
+            </tr>
+        </table>
+        <ul>
+            <li>Authentication: Token-based authentication required.</li>
+            <li>Admin can <span>get</span> information about single Purchase Order and only can <span>delete</span> single Purchase Order.</li>
+            <li>Users can <span>get</span> information about single Purchase Order and can <span>update</span> field like 
+                <br>- <span>status</span> to be 'cancelled' to cancel the Purchase Order, before status field is completed or acknowledged by vendor.
+                <br>- <span>quality_rating</span> after status field is completed.
+            </li>
+            <li>Vendors can <span>get</span> information about single Purchase Order and can <span>update</span> 
+                <br>- <span>status</span> field as 'placed'.
+            </li>
+        </ul>
+        <table>
+            <tr>
+                <th>URLs</th>
+                <th>Admin</th>
+                <th>User</th>
+                <th>Vendor</th>
+            </tr>
+            <tr>
+                <td>http://127.0.0.1:8000/api/purchase_orders/{po_id}/acknowledge/</td>
+                <td>-</td>
+                <td>-</td>
+                <td>POST</td>
+            </tr>
+        </table>
+        <ul>
+            <li>Authentication: Token-based authentication required.</li>
+            <li>Only same <span>Vendor</span> as <span>Purchase Order's vendor</span> can acknowledge the Purchase Order.</li>
+        </ul>
+
+        <h3>3. Vendor Performance Evaluation:</h3>
+        <table>
+            <tr>
+                <th>URLs</th>
+                <th>Admin</th>
+                <th>User</th>
+                <th>Vendor</th>
+            </tr>
+            <tr>
+                <td>http://127.0.0.1:8000/api/vendors/{vendor_id}/performance</td>
+                <td>GET</td>
+                <td>GET</td>
+                <td>GET</td>
+            </tr>
+        </table>
+        <ul>
+            <li>Authentication: Token-based authentication required.</li>
+            <li>All Users can get information about single vendor performance.</li>
+        </ul>
+
+        <h4>(Optional) Another way for testing API endpoints using Python requests</h4>
+        <div class="bash">
+                 import requests
+            <br> 
+            <br> url = "http://127.0.0.1:8000/api/vendors/"
+            <br> 
+            <br> payload = { 
+            <br>         "name": "Vendor Name",
+            <br>         "contact_details": "Contact Details",
+            <br>         "address": "Vendor Address",
+            <br>         "vendor_code": "VENDOR123" 
+            <br>         }
+            <br> headers = {
+            <br>     "content-type": "application/json",
+            <br>     "Authorization": "token token_value_here"
+            <br> }
+            <br> 
+            <br> response = requests.post(url, json=payload, headers=headers)
+            <br> 
+            <br> print(response.json())
+        </div>
+
+        <h2>Details on using the Test Suite</h2>
+        <p>In command prompt type below code to run the test cases.</p>
+
+        <div class="bash">
+            python manage.py test
+        </div>
+        <p>If test case <span>pass</span>, it will show as <span>.</span> dot sign</p>
+        <p>If test case <span>fail</span>, it will show as letter <span>F</span></p>
+        <br>
+        <p>Let's assume two Test Cases</p>
+        <ul>
+            <li>
+                If both test cases <span>passes</span>
+                <div class="bash">
+                         ------------
+                    <br> ..
+                    <br> ------------
+                    <br> Ran 2 test in 0.006s
+                    <br> 
+                    <br> OK
+                </div>
+            </li>
+            <li>
+                If both test cases <span>fails</span>
+                <div class="bash">
+                         ------------
+                    <br> FF
+                    <br> ------------
+                    <br> Ran 2 tests in 0.009s
+                    <br> 
+                    <br> FAILED (failures=2)
+                </div>
+            </li>
+            <li>
+                If one test cases <span>passes</span> while another <span>fails</span>
+                <div class="bash">
+                         ------------
+                    <br> .F
+                    <br> ------------
+                    <br> Ran 2 tests in 0.007s
+                    <br> 
+                    <br> FAILED (failures=1)
+                </div>
+            </li>
+        </ul>
+
+
+        <h3>Note</h3>
+        <p>Please, don't forget to install all required packages.</p>
+        <p>
+            If you are running application from local server, probably, you will have to run server via <span>python manage.py runserver 0.0.0.0:8000</span>.
+            (Optional - Don't forget to add server's IP to ALLOWED_HOSTS in settings.)
+        </p>
+    </div>
+</body>
+</html>

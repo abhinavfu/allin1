@@ -37,4 +37,11 @@ urlpatterns = [
     path('restaurant/api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('restaurant/api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
+    # vendor app (RESTAPI)
+    path('vendor-management/', include('vendorApp.urls')),
+    # rest_framework & djoser
+    path('vendor-management/api-auth/', include('rest_framework.urls', namespace='rest_framework_vendor')), # login/logout
+    path('vendor-management/auth/', include('djoser.urls')), # create new user, change password, etc.
+    path('vendor-management/auth/', include('djoser.urls.authtoken')),
+
 ]
