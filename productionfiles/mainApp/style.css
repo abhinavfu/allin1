@@ -168,7 +168,8 @@
     color: teal;
   }
   .project-img{
-    width: 600px;
+    max-width: 600px;
+    min-width: 300px;
   }
   .project-info {
     text-align: center;
