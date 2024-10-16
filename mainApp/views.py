@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from django.http import HttpRequest
+from django.conf import settings
+from django.core.mail import send_mail
 from django.contrib import messages
 from .models import *
 from blog.models import Blog_page_view_count
@@ -117,6 +118,19 @@ def contactme(request):
             p = Feedback(name=name, email=email,
                          subject=subject, message=message)
             p.save()
+            try:
+                email_subject = f'Portfolio : {name} gives a new feedback'
+                message = f'''
+                            Name : {name}
+                            Email : {email}
+                            Subject : {subject}
+                            Message :  {message}
+                        '''
+                email_from = settings.EMAIL_HOST_USER
+                recipient_list = [settings.EMAIL_ADMIN, ]
+                send_mail(email_subject, message, email_from, recipient_list, fail_silently=False)
+            except Exception as e:
+                print(f"ERROR : {e}")
             messages.success(request, "Feedback sent Successfully")
             return redirect('/contact-me/')
     except:
