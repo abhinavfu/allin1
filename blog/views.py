@@ -202,6 +202,20 @@ def blogGuest(request, pk):
     try:
         user = auth.authenticate(
             username=username, password=password)
+        try:
+            email_subject = f'Portfolio : {fname+lname} account created'
+            message = f'''
+                        Name : {fname+lname}
+                        Email : {email}
+
+                        App : Blog
+                        Guest Account Created
+                    '''
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [settings.EMAIL_ADMIN, ]
+            send_mail(email_subject, message, email_from, recipient_list, fail_silently=False)
+        except Exception as e:
+            print(f"ERROR : {e}")
         if user is not None:
             auth.login(request, user)
             return redirect(f'{appUrl}/userProfile/{user}/')

@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth, messages
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.core.mail import send_mail
 from decimal import Decimal
 from datetime import datetime
 from .forms import BookingForm
@@ -356,6 +358,20 @@ def guest(request, pk):
     try:
         user = auth.authenticate(
             username=f"{fname}{lname}", password=password)
+        try:
+            email_subject = f'Portfolio : {fname+lname} account created'
+            message = f'''
+                        Name : {fname+lname}
+                        Email : {email}
+
+                        App : Restaurant
+                        Guest Account Created
+                    '''
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [settings.EMAIL_ADMIN, ]
+            send_mail(email_subject, message, email_from, recipient_list, fail_silently=False)
+        except Exception as e:
+            print(f"ERROR : {e}")
         if user is not None:
             auth.login(request, user)
             return redirect(f'{AppURL}/userprofile')

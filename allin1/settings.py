@@ -183,7 +183,7 @@ DJOSER = {
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
 }
-
+DJ_TOKEN=PRIVATE["DJ_TOKEN"]
 EMAIL_ADMIN = PRIVATE["EMAIL_ADMIN"]
 # Email Configuration
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
