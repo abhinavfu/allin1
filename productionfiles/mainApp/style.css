@@ -98,12 +98,24 @@
     overflow: hidden;
   }
   /* ==== my info ==== */
+  #my-info{
+    animation: hero 2s ease-in-out;
+  }
   #my-info svg{
     max-width: 1000px;
     width: 900px;
     min-width: 400px;
    }
-  
+   @keyframes hero {
+    from {
+      opacity: 0;
+      transform: translateX(-150px);
+    }
+    to{
+      opacity: 1;
+      transform: translateX(0px);
+    }
+  }
   .d-flex-about {
     display: flex;
     flex-wrap: wrap;
@@ -208,10 +220,62 @@
   :is(#about, .contactpage ,#newsletter, #footer){
     font-family: sans-serif;
   }
+  #my-img{
+    animation: myimg 2s ease-in-out;
+    z-index: 5;
+  }
+  @keyframes myimg {
+    from {
+      opacity: 0;
+      transform: translateX(-150px);
+    }
+    to{
+      opacity: 1;
+      transform: translateX(0px);
+    }
+  }
   .me {
     margin: 30px 0px;
     padding: 30px;
     max-width: 900px;
+    overflow: hidden;
+  }
+  .me p:nth-child(1){
+    animation: myinfo 4s ease-in-out;
+  }
+  .me p:nth-child(3){
+    animation: myinfo 6s ease-in-out;
+  }
+  .me p:nth-child(5){
+    animation: myinfo 9s ease-in-out;
+  }
+  @keyframes myinfo {
+    0% {
+      opacity: 0;
+      transform: translateX(-150px);
+    }
+    50% {
+      opacity: 0;
+      transform: translateX(-150px);
+    }
+    100%{
+      opacity: 1;
+      transform: translateX(0px);
+    }
+  }
+  #skills{
+    animation: skills 12s ease-in-out;
+  }
+  @keyframes skills {
+    0% {
+      opacity: 0;
+    }
+    70% {
+      opacity: 0;
+    }
+    100%{
+      opacity: 1;
+    }
   }
   .skills {
     display: flex;
@@ -226,19 +290,17 @@
     margin: 10px;
     padding: 10px;
     overflow: hidden;
+    transition: all 0.5s linear;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
   .skills > span:hover {
-    width: auto;
-    height: auto;
-    display: flex;
-    align-items: center;
     overflow: visible;
     border-radius: 20px;
     background-color: rgba(0, 128, 128, 0.1);
   }
-  .skills > span > span {
-    padding: 10px;
-    margin: 10px;
+  .skills > span:hover > span {
     color: teal;
   }
   /* =========== info ============ */
@@ -384,13 +446,18 @@
     height: 30px;
     cursor: pointer;
   }
-  .linkedin:hover a {
-    color: blue;
+  #social li a{
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
-  .whatsapp:hover a{
+  .linkedin a {
+    color: rgb(80, 80, 227);
+  }
+  .whatsapp a{
     color: green;
   }
-  .google:hover a{
+  .google a{
     color: rgb(250, 86, 86);
   }
   /* ====== Newsletter ====== */
@@ -532,9 +599,7 @@
       text-align: center;
     }
     .skills > span:hover{
-      display: block;
-      width: 120px;
-      height: 150px;
+      overflow: visible;
     }
     #my-contact {
       padding: 0px 3%;
