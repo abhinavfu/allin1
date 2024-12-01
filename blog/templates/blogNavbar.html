@@ -13,7 +13,7 @@
   <div class="navlink">
     <ul>
       <li><a href="{% url 'bloghome' %}">Home</a></li>
-      <li><a href="{% url 'blogpage' 1 %}">Blog</a></li>
+      <li><a href="{% url 'blogpage' 1 %}">Blogs</a></li>
       <li><a href="{% url 'bloghome' %}#latest">Latest</a></li>
       <li><a href="{% url 'bloghome' %}#about">About</a></li>
       <li>{% if request.user.is_authenticated %}

@@ -23,12 +23,14 @@
           {%else%}
               <div class="pimg"><img src="/static/images/No_image_available.png" alt="" loading="lazy"/></div>
           {%endif%} 
-          <h3>{{post.bloger.name}}</h3>
+          <div>
+            <h3>{{post.bloger.name}}</h3>
+            <span>{{post.date}}</span>
+          </div>
         </div>
       </a>
-      <span>{{post.date}}</span>
     </div>
-    <h2><span>Title : </span> {{post.title}}</h2>
+    <h4><span>Title : </span> {{post.title}}</h4>
     <div>
       {% if request|videoTrue:post.id %}
       <div><video src="{{post.pic1.url}}" controls></video></div>

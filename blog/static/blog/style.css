@@ -300,6 +300,7 @@ nav .navlink ul li:hover {
 }
 .posts span {
   color: gray;
+  font-size: 14px;
 }
 .postsicon {
   display: flex;
@@ -310,8 +311,8 @@ nav .navlink ul li:hover {
   min-width: 100px;
 }
 .posts svg {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   /* fill: red; */
 }
 .posts .views svg {
@@ -373,7 +374,7 @@ nav .navlink ul li:hover {
 .ustatus .unum {font-size: 35px;}
 .uinfo {
   padding: 20px;
-}x
+}
 .uinfo :is(h2, p, div) {
   padding: 10px;
 }
@@ -598,5 +599,7 @@ footer ul li {
   .bg .form{
     margin: 30px 0px 10px 0px;
     padding: 50px 20px;
+  }
+  .comment{padding: 0px 10px;
   }
 }

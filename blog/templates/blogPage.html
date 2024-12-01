@@ -13,11 +13,13 @@
           {%else%}
               <div class="pimg"><img src="/static/images/No_image_available.png" alt="" loading="lazy"/></div>
           {%endif%} 
-          <h3>{{i.bloger.name}}</h3>
+          <div>
+            <h3>{{i.bloger.name}}</h3>
+            <span>{{i.date}}</span>
+          </div>
         </div>
       </a>
-      <span>{{i.date}}</span>
-      <h2><span>Title : </span> {{i.title}}</h2>
+      <h4><span>Title : </span> {{i.title}}</h4>
       <div>
         <a href="{% url 'blogpost' i.id %}">
           {% if request|videoTrue:i.id %}
@@ -105,10 +107,10 @@
     <div class="nocontent">Currently no post available by users.</div>
     {% endfor %}
   </div>
-  <div class="page"> Page 
+  <center class="page"> Page 
     {% for i in page %}
     <a class="btn" href="{% url 'blogpage' i %}">{{i}}</a>
     {%endfor%}
-  </div>
+  </center>
 </div>
 {% endblock %}
