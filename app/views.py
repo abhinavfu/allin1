@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 import os
 import datetime
 from .models import *
@@ -30,6 +31,20 @@ def appHome(request):
         app_count.save()
     except:
         pass
+    # ---------------------------------------------------------
+    try:
+        from mainApp.models import UserInfo
+        get_info = settings.USER_INFO(request)
+        info = UserInfo(
+            page_name = "App Pointer",
+            ip_address = get_info["ip_address"],
+            browser_name = get_info["browser_name"],
+            browser_version = get_info["browser_version"],
+            server_name = get_info["server_name"],
+            server_port = get_info["server_port"],
+        )
+        info.save()
+    except:pass
     # ---------------------------------------------------------
     return render(request, 'appHome.html', {'app': app})
 

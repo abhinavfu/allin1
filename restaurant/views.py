@@ -85,6 +85,21 @@ def token_value(request):
     return token
 # ------------------------ Templates --------------------------------------
 def home(request):
+    # ---------------------------------------------------------
+    try:
+        from mainApp.models import UserInfo
+        get_info = settings.USER_INFO(request)
+        info = UserInfo(
+            page_name = "Restaurant",
+            ip_address = get_info["ip_address"],
+            browser_name = get_info["browser_name"],
+            browser_version = get_info["browser_version"],
+            server_name = get_info["server_name"],
+            server_port = get_info["server_port"],
+        )
+        info.save()
+    except:pass
+    # ---------------------------------------------------------
     return render(request, 'restaurant/index.html')
 
 def about(request):

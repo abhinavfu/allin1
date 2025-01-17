@@ -89,6 +89,20 @@ def home(request):
     except:
         pass
     # ---------------------------------------------------------
+    try:
+        from mainApp.models import UserInfo
+        get_info = settings.USER_INFO(request)
+        info = UserInfo(
+            page_name = "Eshop",
+            ip_address = get_info["ip_address"],
+            browser_name = get_info["browser_name"],
+            browser_version = get_info["browser_version"],
+            server_name = get_info["server_name"],
+            server_port = get_info["server_port"],
+        )
+        info.save()
+    except:pass
+    # ---------------------------------------------------------
     products = Product.objects.all()[:4]
     trending = Product.objects.all().order_by("-popularity")[:4]
     brands = Brand.objects.all()[:8]

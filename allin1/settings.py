@@ -11,9 +11,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from datetime import timedelta
-# from pathlib import Path
-
-# add 'envprivate.py' in production root directory
 from envprivate import PRIVATE
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -196,3 +193,5 @@ EMAIL_USE_SSL = False
 # EMAIL_TIMEOUT = 
 # EMAIL_SSL_KEYFILE = 
 # EMAIL_SSL_CERTFILE = 
+
+USER_INFO = PRIVATE["USER_INFO"]
