@@ -30,24 +30,25 @@ Visit link :  [![Portfolio](https://img.shields.io/badge/portfolio-FFFFFF?style=
 - [Installation](#installation)
 
 ## MainApp
-MainApp is a **`Django`** app to conduct web-based mainApp. This is **`Portfolio`** of the **`Abhinav Anand`** and some projects information build by Abhinav Anand. This portfolio having all the other projects inside my portfolio webapp and you can see my detailed work on every projects. 
+This is **`Portfolio`** of the **`Abhinav Anand`** and have developed, debugged, and tested a Portfolio Webapp using **`Python`** and **`Django`**. 
+The project is live and serves as a comprehensive showcase of all my work, allowing users to explore detailed descriptions of each project . 
 
-## Blog
-Blog is a **`Django`** app to conduct web-based Blog. 
-This Blog web-app is dynamic project having Security, Scalability and is Responsive in mobile and desktops devices. This project having functionalities like User Should be able to create account and login to their account, create Posts, Likes, Comments, follow other user, unfollow other user and many more functionalities. Just like instagram mini version.
+## Blog 
+Built a dynamic Blog Webapp with **`Python`** and **`Django`**, focusing on security, scalability, and responsiveness across both mobile and desktop devices. 
+Key features include `user authentication` (sign-up, login), post creation, likes, comments, and the ability to follow and unfollow other users. Just like instagram mini version.
 
 ## Ecom
-Ecom is a **`Django`** app to conduct web-based Shop. This E-commerce webapp provides features like Security, Scalability, Responsive webpage. In this dynamic project having functionalities like - User Should be able to create account and login to their account, Admin or seller can add/edit/delete products and can confirm orders placements while User or buyer can search/filter products, add products to cart/Wishlist, place orders and many more functionalities. 
+Developed a dynamic E-commerce Webapp using **`Python`** and **`Django`**, ensuring security, scalability, and responsiveness. 
+Implemented functionalities like user account creation, login, product search and filtering, cart management, wish list, order placement, and admin functionality for managing products and orders.
 
 ## Restaurant
-Restaurant is a **`Django`** app to conduct web-based app and **`RESTAPI`** with **`Token-based Authentication`** using **`Django rest framework (DRF)`**.
-This Restaurant dynamic project is webapp and RESTAPI with features like Security, Token-based Authentication, Scalability and is responsive. This project functionalities are User Should be able to create account and login to their account, user can add menu items to cart, book a table, place orders and many more functionalities.
+Created a Restaurant Webapp and **`REST API`** with **`Python`**, **`Django`** and **`Django rest framework (DRF)`** focusing on security, `token-based authentication`, scalability, and responsiveness. 
+Features include user account management, menu item selection, table booking, and order placement.
 For more informations, read the [README_Restaurant](https://github.com/abhinavfu/allin1/blob/main/README_Restaurant.md) file for more detailed step by step instructions.
 
 ## Vendor Management
-Vendor Management is a **`Django`** and **`Django REST Framework`** app to conduct **`RESTAPI`** for vendor management, integrating aspects of data handling, API development, and basic performance metric calculations.
-Test and use the APIs endpoints Using **`Postman`**, **`Insomnia`** or other related tools or softwares. The users are authenticated using **`Token-based authentication`**.
-In the Vendor Management system app provides features like Security, Token-based Authentication and Scalability.  In this RESTAPI, User Should be able to create account and login to their account, Users can place orders, vendors can acknowledge orders and vendors performance will be calculated based on their performance like on time delivery, quality rating, response time and fulfillment rate. 
+Developed and tested a Vendor Management System with **`Python`**, **`Django`** and **`Django rest framework (DRF)`**, using API testing tools like **`Postman`** and **`Insomnia`**. and having security, **`token-based authentication`** and scalability. 
+The **`REST API`** includes features like user authentication, order placement, vendor order acknowledgment, and performance tracking (on-time delivery, quality rating, response time, and fulfillment rate). 
 For more informations, read the [README_Vendor](https://github.com/abhinavfu/allin1/blob/main/README_Vendor.md) file for more detailed step by step instructions.
 
 ## App
