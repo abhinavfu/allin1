@@ -21,18 +21,10 @@ def home(request):
     Home View renders template for home page when URL be requested by the user.
     """
     try:
-        from mainApp.models import UserInfo
-        get_info = settings.USER_INFO(request)
-        info = UserInfo(
-            page_name = "Vendor",
-            ip_address = get_info["ip_address"],
-            browser_name = get_info["browser_name"],
-            browser_version = get_info["browser_version"],
-            server_name = get_info["server_name"],
-            server_port = get_info["server_port"],
-        )
-        info.save()
-    except:pass
+        from mainApp.views import user_info
+        user_info(request, page="Vendor")
+    except Exception as e:
+        print("Error :",e)
     # ---------------------------------------------------------
     return render(request,'vendorHome.html')
 

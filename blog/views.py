@@ -35,18 +35,10 @@ def bloghome(request):
         pass
     # ---------------------------------------------------------
     try:
-        from mainApp.models import UserInfo
-        get_info = settings.USER_INFO(request)
-        info = UserInfo(
-            page_name = "Blog",
-            ip_address = get_info["ip_address"],
-            browser_name = get_info["browser_name"],
-            browser_version = get_info["browser_version"],
-            server_name = get_info["server_name"],
-            server_port = get_info["server_port"],
-        )
-        info.save()
-    except:pass
+        from mainApp.views import user_info
+        user_info(request, page="Blog")
+    except Exception as e:
+        print("Error :",e)
     # ---------------------------------------------------------
     # herosection most popular two items
     herosection = CreatePost.objects.all()

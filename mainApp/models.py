@@ -29,4 +29,8 @@ class UserInfo(models.Model):
     browser_version = models.CharField(max_length=20, default="", null=True, blank=True)
     server_name = models.CharField(max_length=255, default="", null=True, blank=True)
     server_port = models.CharField(max_length=20, default="", null=True, blank=True)
+    referer = models.CharField(max_length=255, default="", null=True, blank=True)
+    path = models.CharField(max_length=255, default="", null=True, blank=True)
+    session_id = models.CharField(max_length=255, default="", null=True, blank=True)
+    date = models.DateTimeField(auto_now_add=True)
 

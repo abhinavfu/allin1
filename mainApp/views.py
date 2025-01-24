@@ -9,6 +9,24 @@ from app.models import App_page_view_count
 from todo.models import Todo_page_view_count
 # Create your views here.
 
+def user_info(request,page):
+    try:
+        get_info = settings.USER_INFO(request)
+        info = UserInfo(
+            page_name = page,
+            ip_address = get_info["ip_address"],
+            browser_name = get_info["browser_name"],
+            browser_version = get_info["browser_version"],
+            server_name = get_info["server_name"],
+            server_port = get_info["server_port"],
+            referer = get_info["referer"],
+            path = get_info["path"],
+            session_id = get_info["session_id"],
+        )
+        info.save()
+    except Exception as e:
+        print("Error User Info:",e)
+        
 
 def homemainApp(request):
     # ---------------------------------------------------------
@@ -22,17 +40,9 @@ def homemainApp(request):
     # ---------------------------------------------------------
     print(settings.USER_INFO(request))
     try:
-        get_info = settings.USER_INFO(request)
-        info = UserInfo(
-            page_name = "MainApp",
-            ip_address = get_info["ip_address"],
-            browser_name = get_info["browser_name"],
-            browser_version = get_info["browser_version"],
-            server_name = get_info["server_name"],
-            server_port = get_info["server_port"],
-        )
-        info.save()
-    except:pass
+        user_info(request, page="MainApp")
+    except Exception as e:
+        print("Error :",e)
     # ---------------------------------------------------------
     content = {"project": [
         {'name': 'Django Project', 'projects': [

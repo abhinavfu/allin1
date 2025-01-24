@@ -15,4 +15,4 @@ class Portfolio_page_view_countAdmin(admin.ModelAdmin):
 
 @admin.register(UserInfo)
 class UserInfoAdmin(admin.ModelAdmin):
-    list_display = ['page_name', 'ip_address', 'browser_name', 'browser_version','server_name','server_port']
+    list_display = ['page_name', 'ip_address', 'browser_name', 'browser_version','server_name','server_port','referer','path','session_id','date']
