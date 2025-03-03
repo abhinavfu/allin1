@@ -325,6 +325,9 @@ class UserView(generics.ListCreateAPIView):
     serializer_class = UserSerializer
         
 def login(request):
+    if request.user.is_authenticated:
+        return redirect(f'{AppURL}')
+    
     if request.method == "POST":
         username=request.POST["username"]
         password=request.POST["password"]
@@ -390,6 +393,9 @@ def guest(request, pk):
 
 
 def register(request):
+    if request.user.is_authenticated:
+        return redirect(f'{AppURL}')
+    
     # Normal signup
     if request.method == "POST":
         fname = request.POST["firstname"]

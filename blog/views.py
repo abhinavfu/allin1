@@ -167,6 +167,9 @@ def blogpost(request, pk):
 
 
 def blogsignin(request):
+    if request.user.is_authenticated:
+        return redirect(f'{appUrl}')
+
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -233,6 +236,9 @@ def blogGuest(request, pk):
 
 
 def blogsignup(request):
+    if request.user.is_authenticated:
+        return redirect(f'{appUrl}')
+    
     if request.method == "POST":
         fname = request.POST["fname"]
         lname = request.POST["lname"]

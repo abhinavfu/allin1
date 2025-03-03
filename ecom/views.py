@@ -473,6 +473,9 @@ def signintemplate(request):
 
 
 def signin(request):
+    if request.user.is_authenticated:
+        return redirect(f'{AppURL}/')
+
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -541,6 +544,8 @@ def guest(request, pk):
 def signup(request, pk):
     # for activating Seller account (checkU = buyer)
     checkU = checkUser(request)
+    if request.user.is_authenticated:
+        return redirect(f'{AppURL}/')
 
     # Normal signup
     if request.method == "POST":
