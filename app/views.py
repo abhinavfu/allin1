@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 import os
 import datetime
+from mainApp.utils import verify_user_group, add_user_to_group
 from .models import *
 from .serializers import *
 from rest_framework.response import Response
@@ -22,6 +23,7 @@ def appHome(request):
     """
     Showing Home page of the webapp from rendering the html page.
     """
+    verify_user_group(request , group_name="app")
     app = App.objects.all()
     # ---------------------------------------------------------
     #  home views count
@@ -102,6 +104,7 @@ def appSignin(request):
                 return redirect(appUrl)
             elif user is not None:
                 auth.login(request, user)
+                add_user_to_group(request,group_name='app')
                 return redirect(appUrl)
             else:
                 messages.error(request, " Email and Password does not match")
@@ -140,6 +143,7 @@ def appSignup(request):
                         username=username, password=password)
                     if user is not None:
                         auth.login(request, user)
+                        add_user_to_group(request,group_name='app')
                         return redirect(f'{appUrl}/userProfile/{user}/')
                 except:
                     messages.success(

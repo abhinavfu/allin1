@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from datetime import datetime
 import os
+from mainApp.utils import verify_user_group, add_user_to_group
 from .serializers import *
 from .models import *
 from django.db.models import Q
@@ -74,6 +75,7 @@ def checkUser(request):
 
 
 def home(request):
+    verify_user_group(request , group_name="ecom")
     checkU = checkUser(request)
     try:
         buyer = Buyer.objects.get(username=auth.get_user(request))
@@ -491,6 +493,7 @@ def signin(request):
 
             if user is not None:
                 auth.login(request, user)
+                add_user_to_group(request,group_name='ecom')
                 return redirect(f'{AppURL}/')
             else:
                 messages.error(request, "Email and Password does not match")
@@ -501,9 +504,9 @@ def signin(request):
 
 def guest(request, pk):
     fname = "Guest"
-    c = Buyer.objects.filter(name__contains="Guest")
+    c = User.objects.filter(first_name__contains="Guest")
     lname = f'{c.count()+int(pk)}'
-    email = f"guest{lname}@test.com"
+    email = f"guest{lname}@eshop.com"
     user = "Buyer"
     password = "1234"
     cub = Buyer(name=f"{fname} {lname}",
@@ -533,6 +536,7 @@ def guest(request, pk):
             print(f"ERROR : {e}")
         if user is not None:
             auth.login(request, user)
+            add_user_to_group(request,group_name='ecom')
             return redirect(f'{AppURL}/')
     except:
         messages.success(
@@ -579,6 +583,7 @@ def signup(request, pk):
                         username=f"{fname}{lname}", password=password)
                     if user is not None:
                         auth.login(request, user)
+                        add_user_to_group(request,group_name='ecom')
                         return redirect(f'{AppURL}/')
                 except:
                     messages.success(

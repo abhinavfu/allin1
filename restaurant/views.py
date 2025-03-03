@@ -6,6 +6,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from decimal import Decimal
 from datetime import datetime
+from mainApp.utils import verify_user_group, add_user_to_group
 from .forms import BookingForm
 from .models import *
 from .serializers import *
@@ -85,6 +86,7 @@ def token_value(request):
     return token
 # ------------------------ Templates --------------------------------------
 def home(request):
+    verify_user_group(request , group_name="restaurant")
     # ---------------------------------------------------------
     try:
         from mainApp.views import user_info
@@ -343,6 +345,7 @@ def login(request):
 
             if user is not None:
                 auth.login(request, user)
+                add_user_to_group(request,group_name='restaurant')
                 # token, created = Token.objects.get_or_create(user=user)
                 # token = token.key
                 # return Response({'token': token.key})
@@ -384,6 +387,7 @@ def guest(request, pk):
             print(f"ERROR : {e}")
         if user is not None:
             auth.login(request, user)
+            add_user_to_group(request,group_name='restaurant')
             return redirect(f'{AppURL}/userprofile')
     except:
         messages.success(
@@ -420,6 +424,7 @@ def register(request):
                     user = auth.authenticate(username=username, password=password)
                     if user is not None:
                         auth.login(request, user)
+                        add_user_to_group(request,group_name='restaurant')
                         return redirect(f'{AppURL}/userprofile')
                 except:
                     messages.success(

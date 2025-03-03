@@ -7,6 +7,7 @@ from django.conf import settings
 import os
 from datetime import datetime
 import math
+from mainApp.utils import verify_user_group, add_user_to_group
 from .models import *
 from .serializers import *
 from django.core.mail import send_mail
@@ -21,6 +22,7 @@ loginUrl = '/blog/signin/'
 
 
 def bloghome(request):
+    verify_user_group(request , group_name="blog")
     # posts = CreatePost.objects.all().order_by('date').reverse
     # getting only [3] items order_by '-ve' date to reverse
     posts = CreatePost.objects.all().order_by('-date')[:3]
@@ -185,6 +187,7 @@ def blogsignin(request):
             
             if user is not None:
                 auth.login(request, user)
+                add_user_to_group(request,group_name='blog')
                 return redirect(f'{appUrl}/userProfile/{user}/')
             else:
                 messages.error(request, "Email and Password does not match")
@@ -195,7 +198,7 @@ def blogsignin(request):
 
 def blogGuest(request, pk):
     fname = "Guest"
-    c = Bloger.objects.filter(name__contains="Guest")
+    c = User.objects.filter(first_name__contains="Guest")
     lname = f'{c.count()+int(pk)}'
     username = f"{fname}{lname}"
     email = f"guest{lname}@blogtest.com"
@@ -227,6 +230,7 @@ def blogGuest(request, pk):
             print(f"ERROR : {e}")
         if user is not None:
             auth.login(request, user)
+            add_user_to_group(request,group_name='blog')
             return redirect(f'{appUrl}/userProfile/{user}/')
     except:
         messages.success(
@@ -261,6 +265,7 @@ def blogsignup(request):
                         username=username, password=password)
                     if user is not None:
                         auth.login(request, user)
+                        add_user_to_group(request,group_name='blog')
                         return redirect(f'{appUrl}/userProfile/{user}/')
                 except:
                     messages.success(
